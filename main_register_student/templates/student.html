@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                alert("{{ message }}");
+                // document.getElementById('id_username').value = request.POST['username']
+                // document.getElementById('id_password').value = request.POST['password']
+                // document.getElementById('id_email').value = request.POST['email']
+                // document.getElementById('id_name').value = request.POST['name']
+                // document.getElementById('id_parent_name').value = request.POST['parent_name']
+                // document.getElementById('id_address').value = request.POST['address']
+                // document.getElementById('id_phone').value = request.POST['phone']
+                // document.getElementById('id_schedule').value = request.POST['schedule']
+                // document.getElementById('id_grade').value = request.POST['grade']
+                // document.getElementById('id_total_student').value = request.POST['total_student']
+                // document.getElementById('id_school').value = request.POST['school']
+            </script>
+        {% endfor %}
+    {% endif %}
+    <div class="container">
+    <div class="row justify-content-center pb-5">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+        <span class="subheading">Student</span>
+        <h2 class="mb-4">Register as Student</h2>
+        <p>
+            Please fill this form
+        </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 animate-box">
+            <div class="progress-wrap ftco-animate">
+                <form method="POST" class="post-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <!-- {{ form.as_p }} -->
+                    {% block form %}
+                    {% endblock %}
+
+                    <div class="row">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-4">
+                            <script src='https://www.google.com/recaptcha/api.js'></script>
+                            <div class="g-recaptcha" data-sitekey="6LcnsaMZAAAAACNULpa05GrCPI8jaRr5ALGhKErP"></div>
+                        </div>
+                        <div class="col-md-4"></div>
+                    </div>
+                    <div class="align-center">
+                        <button type="Submit" class="save btn btn-default">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center py-5 mt-5">
+        <div class="col-md-12 heading-section text-center ftco-animate">
+        <h2 class="mb-4">Thanks for fullfill this form</h2>
+        <p>
+            We'll contact for you soon.
+        </p>
+        </div>
+    </div>
+    </div>
+{% endblock %}

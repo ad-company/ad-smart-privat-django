@@ -1,0 +1,1 @@
+web: gunicorn adsmartprivat.wsgi --log-file -

@@ -1,0 +1,82 @@
+{% extends "student.html" %}
+{% load static %}
+
+{% block form %}
+  <p>
+    <label for="id_username">Username:</label>
+    <input type="text" name="username" maxlength="250" required="" id="id_username">
+  </p>
+  <p>
+    <label for="id_password">Password:</label>
+    <input type="password" name="password" maxlength="250" required="" id="id_password">
+  </p>
+  <p>
+    <label for="id_email">Email:</label>
+    <input type="email" name="email" maxlength="250" required="" id="id_email">
+  </p>
+  <p>
+    <label for="id_name">Name:</label>
+    <input type="text" name="name" maxlength="250" required="" id="id_name" />
+  </p>
+  <p>
+    <label for="id_parent_name">Parent name:</label>
+    <input
+      type="text"
+      name="parent_name"
+      maxlength="250"
+      required=""
+      id="id_parent_name"
+    />
+  </p>
+  <p>
+    <label for="id_address">Address:</label>
+    <input
+      type="text"
+      name="address"
+      maxlength="250"
+      required=""
+      id="id_address"
+    />
+  </p>
+  <p>
+    <label for="id_phone">Phone:</label>
+    <input type="number" name="phone" maxlength="14" required="" id="id_phone" />
+  </p>
+  <p>
+    <label for="id_schedule">Schedule:</label>
+    <input
+      type="text"
+      name="schedule"
+      maxlength="14"
+      required=""
+      id="id_schedule"
+    />
+  </p>
+  <p>
+    <label for="id_grade">Grade:</label>
+    <select name="grade" id="id_grade">
+      <option value="SD">SD</option>
+      <option value="SMP">SMP</option>
+      <option value="SMA">SMA</option>
+    </select>
+  </p>
+  <p>
+    <label for="id_total_student">Total student:</label>
+    <select name="total_student" id="id_total_student">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </p>
+  <p>
+    <label for="id_school">School:</label>
+    <input
+      type="text"
+      name="school"
+      maxlength="150"
+      required=""
+      id="id_school"
+    />
+  </p>
+{% endblock %}

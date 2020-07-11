@@ -1,0 +1,190 @@
+/* Main Style */
+html, body{
+    height:100%;
+    margin:0;
+}
+header{
+    background: #419c9c8c;
+
+}
+body{
+    display:flex;
+    flex-direction:column; 
+}
+input {
+    width: 100%;
+}
+footer{
+  margin-top:auto;
+  background: #419c9c8c;
+}
+/* End Main Style */
+
+/* Mobile */
+@media only screen and (max-device-width: 480px) {
+    .margin-10{
+        margin-top: 40%;
+    }
+    .logo-size {
+        width: 50%;
+        height: auto;
+    }
+}
+/* End Mobile */
+
+/* General Style */
+/* Margin */
+.margin-side {
+    margin-left: 12%;
+    margin-right: 12%;
+}
+.margin-header {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.margin-top {
+    margin-top: 20px;
+}
+/* ===== */
+
+/* Padding */
+.padding-bot {
+    padding-bottom: 20px;
+}
+
+.padding-top {
+    padding-top: 25px;
+}
+/* ===== */
+
+/* Font */
+.black-font {
+    color: black;
+}
+.blue-font {
+    color: blue;
+}
+.gray-font {
+    color: gray;
+}
+.bold-font {
+    font-weight:bold;
+}
+/* ===== */
+
+/* Specific Style */
+/* Header */
+.logo-color {
+    color: antiquewhite;
+}
+.logo-size {
+    width: 80%;
+    height: auto;
+}
+.header-color {
+    color: antiquewhite;
+}
+.header-font {
+    font-size: 21px;
+}
+/* ===== */
+
+/* Body */
+button{
+    background-color: #f47522 !important;
+    color: whitesmoke;
+    padding: 5%;
+}
+.align-center{
+    text-align: center;
+}
+.margin-10{
+    margin-top: 10%;
+}
+.padding-header{
+    padding-top: 2%;
+}
+/* ===== */
+
+/* Footer */
+.footer-color {
+    background-color: rgb(57, 199, 180);
+    color: antiquewhite;
+}
+/* ===== */
+
+/* Other Style */
+/* Custom */
+.section-row {
+    padding: 30px;
+}
+
+.section-row .img-event {
+    margin-bottom: 30px;
+    max-width: 100%;
+    text-align: center;
+}
+
+/* Box Icon */
+.box-icon {
+    max-width: 235px;
+    width: 100%;
+    height: 178px;
+    display: table;
+    margin: 15px auto;
+    border-radius: 5px;
+    border: 1px solid #EBEBEB;
+}
+
+.box-icon .box-middle {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.box-icon .box-middle .learn-img {
+    height: 73px;
+    display: table;
+    margin: 0 auto;
+}
+
+.box-icon .box-middle .learn-img .learn-img-middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.box-icon .box-middle .learn-title>h5 {
+    font-size: 12px;
+    color: #7c7c7c;
+    text-align: center;
+    margin: 0;
+    margin-top: 10px;
+}
+
+.save {
+    width: 100%;
+    margin: 5% 0%;
+    padding: 2%;
+}
+
+label {
+    font-size: larger;
+    margin: 0px;
+}
+
+p {
+    margin-bottom: 2rem;
+}
+
+.button-home {
+    width: 100%;
+    border-radius: 7px;
+    background-color: #2c474ea3 !important;
+}
+
+.button-home:hover {
+    background-color: #3faecaba !important;
+}
+/* ===== */
