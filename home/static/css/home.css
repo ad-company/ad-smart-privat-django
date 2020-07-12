@@ -186,4 +186,8 @@ button{
 .button-home:hover {
     background-color: #3faecaba !important;
 }
+
+.footer-logo {
+    margin: 5%;
+}
 /* ===== */
