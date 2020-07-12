@@ -51,15 +51,8 @@
         <script src=" {% static 'js/theme/aos.js' %}"></script>
         <script src=" {% static 'js/theme/jquery.animateNumber.min.js' %}"></script>
         <script src=" {% static 'js/theme/scrollax.min.js' %}"></script>
-        <!-- <script src=" {% static 'js/theme/track.js' %}"></script> -->
-        <script src=" {% static 'js/theme/main.js' %}"></script>
+        <script src=" {% static 'js/track.js' %}"></script>
         <!-- End JS Theme -->
-
-        <!-- Custom -->
-        <script type="application/javascript">
-            if (location.hostname !== '0.0.0.0' || location.hostname !== 'localhost') {
-                amplitude.getInstance().logEvent('ad-smart-privat');
-            }
-        </script>
+        <script src=" {% static 'js/theme/main.js' %}"></script>
     </body>
 </html>

@@ -1,7 +1,4 @@
 heroku login
 heroku config:set DISABLE_COLLECTSTATIC=1
 git status
-git add .
-git status
-git commit
-git push -u origin master
+echo "Please commit your chage to master to get update"
