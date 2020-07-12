@@ -2,6 +2,7 @@
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 from django.db import models as models
+from django.contrib.auth.models import User
 # from djongo import models as mongo_models
 # from json_field import JSONField
 # import jsonfield
@@ -39,14 +40,17 @@ HOUR = [
 
 
 class Students(models.Model):
-    username = models.CharField(max_length=250, primary_key=True)
-    password = models.CharField(max_length=250, null=False)
-    email = models.CharField(max_length=250, null=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=False)
     parent_name = models.CharField(max_length=250, null=False)
     address = models.CharField(max_length=250, null=False)
     phone = models.CharField(max_length=14, null=False)
-    schedule = models.CharField(max_length=14, null=False)
+    schedule_1 = models.CharField(max_length=20, null=False)
+    schedule_2 = models.CharField(max_length=20)
+    schedule_3 = models.CharField(max_length=20)
+    schedule_4 = models.CharField(max_length=20)
+    schedule_5 = models.CharField(max_length=20)
+    schedule_6 = models.CharField(max_length=20)
     grade = models.CharField(
         max_length=3,
         choices=GRADE,

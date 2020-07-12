@@ -111,9 +111,9 @@ venv.bak/
 # Migrations
 home/migrations/*
 !home/migrations/__init__.py
-absence/migrations/*
-!absence/migrations/__init__.py
-register_student/migrations/*
-!register_student/migrations/__init__.py
-register_tentor/migrations/*
-!register_tentor/migrations/__init__.py
+main_absence/migrations/*
+!main_absence/migrations/__init__.py
+main_register_student/migrations/*
+!main_register_student/migrations/__init__.py
+main_register_tentor/migrations/*
+!main_register_tentor/migrations/__init__.py

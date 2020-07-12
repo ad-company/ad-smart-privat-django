@@ -5,6 +5,11 @@ import sys
 
 
 def main():
+    # Create log file
+    if not os.path.exists('./logs/debug.log'):
+        f = open('logs/debug.log', 'w+')
+        f.close()
+
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'adsmartprivat.settings')
     try:
         from django.core.management import execute_from_command_line

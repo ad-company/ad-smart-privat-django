@@ -14,9 +14,17 @@ body{
 input {
     width: 100%;
 }
+label {
+    font-size: larger;
+    margin: 0px;
+}
+p {
+    margin-bottom: 2rem;
+}
 footer{
   margin-top:auto;
-  background: #419c9c8c;
+  /* background: #419c9c8c; */
+  background: #19abab8c;
 }
 /* End Main Style */
 
@@ -167,15 +175,6 @@ button{
     width: 100%;
     margin: 5% 0%;
     padding: 2%;
-}
-
-label {
-    font-size: larger;
-    margin: 0px;
-}
-
-p {
-    margin-bottom: 2rem;
 }
 
 .button-home {

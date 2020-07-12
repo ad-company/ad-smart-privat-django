@@ -19,9 +19,16 @@
         <!-- <script src="assets/js/initiate.js"></script> -->
         <!-- End CSS Theme -->
 
-        <link rel='stylesheet' href="{% static 'css/home.css' %}">
+        <link rel='stylesheet' href="{% static 'css/home.css' %}" />
 
         <script src="{% static 'js/ampli.js' %}"></script>
+        {% if messages %}
+            {% for message in messages %}
+                <script>
+                    alert("{{ message }}");
+                </script>
+            {% endfor %}
+        {% endif %}
     </head>
     <body>
         {% include 'header.html' %}

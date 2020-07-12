@@ -4,19 +4,35 @@
 {% block form %}
   <p>
     <label for="id_username">Username:</label>
-    <input type="text" name="username" maxlength="250" required="" id="id_username">
+    <input
+    type="text"
+    name="username"
+    maxlength="250"
+    required=""
+    id="id_username"
+    onchange="addListenerUsername()"
+  >
+    <p id="result-username"></p>
   </p>
   <p>
     <label for="id_password">Password:</label>
-    <input type="password" name="password" maxlength="250" required="" id="id_password">
+    <input
+    type="password"
+    name="password"
+    maxlength="250"
+    required=""
+    id="id_password"
+    onchange="addListenerPassword()"
+  >
+    <p id="result-password"></p>
   </p>
   <p>
     <label for="id_email">Email:</label>
-    <input type="email" name="email" maxlength="250" required="" id="id_email">
+    <input type="email" name="email" maxlength="250" required="" id="id_email" required>
   </p>
   <p>
     <label for="id_name">Name:</label>
-    <input type="text" name="name" maxlength="250" required="" id="id_name" />
+    <input type="text" name="name" maxlength="250" required="" id="id_name" / required>
   </p>
   <p>
     <label for="id_parent_name">Parent name:</label>
@@ -40,35 +56,73 @@
   </p>
   <p>
     <label for="id_phone">Phone:</label>
-    <input type="number" name="phone" maxlength="14" required="" id="id_phone" />
+    <input type="number" name="phone" maxlength="14" required="" id="id_phone" required/>
   </p>
-  <p>
-    <label for="id_schedule">Schedule:</label>
-    <input
-      type="text"
-      name="schedule"
-      maxlength="14"
-      required=""
-      id="id_schedule"
-    />
-  </p>
-  <p>
-    <label for="id_grade">Grade:</label>
-    <select name="grade" id="id_grade">
-      <option value="SD">SD</option>
-      <option value="SMP">SMP</option>
-      <option value="SMA">SMA</option>
-    </select>
-  </p>
-  <p>
-    <label for="id_total_student">Total student:</label>
-    <select name="total_student" id="id_total_student">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-    </select>
-  </p>
+
+<!-- Schedule -->
+  <div class="container">
+    <p class="align-center">
+      Choose schedule <br> minimum 1 (one)
+    </p>
+    <div class="row">
+      {% for num in form.range %}
+        <div class="col-md-4">
+          <p>
+            <label for="id_schedule_{{ num }}">Schedule {{ num }}:</label>
+            <select
+              name="schedule_{{ num }}" id="id_schedule_{{ num }}"
+              {% if num == 1 %}
+                required
+              {% endif %}
+            >
+              <option value="" selected>-</option>
+              <option value="senin">Senin</option>
+              <option value="selasa">Selasa</option>
+              <option value="rabu">Rabu</option>
+              <option value="kamis">Kamis</option>
+              <option value="jumat">Jumat</option>
+              <option value="sabtu">Sabti</option>
+              <option value="ahad">Ahad</option>
+            </select>
+          </p>
+          <p>
+            <label for="id_clock_{{ num }}">Clock:</label>
+            <select
+              name="clock_{{ num }}" id="id_clock_{{ num }}"
+              {% if num == 1 %}
+                required
+              {% endif %}
+            >
+              <option value="" selected>-</option>
+              <option value="09.00">09.00</option>
+              <option value="09.30">09.30</option>
+              <option value="10.00">10.00</option>
+              <option value="10.30">10.30</option>
+              <option value="11.00">11.00</option>
+              <option value="11.30">11.30</option>
+              <option value="12.00">12.00</option>
+              <option value="12.30">12.30</option>
+              <option value="13.00">13.00</option>
+              <option value="13.30">13.30</option>
+              <option value="14.00">14.00</option>
+              <option value="14.30">14.30</option>
+              <option value="15.00">15.00</option>
+              <option value="15.30">15.30</option>
+              <option value="16.00">16.00</option>
+              <option value="16.30">16.30</option>
+              <option value="17.00">17.00</option>
+              <option value="17.30">17.30</option>
+              <option value="18.00">18.00</option>
+              <option value="18.30">18.30</option>
+              <option value="19.00">19.00</option>
+            </select>
+          </p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+<!-- End Schedule -->
+
   <p>
     <label for="id_school">School:</label>
     <input
@@ -79,4 +133,57 @@
       id="id_school"
     />
   </p>
+  <p>
+    <label for="id_grade">Grade:</label>
+    <select name="grade" id="id_grade" required>
+      <option value="">-</option>
+      <option value="SD">SD</option>
+      <option value="SMP">SMP</option>
+      <option value="SMA">SMA</option>
+    </select>
+  </p>
+  <p>
+    <label for="id_total_student">Group Study (plan for Bimbel):</label>
+    <select name="total_student" id="id_total_student" required>
+      <option value="1">1 Murid</option>
+      <option value="2">2 Murid</option>
+      <option value="3">3 Murid</option>
+      <option value="4">4 Murid</option>
+    </select>
+  </p>
+  <script type="text/javascript">
+    function addListenerUsername(){
+      const users = '{{ form.users }}';
+      let username = document.getElementById("id_username").value;
+      if (username.length < 8) {
+        document.getElementById("result-username").innerHTML = `Username should reach minimum 8 characters: ${username}`;
+      } else if (users.includes(username)){
+        document.getElementById("result-username").innerHTML = `Username already in use: ${username}`;
+      } else {
+        document.getElementById("result-username").innerHTML = `You can use this username: ${username}`;
+      };
+    };
+
+    function addListenerPassword(){
+      let password = document.getElementById("id_password").value;
+      if (password.length < 8) {
+        document.getElementById("result-password").innerHTML = `Password should reach minimum 8 characters`;
+      } else if (!password.match(/[0-9]/g)) {
+        document.getElementById("result-password").innerHTML = `Password should combination with number`;
+      } else {
+        document.getElementById("result-password").innerHTML = `Nice password!`;
+      }
+    };
+
+    document.getElementById('id_username').value = "{{ form.username }}";
+    document.getElementById('id_password').value = "{{ form.password }}";
+    document.getElementById('id_email').value = "{{ form.email }}";
+    document.getElementById('id_name').value = "{{ form.name }}";
+    document.getElementById('id_parent_name').value = "{{ form.parent_name }}";
+    document.getElementById('id_address').value = "{{ form.address }}";
+    document.getElementById('id_phone').value = "{{ form.phone }}";
+    document.getElementById('id_grade').value = "{{ form.grade }}";
+    document.getElementById('id_total_student').value = "{{ form.total_student }}";
+    document.getElementById('id_school').value = "{{ form.school }}";
+  </script>
 {% endblock %}

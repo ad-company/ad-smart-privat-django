@@ -2,24 +2,6 @@
 {% load static %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <script>
-                alert("{{ message }}");
-                // document.getElementById('id_username').value = request.POST['username']
-                // document.getElementById('id_password').value = request.POST['password']
-                // document.getElementById('id_email').value = request.POST['email']
-                // document.getElementById('id_name').value = request.POST['name']
-                // document.getElementById('id_parent_name').value = request.POST['parent_name']
-                // document.getElementById('id_address').value = request.POST['address']
-                // document.getElementById('id_phone').value = request.POST['phone']
-                // document.getElementById('id_schedule').value = request.POST['schedule']
-                // document.getElementById('id_grade').value = request.POST['grade']
-                // document.getElementById('id_total_student').value = request.POST['total_student']
-                // document.getElementById('id_school').value = request.POST['school']
-            </script>
-        {% endfor %}
-    {% endif %}
     <div class="container">
     <div class="row justify-content-center pb-5">
         <div class="col-md-12 heading-section text-center ftco-animate">
@@ -35,7 +17,6 @@
             <div class="progress-wrap ftco-animate">
                 <form method="POST" class="post-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <!-- {{ form.as_p }} -->
                     {% block form %}
                     {% endblock %}
 

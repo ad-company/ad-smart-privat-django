@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 # from .models import Porto 
 # from .forms import PortoForm
 
+
 @login_required
 def absence(request):
     # return render(request, 'loop.html', { 'Porto': Porto.objects.all() })
