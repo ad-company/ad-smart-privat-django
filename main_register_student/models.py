@@ -2,7 +2,7 @@
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 from django.db import models as models
-from djongo import models as mongo_models
+# from djongo import models as mongo_models
 # from json_field import JSONField
 # import jsonfield
 
