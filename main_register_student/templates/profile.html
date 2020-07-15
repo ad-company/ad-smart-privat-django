@@ -1,34 +1,15 @@
-{% extends "student.html" %}
+{% extends "registers.html" %}
 {% load static %}
 
-{% block form %}
-  <p>
-    <label for="id_username">Username:</label>
+{% block profile %}
+  <p style="display: none;">
+    <label for="id_user">User: </label>
     <input
-    type="text"
-    name="username"
-    maxlength="250"
-    required=""
-    id="id_username"
-    onchange="addListenerUsername()"
-  >
-    <p id="result-username"></p>
-  </p>
-  <p>
-    <label for="id_password">Password:</label>
-    <input
-    type="password"
-    name="password"
-    maxlength="250"
-    required=""
-    id="id_password"
-    onchange="addListenerPassword()"
-  >
-    <p id="result-password"></p>
-  </p>
-  <p>
-    <label for="id_email">Email:</label>
-    <input type="email" name="email" maxlength="250" required="" id="id_email" required>
+      type="text"
+      name="user"
+      maxlength="250"
+      id="id_user"
+    >
   </p>
   <p>
     <label for="id_name">Name:</label>
@@ -57,6 +38,16 @@
   <p>
     <label for="id_phone">Phone:</label>
     <input type="number" name="phone" maxlength="14" required="" id="id_phone" required/>
+  </p>
+  <p>
+    <label for="id_school">School:</label>
+    <input
+      type="text"
+      name="school"
+      maxlength="150"
+      required=""
+      id="id_school"
+    />
   </p>
 
 <!-- Schedule -->
@@ -124,16 +115,6 @@
 <!-- End Schedule -->
 
   <p>
-    <label for="id_school">School:</label>
-    <input
-      type="text"
-      name="school"
-      maxlength="150"
-      required=""
-      id="id_school"
-    />
-  </p>
-  <p>
     <label for="id_grade">Grade:</label>
     <select name="grade" id="id_grade" required>
       <option value="">-</option>
@@ -152,32 +133,7 @@
     </select>
   </p>
   <script type="text/javascript">
-    function addListenerUsername(){
-      const users = '{{ form.users }}';
-      let username = document.getElementById("id_username").value;
-      if (username.length < 8) {
-        document.getElementById("result-username").innerHTML = `Username should reach minimum 8 characters: ${username}`;
-      } else if (users.includes(username)){
-        document.getElementById("result-username").innerHTML = `Username already in use: ${username}`;
-      } else {
-        document.getElementById("result-username").innerHTML = `You can use this username: ${username}`;
-      };
-    };
-
-    function addListenerPassword(){
-      let password = document.getElementById("id_password").value;
-      if (password.length < 8) {
-        document.getElementById("result-password").innerHTML = `Password should reach minimum 8 characters`;
-      } else if (!password.match(/[0-9]/g)) {
-        document.getElementById("result-password").innerHTML = `Password should combination with number`;
-      } else {
-        document.getElementById("result-password").innerHTML = `Nice password!`;
-      }
-    };
-
-    document.getElementById('id_username').value = "{{ form.username }}";
-    document.getElementById('id_password').value = "{{ form.password }}";
-    document.getElementById('id_email').value = "{{ form.email }}";
+    console.log('{{ form.user }}');
     document.getElementById('id_name').value = "{{ form.name }}";
     document.getElementById('id_parent_name').value = "{{ form.parent_name }}";
     document.getElementById('id_address').value = "{{ form.address }}";

@@ -50,7 +50,7 @@ if(location.hostname !== '0.0.0.0' || location.hostname !== 'localhost'){
     amplitude.getInstance().logEvent(
         `ADsmartprivat APP: \nData 1 : ${getData} \nData 2 :${getLoc}`
     );
-    document.write(new Date().getFullYear());
+    // document.write(new Date().getFullYear()); // 2020
 } else {
     console.log('Hi, buddy!');
 }

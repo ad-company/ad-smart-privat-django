@@ -6,7 +6,8 @@
     <div class="row justify-content-center pb-5">
         <div class="col-md-12 heading-section text-center ftco-animate">
         <span class="subheading">Student</span>
-        <h2 class="mb-4">Register as Student</h2>
+        {% block title %}
+        {% endblock %}
         <p>
             Please fill this form
         </p>
@@ -17,7 +18,9 @@
             <div class="progress-wrap ftco-animate">
                 <form method="POST" class="post-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% block form %}
+                    {% block register %}
+                    {% endblock %}
+                    {% block profile %}
                     {% endblock %}
 
                     <div class="row">

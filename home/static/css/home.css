@@ -21,6 +21,9 @@ label {
 p {
     margin-bottom: 2rem;
 }
+select {
+    width: 100%;
+}
 footer{
   margin-top:auto;
   /* background: #419c9c8c; */

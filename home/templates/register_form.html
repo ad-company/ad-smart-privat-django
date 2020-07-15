@@ -1,0 +1,64 @@
+{% extends "registers.html" %}
+{% load static %}
+{% block title %}
+  <h2 class="mb-4">Register as Student</h2>
+{% endblock %}
+{% block register %}
+  <p>
+    <label for="id_username">Username:</label>
+    <input
+    type="text"
+    name="username"
+    maxlength="250"
+    required=""
+    id="id_username"
+    onchange="addListenerUsername()"
+  >
+    <p id="result-username"></p>
+  </p>
+  <p>
+    <label for="id_password">Password:</label>
+    <input
+    type="password"
+    name="password"
+    maxlength="250"
+    required=""
+    id="id_password"
+    onchange="addListenerPassword()"
+  >
+    <p id="result-password"></p>
+  </p>
+  <p>
+    <label for="id_email">Email:</label>
+    <input type="email" name="email" maxlength="250" required="" id="id_email" required>
+  </p>
+  <script type="text/javascript">
+    function addListenerUsername(){
+      const users = '{{ form.users }}';
+      let username = document.getElementById("id_username").value;
+      if (username.length < 8) {
+        document.getElementById("result-username").innerHTML = `Username should reach minimum 8 characters: ${username}`;
+      } else if (users.includes(username)){
+        document.getElementById("result-username").innerHTML = `Username already in use: ${username}`;
+      } else {
+        document.getElementById("result-username").innerHTML = `You can use this username: ${username}`;
+      };
+    };
+
+    function addListenerPassword(){
+      let password = document.getElementById("id_password").value;
+      if (password.length < 8) {
+        document.getElementById("result-password").innerHTML = `Password should reach minimum 8 characters`;
+      } else if (!password.match(/[0-9]/g)) {
+        document.getElementById("result-password").innerHTML = `Password should combination with number`;
+      } else {
+        document.getElementById("result-password").innerHTML = `Nice password!`;
+      }
+    };
+
+    console.log("{{ form.username }}")
+    document.getElementById('id_username').value = "{{ form.username }}";
+    document.getElementById('id_password').value = "{{ form.password }}";
+    document.getElementById('id_email').value = "{{ form.email }}";
+  </script>
+{% endblock %}

@@ -1,94 +1,72 @@
 import re
-import json
-import urllib
-from logs.log import log_track
+import base64
 
-from django.shortcuts import render, redirect
-from django.conf import settings
+from django.shortcuts import render, redirect, render_to_response
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from .models import Students
-from .forms import StudentForm
-from .decorators import check_recaptcha
+from logs.log import log_track
+from main_register_student.models import Students
+from main_register_student.forms import StudentForm
+from home.decorators import check_recaptcha, profile_availability
 
 
-def validate_pass(request, password):
-    if len(password) < 8:
-        messages.error(request, "Make sure your password is at lest 8 letters")
-    elif re.search('[0-9]',password) is None:
-        messages.error(request, "Make sure your password has a number in it")
-    elif re.search('[A-Z]',password) is None: 
-        messages.error(request, "Make sure your password has a capital letter in it")
-    else:
-        return True
-
+@profile_availability
 @check_recaptcha
-def register_student(request):
-    log_track('/register-student')
-    # Get data list user already registered
-    users = User.objects.values_list('username', flat=True)
-
+@log_track
+def register_student_profile(request, username):
+    form = request.POST.copy()
     if request.method == "POST":
         if request.recaptcha_is_valid:
-            # Prepare user register
-            _user, _pass, _email = request.POST['username'], request.POST['password'], request.POST['email']
-
-            # Validate password
-            validation = validate_pass(request, _pass)
-
-            # Register user
-            try:
-                if validation:
-                    user = User.objects.create_user(
-                            username=_user,
-                            password=_pass,
-                            email=_email
-                        )
-                else:
-                    raise Exception("Sorry, password not match with requirements.")
-            except Exception:
-                messages.error(request, 'Username or password is wrong, please try again.')
-                form = request.POST.copy()
-                form['list'] = list(form.keys())
-                form['users'] = users
-                return render(request, 'form.html',{'form': form })
-
             # Prepare user profile
-            post = request.POST.copy()
-            post.pop('username')
-            post.pop('password')
-            post.pop('email')
-            post['user'] = user.id
+            form = request.POST.copy()
+            username = re.compile(r"b'(.*)'").findall(username)
+            form['user'] = User.objects.filter(
+                username=base64.b64decode(username[0]).decode("utf-8").replace('_secure', '')
+            ).first()
 
             handler_schedule = []
             for num in range(1, 7):
                 # Change data schedule
-                schedule = post[f'schedule_{num}']
-                clock = post[f'clock_{num}']
-                post[f'schedule_{num}'] = f"{schedule}_{clock}]"
-                if post[f'schedule_{num}'] in handler_schedule:
-                    post.pop(f'schedule_{num}')
+                schedule = form[f'schedule_{num}']
+                clock = form[f'clock_{num}']
+                form[f'schedule_{num}'] = f"{schedule}_{clock}"
+                if form[f'schedule_{num}'] in handler_schedule:
+                    form[f'schedule_{num}'] = ''
                 else:
-                    handler_schedule.append(post[f'schedule_{num}'])
-            request.POST = post
+                    handler_schedule.append(form[f'schedule_{num}'])
+                form.pop(f'clock_{num}')
 
             # Register profile
-            form = StudentForm(request.POST, request.FILES)
-            if form.is_valid():
-                form.save()
-                messages.success(request, 'Register success!\n We\'ll contact you soon!')
+            try:
+                Students.objects.create(
+                    user=form['user'],
+                    name=form['name'],
+                    parent_name=form['parent_name'],
+                    address=form['address'],
+                    phone=form['phone'],
+                    school=form['school'],
+                    schedule_1=form['schedule_1'],
+                    schedule_2=form['schedule_2'],
+                    schedule_3=form['schedule_3'],
+                    schedule_4=form['schedule_4'],
+                    schedule_5=form['schedule_5'],
+                    schedule_6=form['schedule_6'],
+                    grade=form['grade'],
+                    total_student=form['total_student']
+                )
+                
+                messages.success(request, 'Profile completed! We will contact you soon!')
                 return redirect('base')  # call with name from url 'base'
-        else:
-            form = request.POST.copy()
-            form['list'] = list(form.keys())
-    else:
-        form = {}
-        # form['form'] = StudentForm()
+            except Exception:
+                form['list'] = list(form.keys())
 
-    form['users'] = users
+        else:
+            form['list'] = list(form.keys())
+
+    form = {}
     form['range'] = range(1, 7)  # Range for loop schedule
-    return render(request, 'form.html',{'form': form })
+    return render(request, 'profile.html',{'form': form })
 
 # def porto_get(request, porto_id):
 #     return render(request, 'stuff.html',{'Porto': Porto.objects.get(pk=porto_id) })
