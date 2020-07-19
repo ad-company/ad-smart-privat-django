@@ -34,7 +34,7 @@ def register_tentor_profile(request, username):
 
             # Register profile
             try:
-                tentor = Tentors.objects.create(
+                Tentors.objects.create(
                     user=form['user'],
                     name=form['name'],
                     gender=form['gender'],
@@ -45,11 +45,12 @@ def register_tentor_profile(request, username):
                     bank=bank,
                     university=form['university'],
                     major=form['major'],
-                    image=request.FILES['image'],
+                    number_id=form['number_id'],
+                    id_pic=request.FILES['id_pic'],
                 )
 
                 messages.success(request, 'Profile completed! We will contact you soon!')
-                return redirect('profile_page')  # call with name from url 'base'
+                return redirect('profile_page')  # call with name from url 'profile_page'
             except Exception:
                 form['list'] = list(form.keys())
 

@@ -48,7 +48,7 @@ def register_student_profile(request, username):
                     parent_name=form['parent_name'],
                     address = address,
                     phone=form['phone'],
-                    image=request.FILES['image'],
+                    id_pic=request.FILES['id_pic'],
                     school=form['school'],
                     schedule_1=form['schedule_1'],
                     schedule_2=form['schedule_2'],
@@ -61,7 +61,7 @@ def register_student_profile(request, username):
                 )
                 
                 messages.success(request, 'Profile completed! We will contact you soon!')
-                return redirect('base')  # call with name from url 'base'
+                return redirect('profile_page')  # call with name from url 'profile_page'
             except Exception:
                 form['list'] = list(form.keys())
 

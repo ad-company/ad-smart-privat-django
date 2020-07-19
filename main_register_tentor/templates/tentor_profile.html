@@ -111,8 +111,18 @@
     />
   </p>
   <p>
-    <label for="id_image">ID Card (KTP/SIM/KTM): (Format SHOULD .jpg)</label>
-    <input id="id_image" type="file" name="image" required>
+    <label for="id_number_id">ID Number:</label>
+    <input
+      type="text"
+      name="number_id"
+      maxlength="150"
+      required=""
+      id="id_number_id"
+    />
+  </p>
+  <p>
+    <label for="id_id_pic">ID Card (KTP/SIM/KTM): (Format SHOULD .jpg)</label>
+    <input id="id_id_pic" type="file" name="id_pic" required>
   </p>
   <script type="text/javascript">
     document.getElementById('id_name').value = "{{ form.name }}";

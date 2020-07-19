@@ -8,10 +8,14 @@
   
   {% if next %}
     {% if user.is_authenticated %}
+    <div class="text-center">
       <p>Your account doesn't have access to this page. To proceed,
+    </div>
       please login with an account that has access.</p>
     {% else %}
+    <div class="text-center">
       <p>Please login to see this page.</p>
+    </div>
     {% endif %}
   {% endif %}
   
