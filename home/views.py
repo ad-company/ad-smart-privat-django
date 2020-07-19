@@ -12,7 +12,7 @@ from django.contrib.auth import logout
 from logs.log import log_track
 from home.models import Base
 from home.forms import BaseForm
-from home.decorators import cookie_management, check_recaptcha, profile_availability
+from home.decorators import check_recaptcha, profile_availability
 
 from main_register_student.models import Students
 from main_register_tentor.models import Tentors

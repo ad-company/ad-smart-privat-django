@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'django_cookies_samesite.middleware.CookiesSameSite',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -177,6 +178,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # solve MYSQL
 import pymysql
 pymysql.install_as_MySQLdb()
+
+SESSION_COOKIE_SAMESITE_KEYS = {'my-custom-cookies'}
+# or
+DCS_SESSION_COOKIE_SAMESITE_KEYS = {'my-custom-cookies'}
+
+SESSION_COOKIE_SAMESITE_FORCE_ALL = True
+# or
+DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
 LOGGING = {
     'version': 1,
