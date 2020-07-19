@@ -1,11 +1,7 @@
-# from mongoengine import Document, EmbeddedDocument, fields
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 from django.db import models as models
 from django.contrib.auth.models import User
-# from djongo import models as mongo_models
-# from json_field import JSONField
-# import jsonfield
 
 
 DAYS = [
@@ -24,27 +20,32 @@ GRADE = [
     ('SMA', 'SMA')
 ]
 
-HOUR = [
-    ('09.00', '09.00'),
-    ('10.00', '10.00'),
-    ('11.00', '11.00'),
-    ('12.00', '12.00'),
-    ('13.00', '13.00'),
-    ('14.00', '14.00'),
-    ('15.00', '15.00'),
-    ('16.00', '16.00'),
-    ('17.00', '17.00'),
-    ('18.00', '18.00'),
-    ('19.00', '19.00')
+GENDER = [
+    ('m', 'Male'),
+    ('f', 'Female')
 ]
 
+def photo_id(instance, filename):
+    return 'uploads/student/id/id_{}_{}.jpg'.format(
+        instance.user.id,
+        instance.user.username
+    )
+
+def photo_profile(instance, filename):
+    return 'uploads/student/profile/profile_{}_{}.jpg'.format(
+        instance.user.id,
+        instance.user.username
+    )
 
 class Students(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=False)
+    gender = models.CharField(max_length=2, choices=GENDER, null=False)
     parent_name = models.CharField(max_length=250, null=False)
     address = models.CharField(max_length=250, null=False)
     phone = models.CharField(max_length=14, null=False)
+    id_pic = models.ImageField('img', upload_to=photo_id, default='uploads/user-no-image.png')
+    profile_pic = models.ImageField('img', upload_to=photo_profile)
     schedule_1 = models.CharField(max_length=20, null=False)
     schedule_2 = models.CharField(max_length=20)
     schedule_3 = models.CharField(max_length=20)

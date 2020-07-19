@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div id="math-question"></div>
+    <div id="math-choices"></div>
+    <script>
+        let context = '{{ tests.question }}';
+        // context = '<math xmlns = "http://www.w3.org/1998/Math/MathML">'+ context + '</math>'
+        context = context.replace(/&lt;/g, "<").replace(/&gt;/g, ">"); //replace <>
+        context = context.replace(/&amp;Cross;/g, "*"); //replace *
+        context = context.replace(/&amp;#xF7;/g, ":"); //replace :
+        console.log(context);
+        document.getElementById('math-question').innerHTML = context;
+
+        let words = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+        let count = 0;
+        let temp = '';
+        let choices = '{{ tests.choices }}'
+        choices = choices.replace(/&lt;/g, "<").replace(/&gt;/g, ">"); //replace <>
+        // choices = choices.replace(/\/math/g, "\/div"); //replace <mo>
+        // choices = choices.replace(/math/g, "div class='math-test'"); //replace <mo>
+        // choices = choices.replace(/mo|mn/g, "span"); //replace <mo>
+        choices = choices.replace(/&amp;Cross;/g, "*"); //replace *
+        choices = choices.replace(/&amp;#xF7;/g, ":"); //replace :
+        choices = choices.replace(/&#39;/g, ""); //replace enter
+        choices = choices.replace(/\[|\]/g, ""); //replace []
+        choices = choices.split(','); //split ,
+        choices.forEach(element => {
+            temp += `<div onclick="choice_${words[count]}()">${words[count]}. ${element} </div>`;
+            // temp += `${element}`.replace(/class='math-test'><span>/g, `class='math-test'><span>${words[count]}. `);
+            count += 1;
+        });
+        // console.log(temp);
+        choices = '<math xmlns = "http://www.w3.org/1998/Math/MathML">'+ temp + '</math>'
+        document.getElementById('math-choices').innerHTML = choices;
+        // document.getElementById('math-choices').innerHTML = temp;
+        function choice_a(){
+            console.log('A');
+        };
+        function choice_b(){
+            console.log('B');
+        };
+        function choice_c(){
+            console.log('C');
+        };
+        function choice_d(){
+            console.log('D');
+        };
+        function choice_e(){
+            console.log('E');
+        };
+    </script>
+{% endblock %}

@@ -2,49 +2,68 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div class="row justify-content-center pb-5">
-            <div class="col-md-12 heading-section text-center ftco-animate">
-            <span class="subheading">Welcome to</span>
-            <h2 class="mb-4">A & D Smart Privat</h2>
-            <p>
-                Official website
-            </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-12 animate-box">
-            <div class="progress-wrap ftco-animate">
-                <h3>Absence</h3>
-                <a href="/absence">
-                    <button class="button-home">Here</button>
-                </a>
-            </div>
-            </div>
-            <div class="col-md-4 col-sm-12 animate-box">
-            <div class="progress-wrap ftco-animate">
-                <h3>Register as Student</h3>
-                <a href="/register-student">
-                    <button class="button-home">Here</button>
-                </a>
-            </div>
-            </div>
-            <div class="col-md-4 col-sm-12 animate-box">
-            <div class="progress-wrap ftco-animate">
-                <h3>Register as Tentor</h3>
-                <a href="/register-tentor">
-                    <button class="button-home">Here</button>
-                </a>
-            </div>
-            </div>
-        </div>
-        <div class="row justify-content-center py-5 mt-5">
-            <div class="col-md-12 heading-section text-center ftco-animate">
-            <span class="subheading">Hello</span>
-            <p>
-                Please choose what you want to do.
-            </p>
-            </div>
-        </div>
+<div class="container">
+  <div class="row justify-content-center pb-5">
+    <div class="col-md-12 heading-section text-center ftco-animate">
+      <span class="subheading">Welcome to</span>
+      <h2 class="mb-4">A & D Smart Privat</h2>
+      <p>
+        Official website
+      </p>
     </div>
+  </div>
+  <div class="row">
+    {% if user.is_authenticated %}
+    <div class="col-md-6 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <h3>Absence</h3>
+        <a href="/absence">
+          <button class="button-home">Here</button>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <h3>Profile</h3>
+        <a href="/profile">
+          <button class="button-home">Here</button>
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-md-4 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate">
+        <h3>Absence</h3>
+        <a href="/absence">
+          <button class="button-home">Here</button>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate">
+        <h3>Register as Student</h3>
+        <a href="/register/student">
+          <button class="button-home">Here</button>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate">
+        <h3>Register as Tentor</h3>
+        <a href="/register/tentor">
+          <button class="button-home">Here</button>
+        </a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="row justify-content-center py-5 mt-5">
+    <div class="col-md-12 heading-section text-center ftco-animate">
+      <span class="subheading">Hello</span>
+      <p>
+        Please choose what you want to do.
+      </p>
+    </div>
+  </div>
+</div>
 {% endblock %}

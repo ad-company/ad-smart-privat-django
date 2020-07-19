@@ -117,3 +117,14 @@ main_register_student/migrations/*
 !main_register_student/migrations/__init__.py
 main_register_tentor/migrations/*
 !main_register_tentor/migrations/__init__.py
+
+# Upload files
+uploads/student/id/*
+uploads/student/profile/*
+uploads/tentor/id/*
+uploads/tentor/profile/*
+!uploads/student/id/.gitkeep
+!uploads/student/profile/.gitkeep
+!uploads/tentor/id/.gitkeep
+!uploads/tentor/profile/.gitkeep
+!uploads/user-no-image.png

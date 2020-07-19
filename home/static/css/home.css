@@ -13,6 +13,7 @@ body{
 }
 input {
     width: 100%;
+    color: #258686d6;
 }
 label {
     font-size: larger;
@@ -186,11 +187,44 @@ button{
     background-color: #2c474ea3 !important;
 }
 
+.form-login {
+    margin: 5%;
+}
+
+.button-login {
+    margin: 8% 10% 0%;
+    padding: 4% 0%;
+}
+
+.button-login-submit {
+    padding: 2%;
+    background-color: #356161b3;
+    color: #2dced0;
+}
+
 .button-home:hover {
     background-color: #3faecaba !important;
 }
 
 .footer-logo {
     margin: 5%;
+}
+
+#id_image {
+    background-color: #2b795f8f;
+}
+
+#margin-none {
+    margin: 0px;
+}
+
+.show-profile-image {
+    width: 150px;
+    height: 200px;
+}
+
+.show-id-image {
+    width: 323px;
+    height: 204px;
 }
 /* ===== */

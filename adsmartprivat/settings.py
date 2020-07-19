@@ -152,9 +152,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+# Sackoverview docs : https://stackoverflow.com/questions/5517950/django-media-url-and-media-root
 PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, '../../home/static/uploads')
-STATIC_URL = '/static/'
+STATIC_ROOT  =   os.path.join(BASE_DIR, 'home/static/uploads')  ## for manage.py collecstatic
+STATIC_URL = '/static/' ## endpoint direct to static example: 0.0.0.0:3000/static/css/home.css
+
+MEDIA_URL = '/media/' ## endpoint direct to upload file example: 0.0.0.0:3000/media/uploads/...
+MEDIA_ROOT = (
+    ## in Root project, ex: ad-smart-privat-django
+    os.path.join(BASE_DIR)
+)
 
 # Extra lookup directories for collectstatic to find static files
 STATICFILES_DIRS = (
@@ -209,8 +216,10 @@ LOGGING = {
 }
 
 # Login URL
-LOGIN_URL='/absence/login'
-LOGIN_REDIRECT_URL='/absence'
+LOGIN_URL='/login'
+LOGOUT_URL='/logout'
+LOGIN_REDIRECT_URL='/'
+LOGOUT_REDIRECT_URL='/'
 
 # Recaptcha
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LcnsaMZAAAAAAbDwd5W4ITWbX3XLKuq8zCdm1Lt'

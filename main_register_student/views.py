@@ -37,14 +37,18 @@ def register_student_profile(request, username):
                     handler_schedule.append(form[f'schedule_{num}'])
                 form.pop(f'clock_{num}')
 
+            address = '{}, {}'.format(form['address'], form['city'])
+
             # Register profile
             try:
                 Students.objects.create(
                     user=form['user'],
                     name=form['name'],
+                    gender=form['gender'],
                     parent_name=form['parent_name'],
-                    address=form['address'],
+                    address = address,
                     phone=form['phone'],
+                    image=request.FILES['image'],
                     school=form['school'],
                     schedule_1=form['schedule_1'],
                     schedule_2=form['schedule_2'],
@@ -65,8 +69,9 @@ def register_student_profile(request, username):
             form['list'] = list(form.keys())
 
     form = {}
+    form['user_type'] = 'Student'
     form['range'] = range(1, 7)  # Range for loop schedule
-    return render(request, 'profile.html',{'form': form })
+    return render(request, 'student_profile.html',{'form': form })
 
 # def porto_get(request, porto_id):
 #     return render(request, 'stuff.html',{'Porto': Porto.objects.get(pk=porto_id) })

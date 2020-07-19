@@ -27,19 +27,37 @@
         <li class="nav-item">
             <a href="/absence" class="nav-link"><span>Absence</span></a>
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
-            <a href="/register-student" class="nav-link"
-            ><span>Register Student</span></a
+            <a href="/profile" class="nav-link"
+            ><span>Profile</span></a
             >
-        </li>
-        <li class="nav-item">
-            <a href="/register-tentor" class="nav-link"><span>Register Tentor</span></a>
         </li>
         <li class="nav-item">
             <a href="#contact-section" class="nav-link"
             ><span>Contact</span></a
             >
         </li>
+        <li class="nav-item">
+            <a href="/logout" class="nav-link"
+            ><span>Log Out</span></a
+            >
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a href="/register/student" class="nav-link"
+            ><span>Register Student</span></a
+            >
+        </li>
+        <li class="nav-item">
+            <a href="/register/tentor" class="nav-link"><span>Register Tentor</span></a>
+        </li>
+        <li class="nav-item">
+            <a href="/login" class="nav-link"
+            ><span>Sign In</span></a
+            >
+        </li>
+        {% endif %}
         </ul>
     </div>
     </div>

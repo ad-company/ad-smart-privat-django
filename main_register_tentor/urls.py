@@ -1,12 +1,14 @@
 from django.urls import path
-from .views import (
-    register_tentor,
+from main_register_tentor.views import (
+    register_tentor_profile,
+    tentor_test
     # form,
     # porto_get
 )
 
 urlpatterns = [
-    path ('', register_tentor, name='register_tentor'),
+    path ('profile/u/<str:username>', register_tentor_profile, name='register_tentor_profile'),
+    path ('tentor-test', tentor_test, name='tentor_test'),
     # path ('add', form, name='form'),
     # path ('barang/<int:porto_id>', porto_get, name='porto_id')
 ]

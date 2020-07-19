@@ -23,7 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('absence/', include('main_absence.urls')),
-    path('register-tentor/', include('main_register_tentor.urls')),
-    path('register-student/', include('main_register_student.urls')),
-]
-# ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('tentor/', include('main_register_tentor.urls')),
+    path('student/', include('main_register_student.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

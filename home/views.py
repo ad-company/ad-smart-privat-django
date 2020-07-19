@@ -1,16 +1,21 @@
-import re
 import json
+import re
 import urllib
 import base64
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from logs.log import log_track
 from home.models import Base
 from home.forms import BaseForm
 from home.decorators import cookie_management, check_recaptcha, profile_availability
+
+from main_register_student.models import Students
+from main_register_tentor.models import Tentors
 
 
 def base(request):
@@ -26,10 +31,14 @@ def validate_pass(request, password):
 
 @check_recaptcha
 @log_track
-def register_user(request):
+def register_user(request, user_type=None):
     # Get data list user already registered
     users = User.objects.values_list('username', flat=True)
     form = request.POST.copy()
+
+    # Logout user if already login
+    if request.user.is_authenticated:
+        logout(request)
 
     # Post Method
     if request.method == "POST":
@@ -43,10 +52,17 @@ def register_user(request):
             # Register user
             try:
                 if validation:
+                    if user_type == 'tentor':
+                        is_staff = True
+                    elif user_type == 'student':
+                        is_staff = False
+                    else:
+                        raise Exception("Sorry, you're not registered. Please contact us if you have any problem.")
                     User.objects.create_user(
                         username=_user,
                         password=_pass,
-                        email=_email
+                        email=_email,
+                        is_staff=is_staff
                     )
                 else:
                     raise Exception("Sorry, password not match with requirements.")
@@ -60,13 +76,13 @@ def register_user(request):
 
             # Preparing profile.html
             form = {}
+            form['user_type'] = user_type
             form['range'] = range(1, 7)  # Range for loop schedule
             username = base64.b64encode('{}_secure'.format(_user).encode("utf-8"))
             response = redirect(
-                'profile/u/{}'.format(username),
+                '/{}/profile/u/{}'.format(user_type, username),
                 {'form': form}
             )
-            # response.set_cookie(key='username_ad', value=_user)
             return response
 
         else:
@@ -75,8 +91,32 @@ def register_user(request):
 
     # GET Method
     form = {}
+    form['user_type'] = user_type
     form['users'] = users
     return render(request, 'register_form.html',{'form': form })
+
+
+@login_required
+@log_track
+def profile_page(request):
+    profile = None
+
+    # Change Photo
+    # if request.method = "POST":
+
+    try:
+        user = User.objects.filter(username=request.user).first()
+        if user.is_staff == False:  # Student
+            profile = Students.objects.filter(user=user.id).first()
+        else:
+            if user.is_superuser == False:  # Tentor
+                profile = Tentors.objects.filter(user_id=user.id).first()
+            else:  # SuperUser
+                pass
+    except KeyError:
+        pass
+
+    return render(request, 'profile.html', {'profile': profile})
 
 # def porto_get(request, porto_id):
 #     return render(request, 'stuff.html',{'Porto': Porto.objects.get(pk=porto_id) })

@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from .views import (
     absence,
     # form,
@@ -7,7 +7,6 @@ from .views import (
 
 urlpatterns = [
     path ('', absence, name='absence'),
-    path ('', include('django.contrib.auth.urls')),
     # path ('add', form, name='form'),
     # path ('barang/<int:porto_id>', porto_get, name='porto_id')
 ]
