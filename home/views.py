@@ -57,7 +57,12 @@ def register_user(request, user_type=None):
                     elif user_type == 'student':
                         is_staff = False
                     else:
-                        raise Exception("Sorry, you're not registered. Please contact us if you have any problem.")
+                        raise Exception("Sorry, somenthing is wrong.")
+
+                    email_exist = User.objects.filter(email=_email).first()
+                    if email_exist:
+                        messages.error(request, 'Email is used, please try again.')
+                        raise Exception("Sorry, email is used.")
                     User.objects.create_user(
                         username=_user,
                         password=_pass,
@@ -65,9 +70,9 @@ def register_user(request, user_type=None):
                         is_staff=is_staff
                     )
                 else:
+                    messages.error(request, 'Username or password is wrong, please try again.')
                     raise Exception("Sorry, password not match with requirements.")
             except Exception:
-                messages.error(request, 'Username or password is wrong, please try again.')
                 form['list'] = list(form.keys())
                 form['users'] = users
                 return render(request, 'register_form.html',{'form': form })
