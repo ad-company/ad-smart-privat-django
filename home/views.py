@@ -106,7 +106,7 @@ def register_user(request, user_type=None):
 @login_required
 @log_track
 def profile_page(request):
-    profile = None
+    profile = {}
 
     # Change Photo
     # if request.method = "POST":
@@ -119,7 +119,8 @@ def profile_page(request):
             if user.is_superuser == False:  # Tentor
                 profile = Tentors.objects.filter(user_id=user.id).first()
             else:  # SuperUser
-                pass
+                return render(request, 'profile.html', {'profile': profile})
+
     except KeyError:
         pass
 

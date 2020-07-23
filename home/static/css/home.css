@@ -227,4 +227,20 @@ button{
     width: 323px;
     height: 204px;
 }
+
+.background-schedule-1 {
+    background-color: #2e888838;
+}
+
+.background-schedule-2 {
+    background-color: #00ffff38;
+}
+
+#schedule-h4-1 {
+    color: #6984a9;
+}
+
+#schedule-h4-2 {
+    color: #438d90;
+}
 /* ===== */

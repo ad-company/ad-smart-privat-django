@@ -22,12 +22,12 @@
         <ul class="navbar-nav nav ml-auto">
         <!-- <li class="nav-item"><a href="#home" class="nav-link"><span>Home</span></a></li> -->
         <li class="nav-item">
-            <a href="/" class="nav-link"><span>Home</span></a>
-        </li>
-        <li class="nav-item">
             <a href="/absence" class="nav-link"><span>Absence</span></a>
         </li>
         {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a href="/schedule" class="nav-link"><span>Schedule</span></a>
+        </li>
         <li class="nav-item">
             <a href="/profile" class="nav-link"
             ><span>Profile</span></a

@@ -1,30 +1,45 @@
-{% extends "base.html" %}
+{% extends "schedule_absence.html" %}
 {% load static %}
 
-{% block content %}
-<p style="display: none;">
-  <label for="id_user">User: </label>
-  <input type="text" name="user" maxlength="250" id="id_user" />
-</p>
-<p>
-    <label for="id_schedule">Schedule:</label>
-    <select
-      name="schedule" id="id_schedule"
-      required
-    >
-    {% for num in form.range %}
-    <!-- <option value="schedule_{{ num }}" selected></option> -->
+{% block schedule %}
+{% if form.user_type == 'tentor' %}
+<h2>Schedule student available:</h2>
+<div class="container">
+  <div class="row">
+    {% for schedule in form.schedules_request %}
+      {% if forloop.counter|divisibleby:2 %}
+        <div
+          class="col-md-4 col-sm-12 background-schedule-1 background-schedule-1"
+          >
+          <h4 id="schedule-h4-1">Daftar Murid</h4>
+          <p>Nama : {{ schedule.user_student }}</p>
+          <p>Jadwal : {{ schedule.schedule }}</p>
+          <p>Lokasi : {{ schedule.location }}</p>
+          <p>Mode : {{ schedule.mode }}</p>
+          <div class="align-center">
+            <button type="Submit" name="schedule-id-{{ schedule.id }}" class="save btn btn-default">Handle student</button>
+          </div>
+        </div>
+        {% else %}
+        <div
+          class="col-md-4 col-sm-12 background-schedule-1 background-schedule-2"
+          >
+          <h4 id="schedule-h4-2">Daftar Murid</h4>
+          <p>Nama : {{ schedule.user_student }}</p>
+          <p>Jadwal : {{ schedule.schedule }}</p>
+          <p>Lokasi : {{ schedule.location }}</p>
+          <p>Mode : {{ schedule.mode }}</p>
+          <div class="align-center">
+            <button type="Submit" name="schedule-id-{{ schedule.id }}" class="save btn btn-default">Handle student</button>
+          </div>
+        </div>
+        {% endif %}
     {% endfor %}
-    </select>
-</p>
-<p>
-  <label for="id_gender">Gender:</label>
-  <select name="gender" id="id_gender" required>
-    <option value="" selected>-</option>
-    <option value="m">Male</option>
-    <option value="f">Female</option>
-  </select>
-</p>
+  </div>
+</div>
+{% elif form.user_type == 'student' %}
+{% else %}
+{% endif %}
 <!-- <script>
   var x = document.getElementById("demo");
 

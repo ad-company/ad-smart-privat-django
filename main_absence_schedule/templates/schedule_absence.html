@@ -9,7 +9,7 @@
         {% block title %}
         {% endblock %}
         <p>
-            Please fill this form
+            Please choose this schedule that you can handle
         </p>
         </div>
     </div>
@@ -18,32 +18,17 @@
             <div class="progress-wrap ftco-animate">
                 <form method="POST" class="post-form" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {% block register %}
+                    {% block absence %}
                     {% endblock %}
-                    {% block profile %}
+                    {% block schedule %}
                     {% endblock %}
-
-                    <div class="row">
-                        <div class="col-md-4"></div>
-                        <div class="col-md-4">
-                            <script src='https://www.google.com/recaptcha/api.js'></script>
-                            <div class="g-recaptcha" data-sitekey="6LcnsaMZAAAAACNULpa05GrCPI8jaRr5ALGhKErP"></div>
-                        </div>
-                        <div class="col-md-4"></div>
-                    </div>
-                    <div class="align-center">
-                        <button type="Submit" class="save btn btn-default">Save</button>
-                    </div>
                 </form>
             </div>
         </div>
     </div>
     <div class="row justify-content-center py-5 mt-5">
         <div class="col-md-12 heading-section text-center ftco-animate">
-        <h2 class="mb-4">Thanks for fullfill this form</h2>
-        <p>
-            We'll contact for you soon.
-        </p>
+        <h2 class="mb-4">Schedule active</h2>
         </div>
     </div>
     </div>
