@@ -41,10 +41,12 @@ def profile_availability(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
         # Check username AD Smart Privat
-        request.COOKIES.get('username_ad')
-        if request.COOKIES['username_ad']:
+        print(kwargs['username'], 'USER')
+        # request.COOKIES.get('username_ad')
+        # if request.COOKIES['username_ad']:
+        if kwargs:
             try:
-                User.objects.get(username=request.COOKIES['username_ad'])
+                User.objects.get(username=base64.b64decode(kwargs['username']).decode("utf-8").replace('_secure', ''))
             except User.DoesNotExist:
                 messages.error(request, 'Username doesn\'t exist. Please register first.')
                 return redirect('register_student')

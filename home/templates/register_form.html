@@ -4,6 +4,16 @@
   <h2 class="mb-4">Register as {{ form.user_type }}</h2>
 {% endblock %}
 {% block register %}
+  <p style="display: none;">
+    <label for="id_user_type">User Type:</label>
+    <input
+    name="user_type"
+    maxlength="250"
+    required=""
+    id="id_user_type"
+    value="{{ form.user_type }}"
+  >
+  </p>
   <p>
     <label for="id_username">Username:</label>
     <input

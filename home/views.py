@@ -45,6 +45,7 @@ def register_user(request, user_type=None):
         if request.recaptcha_is_valid:
             # Prepare user register
             _user, _pass, _email = request.POST['username'], request.POST['password'], request.POST['email']
+            user_type = request.POST['user_type']
 
             # Validate password
             validation = validate_pass(request, _pass)
@@ -75,6 +76,7 @@ def register_user(request, user_type=None):
             except Exception:
                 form['list'] = list(form.keys())
                 form['users'] = users
+                form['user_type'] = user_type
                 return render(request, 'register_form.html',{'form': form })
 
             messages.success(request, 'Register success! Please fill this profile for contact')

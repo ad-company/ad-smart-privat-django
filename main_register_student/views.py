@@ -11,7 +11,7 @@ from main_register_student.forms import StudentForm
 from home.decorators import check_recaptcha, profile_availability
 
 
-@profile_availability
+# @profile_availability
 @check_recaptcha
 @log_track
 def register_student_profile(request, username):
@@ -57,7 +57,8 @@ def register_student_profile(request, username):
                     schedule_5=form['schedule_5'],
                     schedule_6=form['schedule_6'],
                     grade=form['grade'],
-                    total_student=form['total_student']
+                    total_student=form['total_student'],
+                    mode=form['mode']
                 )
                 
                 messages.success(request, 'Profile completed! We will contact you soon!')

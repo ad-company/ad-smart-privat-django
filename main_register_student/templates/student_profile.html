@@ -69,7 +69,7 @@
     <input type="number" name="phone" maxlength="14" required="" id="id_phone" required/>
   </p>
   <p>
-    <label for="id_id_pic">ID Card:</label>
+    <label for="id_id_pic">ID Card Student/Parent (KTP/SIM/KTM): (Format SHOULD .jpg)</label>
     <input id="id_id_pic" type="file" name="id_pic" required>
   </p>
   <p>
@@ -163,6 +163,18 @@
       <option value="2">2 Murid</option>
       <option value="3">3 Murid</option>
       <option value="4">4 Murid</option>
+    </select>
+  </p>
+  <p>
+    <label for="id_mode">Mode:</label>
+    <select
+      name="mode" id="id_mode"
+      required
+    >
+      <option value="" selected>-</option>
+      <option value="remote">Remote</option>
+      <option value="offline">Offline</option>
+      <option value="both">Both</option>
     </select>
   </p>
   <script type="text/javascript">

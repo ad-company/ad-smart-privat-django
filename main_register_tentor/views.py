@@ -13,7 +13,7 @@ from main_register_tentor.forms import TentorForm
 from home.decorators import check_recaptcha, profile_availability
 
 
-@profile_availability
+# @profile_availability
 @check_recaptcha
 @log_track
 def register_tentor_profile(request, username):

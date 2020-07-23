@@ -60,6 +60,7 @@ class Students(models.Model):
     )
     total_student = models.CharField(max_length=250, null=False)
     school = models.CharField(max_length=150, null=False)
+    mode = models.CharField(max_length=150, null=False)
     user_type = models.CharField(max_length=100, editable=False, default="student")
     status = models.BooleanField(null=True, default=False, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
