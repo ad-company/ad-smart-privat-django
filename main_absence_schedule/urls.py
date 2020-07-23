@@ -7,8 +7,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path ('absence', absence, name='absence'),
-    path ('schedule', schedule, name='schedule'),
+    path ('absence/', absence, name='absence'),
+    path ('schedule/', schedule, name='schedule'),
     # path ('add', form, name='form'),
     # path ('barang/<int:porto_id>', porto_get, name='porto_id')
 ]
