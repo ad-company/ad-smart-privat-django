@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 
 from logs.log import log_track
+from main_absence_schedule.models import Schedule
 from main_register_student.models import Students
 from main_register_student.forms import StudentForm
 from home.decorators import check_recaptcha, profile_availability
@@ -31,7 +32,7 @@ def register_student_profile(request, username):
                 schedule = form[f'schedule_{num}']
                 clock = form[f'clock_{num}']
                 form[f'schedule_{num}'] = f"{schedule}_{clock}"
-                if form[f'schedule_{num}'] in handler_schedule:
+                if form[f'schedule_{num}'] in handler_schedule or form[f'schedule_{num}'] == '_':
                     form[f'schedule_{num}'] = ''
                 else:
                     handler_schedule.append(form[f'schedule_{num}'])
@@ -43,10 +44,10 @@ def register_student_profile(request, username):
             try:
                 Students.objects.create(
                     user=form['user'],
-                    name=form['name'],
+                    name=form['name'].title(),
                     gender=form['gender'],
-                    parent_name=form['parent_name'],
-                    address = address,
+                    parent_name=form['parent_name'].title(),
+                    address=address,
                     phone=form['phone'],
                     id_pic=request.FILES['id_pic'],
                     school=form['school'],
@@ -60,8 +61,18 @@ def register_student_profile(request, username):
                     total_student=form['total_student'],
                     mode=form['mode']
                 )
+
+                # Generate Schedule intiate
+                for num in range(1, 7):
+                    if form[f'schedule_{num}']:
+                        Schedule.objects.create(
+                            user_student=form['user'],
+                            schedule=form[f'schedule_{num}'],
+                            location=address,
+                            mode=form['mode']
+                        )
                 
-                messages.success(request, 'Profile completed! We will contact you soon!')
+                messages.success(request, 'Profile completed! Our tentor will contact you soon. Get ready!!')
                 return redirect('profile_page')  # call with name from url 'profile_page'
             except Exception:
                 form['list'] = list(form.keys())

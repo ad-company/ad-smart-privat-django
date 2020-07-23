@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     # 'json_field', # Handle model JSON
     # 'psycopg2', # PostgreSQL handler
     'home',
-    'main_absence',
+    'main_absence_schedule',
     'main_register_tentor',
     'main_register_student',
 ]
@@ -61,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'adsmartprivat.middleware.SettingsMiddleware'  ## Custom Middleware
 ]
 
 ROOT_URLCONF = 'adsmartprivat.urls'
@@ -142,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Jakarta'
 
 USE_I18N = True
 
@@ -155,7 +156,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 # Sackoverview docs : https://stackoverflow.com/questions/5517950/django-media-url-and-media-root
 PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-STATIC_ROOT  =   os.path.join(BASE_DIR, 'home/static/uploads')  ## for manage.py collecstatic
+STATIC_ROOT  =   os.path.join(BASE_DIR, 'uploads/static')  ## for manage.py collecstatic
 STATIC_URL = '/static/' ## endpoint direct to static example: 0.0.0.0:3000/static/css/home.css
 
 MEDIA_URL = '/media/' ## endpoint direct to upload file example: 0.0.0.0:3000/media/uploads/...
@@ -186,6 +187,15 @@ DCS_SESSION_COOKIE_SAMESITE_KEYS = {'my-custom-cookies'}
 SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 # or
 DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
+
+# SSL
+PREPEND_WWW = True
+BASE_URL = "https://adsmartprivat.herokuapp.com"
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# ===
 
 LOGGING = {
     'version': 1,

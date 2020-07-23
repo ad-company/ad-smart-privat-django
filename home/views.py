@@ -123,6 +123,12 @@ def profile_page(request):
     except KeyError:
         pass
 
+    # Gender filter
+    if profile.gender == 'm':
+        profile.gender = 'Male'
+    elif profile.gender == 'f':
+        profile.gender = 'Female'
+
     return render(request, 'profile.html', {'profile': profile})
 
 # def porto_get(request, porto_id):

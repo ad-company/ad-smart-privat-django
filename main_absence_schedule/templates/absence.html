@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<p style="display: none;">
+  <label for="id_user">User: </label>
+  <input type="text" name="user" maxlength="250" id="id_user" />
+</p>
+<p>
+    <label for="id_schedule">Schedule:</label>
+    <select
+      name="schedule" id="id_schedule"
+      required
+    >
+    {% for num in form.range %}
+    <!-- <option value="schedule_{{ num }}" selected></option> -->
+    {% endfor %}
+    </select>
+</p>
+<p>
+  <label for="id_gender">Gender:</label>
+  <select name="gender" id="id_gender" required>
+    <option value="" selected>-</option>
+    <option value="m">Male</option>
+    <option value="f">Female</option>
+  </select>
+</p>
+<script>
+  var x = document.getElementById("demo");
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    x.innerHTML =
+      "Latitude: " +
+      position.coords.latitude +
+      "<br>Longitude: " +
+      position.coords.longitude;
+  }
+</script>
+{% endblock %}

@@ -44,6 +44,7 @@ class Tentors(models.Model):
     account_name = models.CharField(max_length=250, null=False)
     account_id = models.CharField(max_length=20, null=False)
     bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
+    bank_other = models.CharField(max_length=20, default='')
     university = models.CharField(max_length=150, null=False)
     major = models.CharField(max_length=100, null=False)
     number_id = models.CharField(max_length=100, null=False)
@@ -55,7 +56,7 @@ class Tentors(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return '{}'.format(self.user)
 
     class Meta:
         verbose_name_plural = 'Tentor'

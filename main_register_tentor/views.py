@@ -36,13 +36,14 @@ def register_tentor_profile(request, username):
             try:
                 Tentors.objects.create(
                     user=form['user'],
-                    name=form['name'],
+                    name=form['name'].title(),
                     gender=form['gender'],
                     phone=form['phone'],
                     address=address,
                     account_name=form['account_name'],
                     account_id=form['account_id'],
                     bank=bank,
+                    bank_other=form['bank_other'],
                     university=form['university'],
                     major=form['major'],
                     number_id=form['number_id'],
