@@ -157,8 +157,11 @@ USE_TZ = True
 # Sackoverview docs : https://stackoverflow.com/questions/5517950/django-media-url-and-media-root
 PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
 if not DEBUG:
-    # STATIC_ROOT  =   os.path.join(BASE_DIR, 'uploads/static')  ## for manage.py collecstatic
-    STATIC_ROOT  =   os.path.join(BASE_DIR, 'home/static/uploads')  ## for manage.py collecstatic
+    STATIC_ROOT  =   os.path.join(BASE_DIR, 'uploads/static')  ## for manage.py collecstatic
+    # Extra lookup directories for collectstatic to find static files
+    STATICFILES_DIRS = (
+        os.path.join(PROJECT_ROOT, '../../uploads/static/static'),
+    )
 STATIC_URL = '/static/' ## endpoint direct to static example: 0.0.0.0:3000/static/css/home.css
 
 MEDIA_URL = '/media/' ## endpoint direct to upload file example: 0.0.0.0:3000/media/uploads/...
@@ -168,12 +171,10 @@ MEDIA_ROOT = (
 )
 
 if DEBUG:
+    STATIC_ROOT  =   os.path.join(BASE_DIR, 'uploads/static/static')  ## for manage.py collecstatic
     # Extra lookup directories for collectstatic to find static files
-    # STATICFILES_DIRS = (
-    #     os.path.join(PROJECT_ROOT, '../../uploads/static'),
-    # )
     STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, '../../hone/static/uploads/static'),
+        os.path.join(PROJECT_ROOT, '../../uploads/static'),
     )
 
 #  Add configuration for static files storage using whitenoise
