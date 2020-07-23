@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'adsmartprivat.middleware.SettingsMiddleware'  ## Custom Middleware
+    # 'adsmartprivat.middleware.SettingsMiddleware'  ## Custom Middleware
 ]
 
 ROOT_URLCONF = 'adsmartprivat.urls'
