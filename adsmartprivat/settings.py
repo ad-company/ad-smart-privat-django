@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
     '0.0.0.0',
     'ad-smart-privat.herokuapp.com',
     'adsmartprivat.herokuapp.com'
+    'www.adsmartprivat.herokuapp.com'
 ]
 
 
@@ -180,6 +181,7 @@ if DEBUG:
 #  Add configuration for static files storage using whitenoise
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
 # ===== A&D Custom =====
@@ -197,11 +199,11 @@ DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
 # SSL
 # PREPEND_WWW = True
-# BASE_URL = "https://adsmartprivat.herokuapp.com"
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+BASE_URL = "https://adsmartprivat.herokuapp.com"
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # ===
 
 LOGGING = {
