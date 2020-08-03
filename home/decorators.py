@@ -1,3 +1,4 @@
+import base64
 import datetime
 import requests
 from functools import wraps
@@ -8,6 +9,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 
+from main_register_student.models import Students
+from main_register_tentor.models import Tentors
 
 # def cookie_management(response, key, value, days_expire = 7):
 #     if days_expire is None:
@@ -40,15 +43,43 @@ def check_recaptcha(view_func):
 def profile_availability(view_func):
     @wraps(view_func)
     def _wrapped_view(request, *args, **kwargs):
-        # Check username AD Smart Privat
-        print(kwargs['username'], 'USER')
-        # request.COOKIES.get('username_ad')
-        # if request.COOKIES['username_ad']:
-        if kwargs:
+        # Preparation redirect registration_form
+        form = {}
+        form['range'] = range(1, 7)  # Range for loop schedule
+
+        # Check username profile availability
+        if request.user.username:
+            user_encode = base64.b64encode('{}_secure'.format(request.user.username).encode("utf-8"))
+
             try:
-                User.objects.get(username=base64.b64decode(kwargs['username']).decode("utf-8").replace('_secure', ''))
+                user = User.objects.get(username=request.user.username)
             except User.DoesNotExist:
-                messages.error(request, 'Username doesn\'t exist. Please register first.')
+                messages.error(request, 'Username doesnt exist. Please register first.')
                 return redirect('register_student')
+
+            # Check data student or tentor
+            if user.is_staff == False:  # Student
+                profile = Students.objects.filter(user=user.id).first()
+                if not profile:
+                    #If profile dowsn't exist, redirect to profile as student
+                    form['user_type'] = 'student'
+                    messages.error(request, 'Please help us fill this profile first.')
+                    return redirect(
+                        '/{}/profile/u/{}'.format('student', user_encode),
+                        {'form': form}
+                    )
+
+            else:
+                if user.is_superuser == False:  # Tentor
+                    profile = Tentors.objects.filter(user_id=user.id).first()
+                    if not profile:
+                        #If profile dowsn't exist, redirect to profile as tentor
+                        form['user_type'] = 'tentor'
+                        messages.error(request, 'Please help us fill this profile first.')
+                        return redirect(
+                            '/{}/profile/u/{}'.format('tentor', user_encode),
+                            {'form': form}
+                        )
+
         return view_func(request, *args, **kwargs)
     return _wrapped_view

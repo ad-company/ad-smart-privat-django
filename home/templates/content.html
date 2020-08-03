@@ -12,7 +12,7 @@
       </p>
     </div>
   </div>
-  <div class="row">
+  <div class="row text-center">
     {% if user.is_authenticated %}
     <div class="col-md-6 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate text-center">
@@ -24,12 +24,22 @@
     </div>
     <div class="col-md-6 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate text-center">
+        <h3>Schedule</h3>
+        <a href="/schedule">
+          <button class="button-home">Here</button>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12 animate-box"></div>
+    <div class="col-md-6 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
         <h3>Profile</h3>
         <a href="/profile">
           <button class="button-home">Here</button>
         </a>
       </div>
     </div>
+    <div class="col-md-3 col-sm-12 animate-box"></div>
     {% else %}
     <div class="col-md-4 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate">

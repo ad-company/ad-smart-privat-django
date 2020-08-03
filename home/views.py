@@ -64,12 +64,13 @@ def register_user(request, user_type=None):
                     if email_exist:
                         messages.error(request, 'Email is used, please try again.')
                         raise Exception("Sorry, email is used.")
-                    User.objects.create_user(
-                        username=_user,
-                        password=_pass,
-                        email=_email,
-                        is_staff=is_staff
-                    )
+                    else:
+                        User.objects.create_user(
+                            username=_user,
+                            password=_pass,
+                            email=_email,
+                            is_staff=is_staff
+                        )
                 else:
                     messages.error(request, 'Username or password is wrong, please try again.')
                     raise Exception("Sorry, password not match with requirements.")
@@ -104,6 +105,7 @@ def register_user(request, user_type=None):
 
 
 @login_required
+@profile_availability
 @log_track
 def profile_page(request):
     profile = {}
@@ -113,11 +115,14 @@ def profile_page(request):
 
     try:
         user = User.objects.filter(username=request.user).first()
+
         if user.is_staff == False:  # Student
             profile = Students.objects.filter(user=user.id).first()
+
         else:
             if user.is_superuser == False:  # Tentor
                 profile = Tentors.objects.filter(user_id=user.id).first()
+
             else:  # SuperUser
                 return render(request, 'profile.html', {'profile': profile})
 

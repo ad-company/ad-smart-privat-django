@@ -14,6 +14,7 @@ from main_register_tentor.models import Tentors
 
 
 @login_required
+@profile_availability
 @check_recaptcha
 @log_track
 def absence(request):
@@ -38,6 +39,7 @@ def absence(request):
     return render(request,'absence.html', {'form':form})
 
 @login_required
+@profile_availability
 # @check_recaptcha
 @log_track
 def schedule(request):
