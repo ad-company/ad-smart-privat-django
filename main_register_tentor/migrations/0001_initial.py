@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(max_length=250)),
                 ('account_name', models.CharField(max_length=250)),
                 ('account_id', models.CharField(max_length=20)),
-                ('bank_other', models.CharField(default='', max_length=20)),
+                # ('bank_other', models.CharField(default='', max_length=20)),
                 ('university', models.CharField(max_length=150)),
                 ('major', models.CharField(max_length=100)),
                 ('number_id', models.CharField(max_length=100)),
