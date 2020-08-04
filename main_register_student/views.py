@@ -42,7 +42,7 @@ def register_student_profile(request, username):
 
             # Register profile
             try:
-                Students.objects.create(
+                student = Students.objects.create(
                     user=form['user'],
                     name=form['name'].title(),
                     gender=form['gender'],
@@ -66,7 +66,7 @@ def register_student_profile(request, username):
                 for num in range(1, 7):
                     if form[f'schedule_{num}']:
                         Schedule.objects.create(
-                            user_student=form['user'],
+                            user_student=student,
                             schedule=form[f'schedule_{num}'],
                             location=address,
                             mode=form['mode']

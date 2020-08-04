@@ -120,7 +120,6 @@ def absence(request):
     for num in range(0, len(list_schedule)):
         if list_schedule[num].id not in list_absence:
             form['schedule'].append(list_schedule[num])
-
     # form['range_request'] = range(0, len(form['schedule']))
     return render(request,'absence.html', {'form':form})
 
@@ -138,12 +137,10 @@ def open_schedule(request):
     if request.method=='POST' and user_type == 'tentor':
         regex_id = re.compile(r'schedule-id-(.*)\':')
         schedule_id = re.findall(regex_id, str(request.POST))
-        alignment = Schedule.objects.get(pk=schedule_id[0])
+        alignment = Schedule.objects.filter(pk=schedule_id[0])
 
         # Assign tentor for this job!
-        alignment.user_tentor = Tentors.objects.get(pk=user.id)
-        alignment.active = True
-        alignment.save()
+        alignment.update(user_tentor=Tentors.objects.get(pk=user.id), active=True)
         messages.success(request, "Alignment Schedule success! Lets catch up with student from phone!")
 
     form = {}

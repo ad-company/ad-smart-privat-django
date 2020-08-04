@@ -117,11 +117,11 @@
               <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                 <h4 id="schedule-h4-2">List of Student</h4>
               {% endif %}
-              <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
-              <p>Jadwal : {{ schedule.schedule.schedule }}</p>
-              <p>Lokasi : {{ schedule.schedule.location }}</p>
-              <p>Mode : {{ schedule.schedule.mode }}</p>
-              <p>HP : {{ schedule.schedule.user_student.phone }}</p>
+              <p>Nama Murid : {{ schedule.user_student.name }}</p>
+              <p>Jadwal : {{ schedule.schedule }}</p>
+              <p>Lokasi : {{ schedule.location }}</p>
+              <p>Mode : {{ schedule.mode }}</p>
+              <p>HP : {{ schedule.user_student.phone }}</p>
               <div class="text-center">
                 <a id="whatsapp-a"
                   href="https://wa.me/{{ schedule.user_student.phone }}/?text=Hi!%20I%20am%20your%20tentor%20for%20every%20{{ schedule.schedule }}.%20My%20name%20is%20{{ schedule.user_tentor.name }}.">
@@ -244,10 +244,10 @@
                 <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                   <h4 id="schedule-h4-2">List of Absence</h4>
                 {% endif %}
-                <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
-                <p>Jadwal : {{ schedule.schedule.schedule }}</p>
-                <p>Mode : {{ schedule.schedule.mode }}</p>
-                <p>HP : {{ schedule.schedule.user_tentor.phone }}</p>
+                <p>Nama Tentor : {{ schedule.user_tentor.name }}</p>
+                <p>Jadwal : {{ schedule.schedule }}</p>
+                <p>Mode : {{ schedule.mode }}</p>
+                <p>HP : {{ schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   <a id="whatsapp-a"
                     href="https://wa.me/{{ schedule.user_tentor.phone }}/?text=Hi!%20I%20am%20your%20student%20for%20schedule%20{{ schedule.schedule }}.%20My%20name%20is%20{{ schedule.user_student.name }}.">
