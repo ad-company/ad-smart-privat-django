@@ -36,7 +36,7 @@ class Bank(models.Model):
 
 
 class Tentors(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=250, null=False)
     gender = models.CharField(max_length=2, choices=GENDER, null=False)
     phone = models.CharField(max_length=15, null=False)

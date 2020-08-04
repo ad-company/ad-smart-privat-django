@@ -11,13 +11,13 @@ from main_register_student.models import Students
 def photo_prove(instance, filename):
     return 'absence/absence_{}_{}_{}.jpg'.format(
         str(timezone.datetime.today().strftime('%Y-%m-%d-%H:%M:%S')),
-        instance.user.id,
-        instance.user.username
+        instance.user.user,
+        instance.user.name
     )
 
 class Schedule(models.Model):
-    user_student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_student')
-    user_tentor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_tentor', blank=True, null=True)
+    user_student = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='user_student')
+    user_tentor = models.ForeignKey(Tentors, on_delete=models.CASCADE, related_name='user_tentor', blank=True, null=True)
     schedule = models.CharField(max_length=250, null=False)
     location = models.CharField(max_length=250, null=False)
     mode = models.CharField(max_length=250, null=False)
@@ -33,8 +33,10 @@ class Schedule(models.Model):
 
 class Absence(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
-    attend = models.BooleanField(null=False, default=False)
-    absence_pic = models.ImageField('img', upload_to=photo_prove)
+    attend_student = models.BooleanField(null=False, default=False)
+    student_assign_date = models.DateTimeField(blank=True, null=True, default=None)
+    attend_tentor = models.BooleanField(null=False, default=False)
+    tentor_assign_date = models.DateTimeField(blank=True, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 

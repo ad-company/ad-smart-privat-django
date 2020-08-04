@@ -16,52 +16,61 @@
     {% if user.is_authenticated %}
     <div class="col-md-6 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate text-center">
-        <h3>Absence</h3>
         <a href="/absence">
-          <button class="button-home">Here</button>
+          <button class="button-home"><h3>Absence</h3></button>
         </a>
       </div>
     </div>
     <div class="col-md-6 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate text-center">
-        <h3>Schedule</h3>
-        <a href="/schedule">
-          <button class="button-home">Here</button>
-        </a>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-12 animate-box"></div>
-    <div class="col-md-6 col-sm-12 animate-box">
-      <div class="progress-wrap ftco-animate text-center">
-        <h3>Profile</h3>
         <a href="/profile">
-          <button class="button-home">Here</button>
+          <button class="button-home"><h3>Profile</h3></button>
         </a>
       </div>
     </div>
-    <div class="col-md-3 col-sm-12 animate-box"></div>
+    {% if user.is_staff %}
+    <div class="col-md-6 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <a href="/schedule/open">
+          <button class="button-home"><h3>Open Schedule</h3></button>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <a href="/schedule">
+          <button class="button-home"><h3>My Schedule</h3></button>
+        </a>
+      </div>
+    </div>
+    {% else %}
+    <div class="col-md-12 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <a href="/schedule">
+          <button class="button-home"><h3>My Schedule</h3></button>
+        </a>
+      </div>
+    </div>
+    {% endif %}
     {% else %}
     <div class="col-md-4 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate">
-        <h3>Absence</h3>
         <a href="/absence">
-          <button class="button-home">Here</button>
+          <button class="button-home"><h3>Absence</h3></button>
         </a>
       </div>
     </div>
     <div class="col-md-4 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate">
-        <h3>Register as Student</h3>
         <a href="/register/student">
-          <button class="button-home">Here</button>
+          <button class="button-home"><h3>Register as Student</h3></button>
         </a>
       </div>
     </div>
     <div class="col-md-4 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate">
-        <h3>Register as Tentor</h3>
         <a href="/register/tentor">
-          <button class="button-home">Here</button>
+          <button class="button-home"><h3>Register as Tentor</h3></button>
         </a>
       </div>
     </div>

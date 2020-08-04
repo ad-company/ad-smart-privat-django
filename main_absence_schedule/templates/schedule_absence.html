@@ -3,33 +3,23 @@
 
 {% block content %}
     <div class="container">
-    <div class="row justify-content-center pb-5">
-        <div class="col-md-12 heading-section text-center ftco-animate">
-        <span class="subheading">{{ form.user_type }}</span>
-        {% block title %}
-        {% endblock %}
-        <p>
-            Please choose this schedule that you can handle
-        </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 animate-box">
-            <div class="progress-wrap ftco-animate">
-                <form method="POST" class="post-form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% block absence %}
-                    {% endblock %}
-                    {% block schedule %}
-                    {% endblock %}
-                </form>
+        <div class="row justify-content-center pb-5">
+            <div class="col-md-12 heading-section text-center ftco-animate">
+            <span class="subheading">{{ form.user_type }}</span>
+                <div class="text-center ftco-animate">
+                    <p>Hi, {{ user.username }}</p>
+
+                    {% if form.user_type == 'tentor' %}
+                    {% elif form.user_type == 'student' %}
+                    {% else %}
+                    {% endif %}
+
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-center py-5 mt-5">
-        <div class="col-md-12 heading-section text-center ftco-animate">
-        <h2 class="mb-4">Schedule active</h2>
-        </div>
-    </div>
+        {% block absence %}
+        {% endblock %}
+        {% block schedule %}
+        {% endblock %}
     </div>
 {% endblock %}

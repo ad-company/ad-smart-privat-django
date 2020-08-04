@@ -22,6 +22,9 @@ label {
 p {
     margin-bottom: 2rem;
 }
+a {
+    color: #4b8ce8;
+}
 select {
     width: 100%;
 }
@@ -236,11 +239,49 @@ button{
     background-color: #00ffff38;
 }
 
+.border-absence-1 {
+    border: #2a626b91;
+    border-style: groove;
+}
+
+.border-absence-2 {
+    border: #f0f8ffba;
+    border-style: groove;
+}
+
+.schedule-none {
+    margin: 14% 0%;
+}
+
+.absence {
+    background-color: transparent !important;
+    color: aliceblue;
+    padding: 1% 0%;
+}
+
+.absence:hover {
+    color: aliceblue;
+}
+
+.absence-title {
+    margin-top: 5%;
+}
+
 #schedule-h4-1 {
     color: #6984a9;
 }
 
 #schedule-h4-2 {
     color: #438d90;
+}
+
+#whatsapp-a {
+    color: #67c365;
+    margin: 0% 1%;
+}
+
+#absence-a {
+    color: aliceblue;
+    margin: 0% 1%;
 }
 /* ===== */

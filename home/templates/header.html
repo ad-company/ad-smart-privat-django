@@ -25,8 +25,13 @@
             <a href="/absence" class="nav-link"><span>Absence</span></a>
         </li>
         {% if user.is_authenticated %}
+        {% if user.is_staff %}
         <li class="nav-item">
-            <a href="/schedule" class="nav-link"><span>Schedule</span></a>
+            <a href="/schedule/open" class="nav-link"><span>Open Schedule</span></a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+            <a href="/schedule" class="nav-link"><span>My Schedule</span></a>
         </li>
         <li class="nav-item">
             <a href="/profile" class="nav-link"

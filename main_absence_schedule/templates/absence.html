@@ -1,47 +1,284 @@
-{% extends "base.html" %}
+{% extends "schedule_absence.html" %}
 {% load static %}
 
-{% block content %}
-<p style="display: none;">
-  <label for="id_user">User: </label>
-  <input type="text" name="user" maxlength="250" id="id_user" />
-</p>
-<p>
-    <label for="id_schedule">Schedule:</label>
-    <select
-      name="schedule" id="id_schedule"
-      required
-    >
-    {% for num in form.range %}
-    <!-- <option value="schedule_{{ num }}" selected></option> -->
-    {% endfor %}
-    </select>
-</p>
-<p>
-  <label for="id_gender">Gender:</label>
-  <select name="gender" id="id_gender" required>
-    <option value="" selected>-</option>
-    <option value="m">Male</option>
-    <option value="f">Female</option>
-  </select>
-</p>
-<!-- <script>
-  var x = document.getElementById("demo");
+{% block absence %}
+<div class="row">
+  <div class="col-md-12 animate-box">
+    <div class="progress-wrap ftco-animate">
+      <form method="POST" class="post-form" enctype="multipart/form-data">
+        {% csrf_token %}
 
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      x.innerHTML = "Geolocation is not supported by this browser.";
-    }
-  }
+        <!-- TENTOR -->
+        {% if form.user_type == 'tentor' %}
+        <h2>Today's Absence</h2>
+        <div class="container">
+          <div class="row">
 
-  function showPosition(position) {
-    x.innerHTML =
-      "Latitude: " +
-      position.coords.latitude +
-      "<br>Longitude: " +
-      position.coords.longitude;
-  }
-</script> -->
+            <!-- Data Done -->
+            {% if form.schedule|length <= 0 and form.absence|length <= 0 and form.absence_done|length <= 0 %}
+            {% elif form.absence_done|length <= 0 %}
+            <div class="col-md-12 col-sm-12 absence-title">
+              <h3 id="done-absence">Done</h3>
+            </div>
+            <div class="col-md-12 col-sm-12 text-center schedule-none">
+              <h3>No absence done yet.</h3>
+            </div>
+            {% else %}
+            <div class="col-md-12 col-sm-12 absence-title">
+              <h3 id="done-absence">Done</h3>
+            </div>
+            {% for schedule in form.absence_done %}
+              {% if forloop.counter|divisibleby:2 %}
+              <div class="col-md-6 col-sm-12 border-absence-1 background-schedule-1">
+                <h4 id="schedule-h4-1">List of Student</h4>
+              {% else %}
+              <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
+                <h4 id="schedule-h4-2">List of Student</h4>
+              {% endif %}
+              <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
+              <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+              <p>Lokasi : {{ schedule.schedule.location }}</p>
+              <p>Mode : {{ schedule.schedule.mode }}</p>
+              <p>HP : {{ schedule.schedule.user_student.phone }}</p>
+              <div class="text-center">
+                {% if schedule.attend_student %}
+                <p>Status : <i class="fa fa-check" style="font-size:36px"></i></p>
+                {% else %}
+                <p>Status : Please confirm student to get approval.</p>
+                <a id="whatsapp-a"
+                  href="https://wa.me/{{ schedule.schedule.user_student.phone }}/?text=Hi!%20I%20am%20your%20tentor%20for%20every%20{{ schedule.schedule.schedule }}.%20My%20name%20is%20{{ schedule.schedule.user_tentor.name }}.">
+                  <i class="fa fa-whatsapp" style="font-size:36px"></i>
+                  Whatsapp chat
+                </a>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- End Done -->
+
+            <!-- Data Created not Done & Need Absence -->
+            {% if form.schedule|length <= 0 and form.absence|length <= 0 and form.absence_done|length <= 0 %}
+            <div class="col-md-12 col-sm-12 text-center schedule-none">
+              <h3>No schedule for today.</h3>
+              <h3>Click <a href="/schedule" id="here-a">here</a> to check your schedule.</h3>
+            </div>
+            {% elif form.schedule|length <= 0 and form.absence|length <= 0 %}
+            <div class="col-md-12 col-sm-12 absence-title">
+              <h3>Scheduled Absence</h3>
+            </div>
+            <div class="col-md-12 col-sm-12 text-center schedule-none">
+              <h3>Schedule absence is empty. Check in <a href="#done-absence">Done</a> absence</h3>
+              <h3>Click <a href="/schedule/open" id="here-a">here</a> to discover new schedule.</h3>
+            </div>
+            {% else %}
+            <div class="col-md-12 col-sm-12 absence-title">
+              <h3>Scheduled Absence</h3>
+            </div>
+
+            <!-- Data Created not Done -->
+            {% for schedule in form.absence %}
+              {% if forloop.counter|divisibleby:2 %}
+              <div class="col-md-6 col-sm-12 border-absence-1 background-schedule-1">
+                <h4 id="schedule-h4-1">List of Student</h4>
+              {% else %}
+              <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
+                <h4 id="schedule-h4-2">List of Student</h4>
+              {% endif %}
+              <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
+              <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+              <p>Lokasi : {{ schedule.schedule.location }}</p>
+              <p>Mode : {{ schedule.schedule.mode }}</p>
+              <p>HP : {{ schedule.schedule.user_student.phone }}</p>
+              <div class="text-center">
+                <a id="whatsapp-a"
+                  href="https://wa.me/{{ schedule.schedule.user_student.phone }}/?text=Hi!%20I%20am%20your%20tentor%20for%20every%20{{ schedule.schedule.schedule }}.%20My%20name%20is%20{{ schedule.schedule.user_tentor.name }}.">
+                  <i class="fa fa-whatsapp" style="font-size:36px"></i>
+                  Whatsapp chat
+                </a>
+                <a id="absence-a">
+                  <button type="Submit" name="schedule-id-{{ schedule.schedule.id }}"
+                    class="absence btn btn-default">
+                    <i class="fa fa-clock-o" style="font-size:36px"></i>
+                    Absence
+                  </button>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            <!-- End Created not Done -->
+
+            <!-- Data Need Absence -->
+            {% for schedule in form.schedule %}
+              {% if forloop.counter|divisibleby:2 %}
+              <div class="col-md-6 col-sm-12 border-absence-1 background-schedule-1">
+                <h4 id="schedule-h4-1">List of Student</h4>
+              {% else %}
+              <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
+                <h4 id="schedule-h4-2">List of Student</h4>
+              {% endif %}
+              <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
+              <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+              <p>Lokasi : {{ schedule.schedule.location }}</p>
+              <p>Mode : {{ schedule.schedule.mode }}</p>
+              <p>HP : {{ schedule.schedule.user_student.phone }}</p>
+              <div class="text-center">
+                <a id="whatsapp-a"
+                  href="https://wa.me/{{ schedule.user_student.phone }}/?text=Hi!%20I%20am%20your%20tentor%20for%20every%20{{ schedule.schedule }}.%20My%20name%20is%20{{ schedule.user_tentor.name }}.">
+                  <i class="fa fa-whatsapp" style="font-size:36px"></i>
+                  Whatsapp chat
+                </a>
+                <a id="absence-a">
+                  <button type="Submit" name="schedule-id-{{ schedule.id }}" class="absence btn btn-default">
+                    <i class="fa fa-clock-o" style="font-size:36px"></i>
+                    Absence
+                  </button>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            <!-- End Absence -->
+
+            </div>
+          </div>
+          <!-- END TENTOR -->
+
+          <!-- STUDENT -->
+          {% elif form.user_type == 'student' %}
+          <h2>Today's Absence</h2>
+          <div class="container">
+            <div class="row">
+
+              <!-- Data Done -->
+              {% if form.schedule|length <= 0 and form.absence|length <= 0 and form.absence_done|length <= 0 %}
+              {% elif form.absence_done|length <= 0 %}
+              <div class="col-md-12 col-sm-12 absence-title">
+                <h3 id="done-absence">Done</h3>
+              </div>
+              <div class="col-md-12 col-sm-12 text-center schedule-none">
+                <h3>No absence done yet.</h3>
+              </div>
+              {% else %}
+              <div class="col-md-12 col-sm-12 absence-title">
+                <h3 id="done-absence">Done</h3>
+              </div>
+              {% for schedule in form.absence_done %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-md-6 col-sm-12 border-absence-1 background-schedule-1">
+                  <h4 id="schedule-h4-1">List of Absence</h4>
+                {% else %}
+                <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
+                  <h4 id="schedule-h4-2">List of Absence</h4>
+                {% endif %}
+                <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
+                <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+                <p>Mode : {{ schedule.schedule.mode }}</p>
+                <p>HP : {{ schedule.schedule.user_tentor.phone }}</p>
+                <div class="text-center">
+                  {% if schedule.attend_student %}
+                  <p>Status : <i class="fa fa-check" style="font-size:36px"></i></p>
+                  {% endif %}
+                </div>
+              </div>
+              {% endfor %}
+              {% endif %}
+              <!-- End Done -->
+
+              <!-- Data Created not Done & Need Absence -->
+              {% if form.schedule|length <= 0 and form.absence|length <= 0 and form.absence_done|length <= 0 %}
+              <div class="col-md-12 col-sm-12 text-center schedule-none">
+                <h3>No schedule for today.</h3>
+                <h3>Click <a href="/schedule" id="here-a">here</a> to check your schedule.</h3>
+              </div>
+              {% elif form.schedule|length <= 0 and form.absence|length <= 0 %}
+              <div class="col-md-12 col-sm-12 absence-title">
+                <h3>Scheduled Absence</h3>
+              </div>
+              <div class="col-md-12 col-sm-12 text-center schedule-none">
+                <h3>Schedule absence is empty. Check in <a href="#done-absence">Done</a> absence.</h3>
+                <h3>Click <a href="/schedule" id="here-a">here</a> to check your schedule.</h3>
+              </div>
+              {% else %}
+              <div class="col-md-12 col-sm-12 absence-title">
+                <h3>Scheduled Absence</h3>
+              </div>
+
+              <!-- Data Created not Done -->
+              {% for schedule in form.absence %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-md-6 col-sm-12 border-absence-1 background-schedule-1">
+                  <h4 id="schedule-h4-1">List of Absence</h4>
+                {% else %}
+                <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
+                  <h4 id="schedule-h4-2">List of Absence</h4>
+                {% endif %}
+                <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
+                <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+                <p>Mode : {{ schedule.schedule.mode }}</p>
+                <p>HP : {{ schedule.schedule.user_tentor.phone }}</p>
+                <div class="text-center">
+                  <a id="whatsapp-a"
+                    href="https://wa.me/{{ schedule.user_tentor.phone }}/?text=Hi!%20I%20am%20your%20student%20for%20schedule%20{{ schedule.schedule }}.%20My%20name%20is%20{{ schedule.user_student.name }}.">
+                    <i class="fa fa-whatsapp" style="font-size:36px"></i>
+                    Whatsapp chat
+                  </a>
+                  <a id="absence-a">
+                    <button type="Submit" name="schedule-id-{{ schedule.schedule.id }}"
+                      class="absence btn btn-default">
+                      <i class="fa fa-clock-o" style="font-size:36px"></i>
+                      Absence
+                    </button>
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+              <!-- End Created not Done -->
+
+              <!-- Data Need Absence -->
+              {% for schedule in form.schedule %}
+                {% if forloop.counter|divisibleby:2 %}
+                <div class="col-md-6 col-sm-12 border-absence-1 background-schedule-1">
+                  <h4 id="schedule-h4-1">List of Absence</h4>
+                {% else %}
+                <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
+                  <h4 id="schedule-h4-2">List of Absence</h4>
+                {% endif %}
+                <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
+                <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+                <p>Mode : {{ schedule.schedule.mode }}</p>
+                <p>HP : {{ schedule.schedule.user_tentor.phone }}</p>
+                <div class="text-center">
+                  <a id="whatsapp-a"
+                    href="https://wa.me/{{ schedule.user_tentor.phone }}/?text=Hi!%20I%20am%20your%20student%20for%20schedule%20{{ schedule.schedule }}.%20My%20name%20is%20{{ schedule.user_student.name }}.">
+                    <i class="fa fa-whatsapp" style="font-size:36px"></i>
+                    Whatsapp chat
+                  </a>
+                  <a id="absence-a">
+                    <button type="Submit" name="schedule-id-{{ schedule.id }}" class="absence btn btn-default">
+                      <i class="fa fa-clock-o" style="font-size:36px"></i>
+                      Absence
+                    </button>
+                  </a>
+                </div>
+              </div>
+              {% endfor %}
+              {% endif %}
+              <!-- End Absence -->
+
+              </div>
+            </div>
+          <!-- END STUDENT -->
+
+          {% else %}
+          {% endif %}
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center py-5 mt-5">
+  <div class="col-md-12 heading-section text-center ftco-animate">
+  <h2 class="mb-4">Absence</h2>
+  </div>
+</div>
 {% endblock %}
