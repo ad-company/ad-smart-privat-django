@@ -3,12 +3,34 @@
 
 {% block schedule %}
 <div class="row">
-  <div class="col-md-12 animate-box">
+  <div class="col-md-4 col-sm-12 animate-box open-scroll">
+    <div class="progress-wrap ftco-animate">
+    <h2>My Schedule</h2>
+    <p>Pastikan tidak bertabrakan dengan <br> jadwal yang sudah di handle</p>
+      <div class="container">
+        <div class="row">
+          {% if form.schedules_handled|length > 0 %}
+          <h4 id="schedule-h4-2">Handled Student</h4>
+          {% for schedule in form.schedules_handled %}
+          <div
+            class="col-md-12 col-sm-12 background-schedule-2 handled-schedule"
+            >
+            <p>Nama : {{ schedule.user_student.name }}</p>
+            <p>Jadwal : {{ schedule.schedule }}</p>
+            <p>Mode : {{ schedule.mode }}</p>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8 col-sm-12 animate-box open-scroll">
     <div class="progress-wrap ftco-animate">
         <form method="POST" class="post-form" enctype="multipart/form-data">
           {% csrf_token %}
           {% if form.user_type == 'tentor' %}
-          <h2>Available Schedule</h2>
+          <h2>Open Schedule</h2>
           <div class="container">
             <div class="row">
               {% if form.schedules_request|length <= 0 %}
@@ -21,16 +43,16 @@
                 {% for schedule in form.schedules_request %}
                   {% if forloop.counter|divisibleby:2 %}
                     <div
-                      class="col-md-4 col-sm-12 background-schedule-1"
+                      class="col-md-6 col-sm-12 background-schedule-1"
                       >
                       <h4 id="schedule-h4-1">List of Student</h4>
                   {% else %}
                     <div
-                      class="col-md-4 col-sm-12 background-schedule-2"
+                      class="col-md-6 col-sm-12 background-schedule-2"
                       >
                       <h4 id="schedule-h4-2">List of Student</h4>
                   {% endif %}
-                      <p>Nama : {{ schedule.user_student }}</p>
+                      <p>Nama : {{ schedule.user_student.name }}</p>
                       <p>Kelas : {{ schedule.user_student.grade }}</p>
                       <p>Jadwal : {{ schedule.schedule }}</p>
                       <p>Mapel : {{ schedule.mapel }}</p>
@@ -41,18 +63,21 @@
                       </div>
                     </div>
                 {% endfor %}
+                </div>
+                <div
+                  class="col-md-4 col-sm-12 text-center schedule-none"
+                  ></div>
               {% endif %}
               </div>
             </div>
-            {% else %}
-            {% endif %}
+          {% else %}
+          {% endif %}
         </form>
-      </div>
-  </div>
+    </div>
 </div>
 <div class="row justify-content-center py-5 mt-5">
   <div class="col-md-12 heading-section text-center ftco-animate">
-  <h2 class="mb-4">Schedules</h2>
+    <h2 class="mb-4">Schedules</h2>
   </div>
 </div>
 {% endblock %}

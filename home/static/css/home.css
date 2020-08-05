@@ -259,6 +259,26 @@ button{
     background-color: #00ffff38;
 }
 
+.margin-bottom-none p {
+    margin-bottom: 0rem;
+}
+
+.open-scroll {
+    height: 440px;
+    overflow: scroll;
+}
+
+.handled-schedule {
+    background-color: #6d757b38;
+    border: aliceblue;
+    border-style: dotted;
+    border-width: thin;
+}
+
+.handled-schedule p {
+    margin-bottom: 0rem;
+}
+
 .background-schedule-1 p,
 .background-schedule-2 p {
     text-transform: capitalize;

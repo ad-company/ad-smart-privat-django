@@ -135,13 +135,22 @@ def open_schedule(request):
         user_type = 'student'
     
     if request.method=='POST' and user_type == 'tentor':
-        regex_id = re.compile(r'schedule-id-(.*)\':')
-        schedule_id = re.findall(regex_id, str(request.POST))
-        alignment = Schedule.objects.filter(pk=schedule_id[0])
+        # Check tentor total handled
+        tentor = Tentors.objects.get(pk=user.id)
+        handle = Schedule.objects.filter(user_tentor=tentor, active=True).count()
 
-        # Assign tentor for this job!
-        alignment.update(user_tentor=Tentors.objects.get(pk=user.id), active=True)
-        messages.success(request, "Alignment Schedule success! Lets catch up with student from phone!")
+        if handle >= 10:
+            # Handle maximum limit is 10
+            messages.error(request, "Sorry, you already reach max handle limit (10)")
+        else:
+            # Get schedule id
+            regex_id = re.compile(r'schedule-id-(.*)\':')
+            schedule_id = re.findall(regex_id, str(request.POST))
+            alignment = Schedule.objects.filter(pk=schedule_id[0])
+
+            # Assign tentor for this job!
+            alignment.update(user_tentor=tentor, active=True)
+            messages.success(request, "Alignment Schedule success! Lets catch up with student from phone!")
 
     form = {}
     form['user_type'] = user_type
@@ -149,6 +158,7 @@ def open_schedule(request):
     # Get rendering data schedule
     if user_type == 'tentor':
         form['schedules_request'] = Schedule.objects.filter(active=False).order_by('created_at')
+        form['schedules_handled'] = Schedule.objects.filter(user_tentor=user.id, active=True)  # Get handled schedule
     elif user_type == 'student':
         return redirect('/schedule')
     form['range_request'] = range(0, len(form['schedules_request']))
