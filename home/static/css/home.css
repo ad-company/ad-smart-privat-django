@@ -231,6 +231,22 @@ button{
     height: 204px;
 }
 
+.schedule-row {
+    margin-bottom: 5%;
+}
+
+.schedule-label {
+    color: aliceblue;
+    font-weight: 700;
+    margin-top: 10%;
+}
+
+.other-label {
+    color: aliceblue;
+    font-weight: 200;
+    font-size: 95%;
+}
+
 .background-schedule-1 {
     background-color: #2e888838;
 }

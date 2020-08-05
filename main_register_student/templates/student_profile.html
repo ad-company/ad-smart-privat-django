@@ -88,11 +88,11 @@
     <p class="align-center">
       Choose schedule <br> minimum 1 (one)
     </p>
-    <div class="row">
+    <div class="row schedule-row">
       {% for num in form.range %}
         <div class="col-md-4">
           <p>
-            <label for="id_schedule_{{ num }}">Schedule {{ num }}:</label>
+            <label class="schedule-label" for="id_schedule_{{ num }}">Schedule {{ num }}:</label>
             <select
               name="schedule_{{ num }}" id="id_schedule_{{ num }}"
               {% if num == 1 %}
@@ -110,7 +110,7 @@
             </select>
           </p>
           <p>
-            <label for="id_mapel_{{ num }}">Mapel {{ num }}:</label>
+            <label class="other-label" for="id_mapel_{{ num }}">Mapel {{ num }}:</label>
             <select
               name="mapel_{{ num }}" id="id_mapel_{{ num }}"
               {% if num == 1 %}
@@ -129,7 +129,7 @@
             </select>
           </p>
           <p>
-            <label for="id_clock_{{ num }}">Clock:</label>
+            <label class="other-label" for="id_clock_{{ num }}">Clock:</label>
             <select
               name="clock_{{ num }}" id="id_clock_{{ num }}"
               {% if num == 1 %}
