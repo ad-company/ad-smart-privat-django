@@ -168,9 +168,10 @@ STATIC_ROOT  =   os.path.join(BASE_DIR, 'static')
 
 # Extra lookup directories for collectstatic to find static files
 ## This function is to DEBUG=TRUE (get static source dev)
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'home/static'),
-)
+    os.path.join(BASE_DIR, 'media'),
+]
 if not DEBUG:
     ## for manage.py collecstatic
     ## When in server and DEBUG=FALSE, set this collectstatic first (in empty folder)
