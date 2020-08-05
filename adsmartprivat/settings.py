@@ -27,13 +27,16 @@ SECRET_KEY = 'rfykm3pwi6n#&r2l#qxv)=z3%j_4$y@8f-dnn#1d0+l_m2xc7m'
 DEBUG = True
 # DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0']
+# Check OS
+from platform import system
+if system() == 'Darwin':
+    ALLOWED_HOSTS = ['0.0.0.0']
 
-# if not DEBUG:
-ALLOWED_HOSTS = [
-    'adsmartprivat.herokuapp.com',
-    'www.adsmartprivat.herokuapp.com'
-]
+else:
+    ALLOWED_HOSTS = [
+        'adsmartprivat.herokuapp.com',
+        'www.adsmartprivat.herokuapp.com'
+    ]
 
 
 

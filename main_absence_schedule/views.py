@@ -22,7 +22,9 @@ from main_register_student.models import Students
 def absence(request):
     # Check if student or tentor
     user = request.user
-    if user.is_staff == True:
+    if user.is_superuser == True:
+        user_type = 'superuser'
+    elif user.is_staff == True:
         user_type = 'tentor'
     else:
         user_type = 'student'
@@ -99,7 +101,11 @@ def absence(request):
                 messages.success(request, "Save absence student success!")
 
     # Get rendering data absence for today
+    list_schedule = []
+    list_absence = []
     form['schedule'] = []
+    form['absence'] = []
+    form['absence_done'] = []
     if user_type == 'tentor':
         tentor = Tentors.objects.get(pk=user.id)
         list_absence = Absence.objects.filter(schedule__user_tentor=tentor, schedule__schedule__contains=day_id, created_at__range=[today_min, today_max]).values_list('schedule', flat=True)  # Get list of absence by schedule id
