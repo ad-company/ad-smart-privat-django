@@ -122,10 +122,22 @@ main_register_tentor/migrations/*
 !main_register_tentor/migrations/0001_initial.py
 
 # Upload files
+media/uploads/student/id/*
+media/uploads/student/profile/*
+media/uploads/tentor/id/*
+media/uploads/tentor/profile/*
+media/static/*
+!media/uploads/student/id/.gitkeep
+!media/uploads/student/profile/.gitkeep
+!media/uploads/tentor/id/.gitkeep
+!media/uploads/tentor/profile/.gitkeep
+!media/uploads/user-no-image.png
+
 uploads/student/id/*
 uploads/student/profile/*
 uploads/tentor/id/*
 uploads/tentor/profile/*
+static/*
 !uploads/student/id/.gitkeep
 !uploads/student/profile/.gitkeep
 !uploads/tentor/id/.gitkeep

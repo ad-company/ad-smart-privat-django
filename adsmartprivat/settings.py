@@ -24,15 +24,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'rfykm3pwi6n#&r2l#qxv)=z3%j_4$y@8f-dnn#1d0+l_m2xc7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'ad-smart-privat.herokuapp.com',
-    'adsmartprivat.herokuapp.com',
-    'www.adsmartprivat.herokuapp.com'
-]
+if not DEBUG:
+    ALLOWED_HOSTS = [
+        'adsmartprivat.herokuapp.com',
+        'www.adsmartprivat.herokuapp.com'
+    ]
+
+elif DEBUG:
+    ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'json_field', # Handle model JSON
     # 'psycopg2', # PostgreSQL handler
+    # 'whitenoise.runserver_nostatic',
     'home',
     'main_absence_schedule',
     'main_register_tentor',
@@ -157,32 +160,51 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 # Sackoverview docs : https://stackoverflow.com/questions/5517950/django-media-url-and-media-root
 PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-if not DEBUG:
-    STATIC_ROOT  =   os.path.join(BASE_DIR, 'uploads/static')  ## for manage.py collecstatic
-    # Extra lookup directories for collectstatic to find static files
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, '../../uploads/static/static'),
-    )
 STATIC_URL = '/static/' ## endpoint direct to static example: 0.0.0.0:3000/static/css/home.css
+if not DEBUG:
+    ## for manage.py collecstatic
+    ## When in server and DEBUG=FALSE, set this collectstatic first (in empty folder)
+    ## should set /path/to/collectstatic/generated/static
+    STATIC_ROOT  =   os.path.join(BASE_DIR, 'media/static')
+
+    # Extra lookup directories for collectstatic to find static files
+    ## This function is to DEBUG=TRUE (get static source dev)
+    ## should set /path/to/source/of/static
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, "home/static"),
+    )
+
+elif DEBUG:
+    ## for manage.py collecstatic
+    ## When in server and DEBUG=FALSE, set this collectstatic first (in empty folder)
+    STATIC_ROOT  =   os.path.join(BASE_DIR, 'media/static')
+
+    # Extra lookup directories for collectstatic to find static files
+    ## This function is to DEBUG=TRUE (get static source dev)
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'home/static'),
+    )
 
 MEDIA_URL = '/media/' ## endpoint direct to upload file example: 0.0.0.0:3000/media/uploads/...
 MEDIA_ROOT = (
-    ## in Root project, ex: ad-smart-privat-django
-    os.path.join(BASE_DIR)
+    ## in media project
+    ## should set /path/to/media
+    os.path.join(BASE_DIR, 'media')
 )
-
-if DEBUG:
-    STATIC_ROOT  =   os.path.join(BASE_DIR, 'uploads/static/static')  ## for manage.py collecstatic
-    # Extra lookup directories for collectstatic to find static files
-    STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, '../../uploads/static'),
-    )
 
 #  Add configuration for static files storage using whitenoise
 # STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
+# List of finder classes that know how to find static files in
+# various locations.
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+# #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+# )
 
 # ===== A&D Custom =====
 # solve MYSQL
@@ -197,13 +219,14 @@ SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 # or
 DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
-# SSL
-# PREPEND_WWW = True
-BASE_URL = "https://adsmartprivat.herokuapp.com"
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+if not DEBUG:
+    # SSL
+    # PREPEND_WWW = True
+    BASE_URL = "https://adsmartprivat.herokuapp.com"
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # ===
 
 LOGGING = {
@@ -242,6 +265,7 @@ LOGGING = {
         },
     },
 }
+# DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # Login URL
 LOGIN_URL='/login'

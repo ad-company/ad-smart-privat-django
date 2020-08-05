@@ -9,10 +9,10 @@ from main_register_student.models import Students
 
 
 def photo_prove(instance, filename):
-    return 'absence/absence_{}_{}_{}.jpg'.format(
+    return 'uploads/absence/absence_{}_{}_{}.jpg'.format(
         str(timezone.datetime.today().strftime('%Y-%m-%d-%H:%M:%S')),
-        instance.user.user,
-        instance.user.name
+        instance.user.id,
+        instance.user.username.replace(' ', '_')
     )
 
 class Schedule(models.Model):
