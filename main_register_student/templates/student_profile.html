@@ -110,6 +110,25 @@
             </select>
           </p>
           <p>
+            <label for="id_mapel_{{ num }}">Mapel {{ num }}:</label>
+            <select
+              name="mapel_{{ num }}" id="id_mapel_{{ num }}"
+              {% if num == 1 %}
+                required
+              {% endif %}
+            >
+              <option value="" selected>-</option>
+              <option value="menyesuaikan">Menyesuaikan (SD/SMP)</option>
+              <option value="IPA">IPA (SD/SMP)</option>
+              <option value="matematika">Matematika</option>
+              <option value="fisika">Fisika</option>
+              <option value="kimia">Kimia</option>
+              <option value="biologi">Biologi</option>
+              <option value="bahasa inggris">B.Inggris</option>
+              <option value="bahasa indonesia">B.Indonesia</option>
+            </select>
+          </p>
+          <p>
             <label for="id_clock_{{ num }}">Clock:</label>
             <select
               name="clock_{{ num }}" id="id_clock_{{ num }}"
@@ -159,6 +178,7 @@
   <p>
     <label for="id_total_student">Group Study (plan for Bimbel):</label>
     <select name="total_student" id="id_total_student" required>
+      <option value="" selected>-</option>
       <option value="1">1 Murid</option>
       <option value="2">2 Murid</option>
       <option value="3">3 Murid</option>

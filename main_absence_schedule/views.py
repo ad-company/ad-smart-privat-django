@@ -148,7 +148,7 @@ def open_schedule(request):
 
     # Get rendering data schedule
     if user_type == 'tentor':
-        form['schedules_request'] = Schedule.objects.filter(active=False)
+        form['schedules_request'] = Schedule.objects.filter(active=False).order_by('created_at')
     elif user_type == 'student':
         return redirect('/schedule')
     form['range_request'] = range(0, len(form['schedules_request']))
@@ -170,7 +170,7 @@ def schedule(request):
 
     # Get rendering data schedule
     if user_type == 'tentor':
-        form['schedules_active'] = Schedule.objects.filter(user_tentor=request.user.id, active=True)
+        form['schedules_active'] = Schedule.objects.filter(user_tentor=request.user.id, active=True).order_by('-schedule')
     elif user_type == 'student':
         form['schedules_active'] = Schedule.objects.filter(user_student=request.user.id)
     form['range_request'] = range(0, len(form['schedules_active']))

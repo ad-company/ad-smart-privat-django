@@ -33,10 +33,13 @@ def register_student_profile(request, username):
                 clock = form[f'clock_{num}']
                 form[f'schedule_{num}'] = f"{schedule}_{clock}"
                 if form[f'schedule_{num}'] in handler_schedule or form[f'schedule_{num}'] == '_':
-                    form[f'schedule_{num}'] = ''
+                    form[f'schedule_{num}'] = None
                 else:
                     handler_schedule.append(form[f'schedule_{num}'])
                 form.pop(f'clock_{num}')
+
+                # Change mapel
+                form[f'mapel_{num}'] = form[f'mapel_{num}'] if form[f'mapel_{num}'] else None
 
             address = '{}, {}'.format(form['address'], form['city'])
 
@@ -57,6 +60,12 @@ def register_student_profile(request, username):
                     schedule_4=form['schedule_4'],
                     schedule_5=form['schedule_5'],
                     schedule_6=form['schedule_6'],
+                    mapel_1=form['mapel_1'],
+                    mapel_2=form['mapel_2'],
+                    mapel_3=form['mapel_3'],
+                    mapel_4=form['mapel_4'],
+                    mapel_5=form['mapel_5'],
+                    mapel_6=form['mapel_6'],
                     grade=form['grade'],
                     total_student=form['total_student'],
                     mode=form['mode']
@@ -68,6 +77,7 @@ def register_student_profile(request, username):
                         Schedule.objects.create(
                             user_student=student,
                             schedule=form[f'schedule_{num}'],
+                            mapel=form[f'mapel_{num}'],
                             location=address,
                             mode=form['mode']
                         )

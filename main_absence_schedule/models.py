@@ -19,6 +19,7 @@ class Schedule(models.Model):
     user_student = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='user_student')
     user_tentor = models.ForeignKey(Tentors, on_delete=models.CASCADE, related_name='user_tentor', blank=True, null=True)
     schedule = models.CharField(max_length=250, null=False)
+    mapel = models.CharField(max_length=250, null=False)
     location = models.CharField(max_length=250, null=False)
     mode = models.CharField(max_length=250, null=False)
     active = models.BooleanField(default=False, null=True)

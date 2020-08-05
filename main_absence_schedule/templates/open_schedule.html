@@ -31,7 +31,9 @@
                       <h4 id="schedule-h4-2">List of Student</h4>
                   {% endif %}
                       <p>Nama : {{ schedule.user_student }}</p>
+                      <p>Kelas : {{ schedule.user_student.grade }}</p>
                       <p>Jadwal : {{ schedule.schedule }}</p>
+                      <p>Mapel : {{ schedule.mapel }}</p>
                       <p>Lokasi : {{ schedule.location }}</p>
                       <p>Mode : {{ schedule.mode }}</p>
                       <div class="align-center">

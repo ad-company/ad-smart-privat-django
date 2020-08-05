@@ -22,17 +22,19 @@
                 {% for schedule in form.schedules_active %}
                   {% if forloop.counter|divisibleby:2 %}
                     <div
-                      class="col-md-12 col-sm-12 background-schedule-1 background-schedule-1"
+                      class="col-md-12 col-sm-12 background-schedule-1"
                       >
                       <h4 id="schedule-h4-1">List of Student</h4>
                   {% else %}
                     <div
-                      class="col-md-12 col-sm-12 background-schedule-1 background-schedule-2"
+                      class="col-md-12 col-sm-12 background-schedule-2"
                       >
                       <h4 id="schedule-h4-2">List of Student</h4>
                   {% endif %}
                       <p>Nama Murid: {{ schedule.user_student.name }}</p>
+                      <p>Kelas : {{ schedule.user_student.grade }}</p>
                       <p>Jadwal : {{ schedule.schedule }}</p>
+                      <p>Mapel : {{ schedule.mapel }}</p>
                       <p>Lokasi : {{ schedule.location }}</p>
                       <p>Mode : {{ schedule.mode }}</p>
                       <p>HP : {{ schedule.user_student.phone }}</p>
@@ -70,16 +72,17 @@
                   {% if schedule.user_tentor %}
                     {% if forloop.counter|divisibleby:2 %}
                       <div
-                        class="col-md-12 col-sm-12 background-schedule-1 background-schedule-1"
+                        class="col-md-12 col-sm-12 background-schedule-1"
                         >
                         <h4 id="schedule-h4-1">List of Schedule</h4>
                     {% else %}
                       <div
-                        class="col-md-12 col-sm-12 background-schedule-1 background-schedule-2"
+                        class="col-md-12 col-sm-12 background-schedule-2"
                         >
                         <h4 id="schedule-h4-2">List of Schedule</h4>
                     {% endif %}
                     <p>Jadwal : {{ schedule.schedule }}</p>
+                    <p>Mapel : {{ schedule.mapel }}</p>
                     <p>Mode : {{ schedule.mode }}</p>
                     <p>Nama Tentor : {{ schedule.user_tentor.name }}</p>
                     <p>HP : {{ schedule.user_tentor.phone }}</p>
@@ -94,6 +97,13 @@
                         </a>
                       </div>
                     </div>
+                  {% else %}
+                  <div
+                  class="col-md-12 col-sm-12 text-center schedule-none"
+                  >
+                    <h3>No schedule is handled by tentor yet.</h3>
+                    <h3>Please wait, while we search for the best tentor for you.</h3>
+                  </div>
                   {% endif %}
                 {% endfor %}
 
@@ -105,16 +115,17 @@
                 {% if not schedule.user_tentor %}
                   {% if forloop.counter|divisibleby:2 %}
                     <div
-                      class="col-md-4 col-sm-6 background-schedule-1 background-schedule-1"
+                      class="col-md-4 col-sm-6 background-schedule-1"
                       >
                       <h4 id="schedule-h4-1">List of Schedule</h4>
                   {% else %}
                     <div
-                      class="col-md-4 col-sm-6 background-schedule-1 background-schedule-2"
+                      class="col-md-4 col-sm-6 background-schedule-2"
                       >
                       <h4 id="schedule-h4-2">List of Schedule</h4>
                   {% endif %}
                     <p>Jadwal : {{ schedule.schedule }}</p>
+                    <p>Mapel : {{ schedule.mapel }}</p>
                     <p>Mode : {{ schedule.mode }}</p>
                     <p>Status : Menunggu validasi</p>
                   </div>

@@ -20,7 +20,7 @@ label {
     margin: 0px;
 }
 p {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 a {
     color: #4b8ce8;
@@ -237,6 +237,12 @@ button{
 
 .background-schedule-2 {
     background-color: #00ffff38;
+}
+
+.background-schedule-1 p,
+.background-schedule-2 p {
+    text-transform: capitalize;
+    max-width: 100%;
 }
 
 .border-absence-1 {

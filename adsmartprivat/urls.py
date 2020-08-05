@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
+from django.views.defaults import page_not_found
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,5 @@ urlpatterns = [
     path('', include('main_absence_schedule.urls')),
     path('tentor/', include('main_register_tentor.urls')),
     path('student/', include('main_register_student.urls')),
+    url(r'^404/$', page_not_found, {'exception': Exception()})
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

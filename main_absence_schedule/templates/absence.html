@@ -36,7 +36,9 @@
                 <h4 id="schedule-h4-2">List of Student</h4>
               {% endif %}
               <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
+              <p>Kelas : {{ schedule.schedule.user_student.grade }}</p>
               <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+              <p>Mapel : {{ schedule.schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.schedule.location }}</p>
               <p>Mode : {{ schedule.schedule.mode }}</p>
               <p>HP : {{ schedule.schedule.user_student.phone }}</p>
@@ -86,7 +88,9 @@
                 <h4 id="schedule-h4-2">List of Student</h4>
               {% endif %}
               <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
+              <p>Kelas : {{ schedule.schedule.user_student.grade }}</p>
               <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+              <p>Mapel : {{ schedule.schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.schedule.location }}</p>
               <p>Mode : {{ schedule.schedule.mode }}</p>
               <p>HP : {{ schedule.schedule.user_student.phone }}</p>
@@ -118,7 +122,9 @@
                 <h4 id="schedule-h4-2">List of Student</h4>
               {% endif %}
               <p>Nama Murid : {{ schedule.user_student.name }}</p>
+              <p>Kelas : {{ schedule.user_student.grade }}</p>
               <p>Jadwal : {{ schedule.schedule }}</p>
+              <p>Mapel : {{ schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.location }}</p>
               <p>Mode : {{ schedule.mode }}</p>
               <p>HP : {{ schedule.user_student.phone }}</p>
@@ -173,6 +179,7 @@
                 {% endif %}
                 <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
                 <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+                <p>Mapel : {{ schedule.schedule.mapel }}</p>
                 <p>Mode : {{ schedule.schedule.mode }}</p>
                 <p>HP : {{ schedule.schedule.user_tentor.phone }}</p>
                 <div class="text-center">
@@ -215,6 +222,7 @@
                 {% endif %}
                 <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
                 <p>Jadwal : {{ schedule.schedule.schedule }}</p>
+                <p>Mapel : {{ schedule.schedule.mapel }}</p>
                 <p>Mode : {{ schedule.schedule.mode }}</p>
                 <p>HP : {{ schedule.schedule.user_tentor.phone }}</p>
                 <div class="text-center">
@@ -246,6 +254,7 @@
                 {% endif %}
                 <p>Nama Tentor : {{ schedule.user_tentor.name }}</p>
                 <p>Jadwal : {{ schedule.schedule }}</p>
+                <p>Mapel : {{ schedule.mapel }}</p>
                 <p>Mode : {{ schedule.mode }}</p>
                 <p>HP : {{ schedule.user_tentor.phone }}</p>
                 <div class="text-center">

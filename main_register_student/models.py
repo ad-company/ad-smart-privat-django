@@ -47,11 +47,17 @@ class Students(models.Model):
     id_pic = models.ImageField('img', upload_to=photo_id, default='uploads/user-no-image.png')
     profile_pic = models.ImageField('img', upload_to=photo_profile)
     schedule_1 = models.CharField(max_length=20, null=False)
-    schedule_2 = models.CharField(max_length=20)
-    schedule_3 = models.CharField(max_length=20)
-    schedule_4 = models.CharField(max_length=20)
-    schedule_5 = models.CharField(max_length=20)
-    schedule_6 = models.CharField(max_length=20)
+    schedule_2 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    schedule_3 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    schedule_4 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    schedule_5 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    schedule_6 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    mapel_1 = models.CharField(max_length=20, null=False)
+    mapel_2 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    mapel_3 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    mapel_4 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    mapel_5 = models.CharField(max_length=20, null=True, blank=False, default=None)
+    mapel_6 = models.CharField(max_length=20, null=True, blank=False, default=None)
     grade = models.CharField(
         max_length=3,
         choices=GRADE,
