@@ -13,13 +13,13 @@ GENDER = [
 def photo_id(instance, filename):
     return 'uploads/tentor/id/id_{}_{}.jpg'.format(
         instance.user.id,
-        instance.user.username
+        instance.user.username.replace(' ', '_')
     )
 
 def photo_profile(instance, filename):
     return 'uploads/tentor/profile/profile_{}_{}.jpg'.format(
         instance.user.id,
-        instance.user.username
+        instance.user.username.replace(' ', '_')
     )
 
 class Bank(models.Model):

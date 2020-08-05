@@ -28,13 +28,13 @@ GENDER = [
 def photo_id(instance, filename):
     return 'uploads/student/id/id_{}_{}.jpg'.format(
         instance.user.id,
-        instance.user.username
+        instance.user.username.replace(' ', '_')
     )
 
 def photo_profile(instance, filename):
     return 'uploads/student/profile/profile_{}_{}.jpg'.format(
         instance.user.id,
-        instance.user.username
+        instance.user.username.replace(' ', '_')
     )
 
 class Students(models.Model):
