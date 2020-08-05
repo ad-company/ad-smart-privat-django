@@ -29,11 +29,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0']
 
-if not DEBUG:
-    ALLOWED_HOSTS = [
-        'adsmartprivat.herokuapp.com',
-        'www.adsmartprivat.herokuapp.com'
-    ]
+# if not DEBUG:
+ALLOWED_HOSTS = [
+    'adsmartprivat.herokuapp.com',
+    'www.adsmartprivat.herokuapp.com'
+]
 
 
 
