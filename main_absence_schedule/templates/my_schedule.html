@@ -53,6 +53,7 @@
               {% endif %}
             </div>
           </div>
+
           {% elif form.user_type == 'student' %}
           <h2>My Schedule</h2>
           <div class="container">
@@ -97,13 +98,6 @@
                         </a>
                       </div>
                     </div>
-                  {% else %}
-                  <div
-                  class="col-md-12 col-sm-12 text-center schedule-none"
-                  >
-                    <h3>No schedule is handled by tentor yet.</h3>
-                    <h3>Please wait, while we search for the best tentor for you.</h3>
-                  </div>
                   {% endif %}
                 {% endfor %}
 
@@ -135,6 +129,7 @@
               {% endif %}
             </div>
           </div>
+
           {% else %}
           {% endif %}
         </form>
