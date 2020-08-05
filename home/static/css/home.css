@@ -130,6 +130,10 @@ button{
 
 /* Other Style */
 /* Custom */
+.ftco-navbar-light .navbar-toggler {
+    background-color: transparent !important;
+}
+
 .section-row {
     padding: 30px;
 }
