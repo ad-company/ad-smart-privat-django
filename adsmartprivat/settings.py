@@ -24,8 +24,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'rfykm3pwi6n#&r2l#qxv)=z3%j_4$y@8f-dnn#1d0+l_m2xc7m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = False
+DEBUG = True
+# DEBUG = False
+
+ALLOWED_HOSTS = ['0.0.0.0']
 
 if not DEBUG:
     ALLOWED_HOSTS = [
@@ -33,8 +35,6 @@ if not DEBUG:
         'www.adsmartprivat.herokuapp.com'
     ]
 
-elif DEBUG:
-    ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
@@ -161,28 +161,27 @@ USE_TZ = True
 # Sackoverview docs : https://stackoverflow.com/questions/5517950/django-media-url-and-media-root
 PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
 STATIC_URL = '/static/' ## endpoint direct to static example: 0.0.0.0:3000/static/css/home.css
+
+## for manage.py collecstatic
+## When in server and DEBUG=FALSE, set this collectstatic first (in empty folder)
+STATIC_ROOT  =   os.path.join(BASE_DIR, 'static')
+
+# Extra lookup directories for collectstatic to find static files
+## This function is to DEBUG=TRUE (get static source dev)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'home/static'),
+)
 if not DEBUG:
     ## for manage.py collecstatic
     ## When in server and DEBUG=FALSE, set this collectstatic first (in empty folder)
     ## should set /path/to/collectstatic/generated/static
-    STATIC_ROOT  =   os.path.join(BASE_DIR, 'media/static')
+    STATIC_ROOT  =   os.path.join(BASE_DIR, 'static')
 
     # Extra lookup directories for collectstatic to find static files
     ## This function is to DEBUG=TRUE (get static source dev)
     ## should set /path/to/source/of/static
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, "home/static"),
-    )
-
-elif DEBUG:
-    ## for manage.py collecstatic
-    ## When in server and DEBUG=FALSE, set this collectstatic first (in empty folder)
-    STATIC_ROOT  =   os.path.join(BASE_DIR, 'media/static')
-
-    # Extra lookup directories for collectstatic to find static files
-    ## This function is to DEBUG=TRUE (get static source dev)
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'home/static'),
     )
 
 MEDIA_URL = '/media/' ## endpoint direct to upload file example: 0.0.0.0:3000/media/uploads/...
@@ -219,7 +218,7 @@ SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 # or
 DCS_SESSION_COOKIE_SAMESITE_FORCE_ALL = True
 
-if not DEBUG:
+if ALLOWED_HOSTS[0] != '0.0.0.0':
     # SSL
     # PREPEND_WWW = True
     BASE_URL = "https://adsmartprivat.herokuapp.com"
