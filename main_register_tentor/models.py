@@ -44,7 +44,7 @@ class Tentors(models.Model):
     account_name = models.CharField(max_length=250, null=False)
     account_id = models.CharField(max_length=20, null=False)
     bank = models.ForeignKey(Bank, on_delete=models.CASCADE)
-    bank_other = models.CharField(max_length=20, default='')
+    bank_other = models.CharField(max_length=20, null=True, blank=True, default=None)
     university = models.CharField(max_length=150, null=False)
     major = models.CharField(max_length=100, null=False)
     number_id = models.CharField(max_length=100, null=False, default='00')

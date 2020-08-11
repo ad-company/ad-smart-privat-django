@@ -65,12 +65,15 @@ def register_user(request, user_type=None):
                         messages.error(request, 'Email is used, please try again.')
                         raise Exception("Sorry, email is used.")
                     else:
-                        User.objects.create_user(
-                            username=_user,
-                            password=_pass,
-                            email=_email,
-                            is_staff=is_staff
-                        )
+                        try:
+                            User.objects.create_user(
+                                username=_user,
+                                password=_pass,
+                                email=_email,
+                                is_staff=is_staff
+                            )
+                        except Exception:
+                            messages.error(request, 'Username is used, please try again.')
                 else:
                     messages.error(request, 'Username or password is wrong, please try again.')
                     raise Exception("Sorry, password not match with requirements.")
