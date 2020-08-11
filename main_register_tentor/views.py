@@ -32,6 +32,11 @@ def register_tentor_profile(request, username):
             address = '{}, {}'.format(form['address'], form['city'])
             bank = Bank.objects.filter(bank_name=form['bank']).first()
 
+            # Format phone delete '+' & replace to 62
+            form['phone'].replace('+', '')
+            if form['phone'][0] == '0':
+                form['phone'] = '62{}'.format(form['phone'][1:])
+
             # Register profile
             try:
                 Tentors.objects.create(
@@ -46,8 +51,8 @@ def register_tentor_profile(request, username):
                     bank_other=form['bank_other'],
                     university=form['university'],
                     major=form['major'],
-                    number_id=form['number_id'],
-                    id_pic=request.FILES['id_pic'],
+                    # number_id=form['number_id'],
+                    # id_pic=request.FILES['id_pic'],
                 )
 
                 messages.success(request, 'Profile completed! We will contact you soon!')

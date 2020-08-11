@@ -28,7 +28,7 @@
   </p>
   <p>
     <label for="id_phone">Phone (Whatsappp preferable):</label>
-    <input type="number" name="phone" maxlength="14" required="" id="id_phone" required/>
+    <input type="number" name="phone" maxlength="14" id="id_phone" placeholder="081XXXXXXXXX"  required/>
   </p>
   <div class="container">
     <div class="row">
@@ -120,7 +120,7 @@
       id="id_major"
     />
   </p>
-  <p>
+  <!-- <p>
     <label for="id_number_id">ID Number (from ID Card):</label>
     <input
       type="text"
@@ -133,7 +133,7 @@
   <p>
     <label for="id_id_pic">ID Card (KTP/SIM/KTM): (Format SHOULD .jpg)</label>
     <input id="id_id_pic" type="file" name="id_pic" required>
-  </p>
+  </p> -->
   <script type="text/javascript">
     document.getElementById('id_name').value = "{{ form.name }}";
     document.getElementById('id_phone').value = "{{ form.phone }}";

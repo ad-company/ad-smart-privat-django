@@ -43,6 +43,11 @@ def register_student_profile(request, username):
 
             address = '{}, {}'.format(form['address'], form['city'])
 
+            # Format phone delete '+' & replace to 62
+            form['phone'].replace('+', '')
+            if form['phone'][0] == '0':
+                form['phone'] = '62{}'.format(form['phone'][1:])
+
             # Register profile
             try:
                 student = Students.objects.create(
@@ -52,7 +57,6 @@ def register_student_profile(request, username):
                     parent_name=form['parent_name'].title(),
                     address=address,
                     phone=form['phone'],
-                    id_pic=request.FILES['id_pic'],
                     school=form['school'],
                     schedule_1=form['schedule_1'],
                     schedule_2=form['schedule_2'],
@@ -68,7 +72,9 @@ def register_student_profile(request, username):
                     mapel_6=form['mapel_6'],
                     grade=form['grade'],
                     total_student=form['total_student'],
-                    mode=form['mode']
+                    mode=form['mode'],
+                    # number_id=form['number_id'],
+                    # id_pic=request.FILES['id_pic'],
                 )
 
                 # Generate Schedule intiate

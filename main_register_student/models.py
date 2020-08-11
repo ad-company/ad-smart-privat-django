@@ -45,7 +45,7 @@ class Students(models.Model):
     address = models.CharField(max_length=250, null=False)
     phone = models.CharField(max_length=14, null=False)
     id_pic = models.ImageField('img', upload_to=photo_id, default='uploads/user-no-image.png')
-    profile_pic = models.ImageField('img', upload_to=photo_profile)
+    profile_pic = models.ImageField('img', upload_to=photo_profile, default='uploads/user-no-image.png')
     schedule_1 = models.CharField(max_length=20, null=False)
     schedule_2 = models.CharField(max_length=20, null=True, blank=False, default=None)
     schedule_3 = models.CharField(max_length=20, null=True, blank=False, default=None)
