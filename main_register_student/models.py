@@ -21,12 +21,12 @@ GRADE = [
     ('SD 4', 'SD 4'),
     ('SD 5', 'SD 5'),
     ('SD 6', 'SD 6'),
-    ('SMP 1', 'SMP 1'),
-    ('SMP 2', 'SMP 2'),
-    ('SMP 3', 'SMP 3'),
-    ('SMA 1', 'SMA 1'),
-    ('SMA 2', 'SMA 2'),
-    ('SMA 3', 'SMA 3'),
+    ('SMP 7', 'SMP 7'),
+    ('SMP 8', 'SMP 8'),
+    ('SMP 9', 'SMP 9'),
+    ('SMA 10', 'SMA 10'),
+    ('SMA 11', 'SMA 11'),
+    ('SMA 12', 'SMA 12'),
 ]
 
 GENDER = [
