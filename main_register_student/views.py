@@ -16,11 +16,11 @@ from home.decorators import check_recaptcha, profile_availability
 @check_recaptcha
 @log_track
 def register_student_profile(request, username):
-    form = request.POST.copy()
+    form = {}
     if request.method == "POST":
+        form = request.POST.copy()
         if request.recaptcha_is_valid:
             # Prepare user profile
-            form = request.POST.copy()
             username = re.compile(r"b'(.*)'").findall(username)
             form['user'] = User.objects.filter(
                 username=base64.b64decode(username[0]).decode("utf-8").replace('_secure', '')
@@ -77,26 +77,26 @@ def register_student_profile(request, username):
                     # id_pic=request.FILES['id_pic'],
                 )
 
-                # Generate Schedule intiate
-                for num in range(1, 7):
-                    if form[f'schedule_{num}']:
-                        Schedule.objects.create(
-                            user_student=student,
-                            schedule=form[f'schedule_{num}'],
-                            mapel=form[f'mapel_{num}'],
-                            location=address,
-                            mode=form['mode']
-                        )
-                
-                messages.success(request, 'Profile completed! Our tentor will contact you soon. Get ready!!')
-                return redirect('profile_page')  # call with name from url 'profile_page'
+                try:
+                    # Generate Schedule intiate
+                    for num in range(1, 7):
+                        if form[f'schedule_{num}']:
+                            Schedule.objects.create(
+                                user_student=student,
+                                schedule=form[f'schedule_{num}'],
+                                mapel=form[f'mapel_{num}'],
+                                location=address,
+                                mode=form['mode']
+                            )
+                    
+                    messages.success(request, 'Profile completed! Our tentor will contact you soon. Get ready!!')
+                    return redirect('profile_page')  # call with name from url 'profile_page'
+                except Exception:
+                    messages.error(request, 'Schedule failed to create. Please call administration.')
             except Exception:
+                messages.error(request, 'Profile failed to create. Please try again or call administration.')
                 form['list'] = list(form.keys())
-
-        else:
-            form['list'] = list(form.keys())
-
-    form = {}
+    
     form['user_type'] = 'Student'
     form['range'] = range(1, 7)  # Range for loop schedule
     return render(request, 'student_profile.html',{'form': form })

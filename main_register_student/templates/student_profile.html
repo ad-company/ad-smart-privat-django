@@ -171,6 +171,20 @@
             </select>
           </p>
         </div>
+        <!-- <p>
+          <label for="id_mode_{{ num }}">Mode:</label>
+          <select
+            name="mode_{{ num }}" id="id_mode_{{ num }}"
+            {% if num == 1 %}
+              required
+            {% endif %}
+          >
+            <option value="" selected>-</option>
+            <option value="online (remote)">Remote</option>
+            <option value="offline">Offline</option>
+            <option value="both">Both</option>
+          </select>
+        </p> -->
       {% endfor %}
     </div>
   </div>
@@ -180,9 +194,18 @@
     <label for="id_grade">Grade:</label>
     <select name="grade" id="id_grade" required>
       <option value="">-</option>
-      <option value="SD">SD</option>
-      <option value="SMP">SMP</option>
-      <option value="SMA">SMA</option>
+      <option value="SD 1">SD 1</option>
+      <option value="SD 2">SD 2</option>
+      <option value="SD 3">SD 3</option>
+      <option value="SD 4">SD 4</option>
+      <option value="SD 5">SD 5</option>
+      <option value="SD 6">SD 6</option>
+      <option value="SMP 7">SMP 7</option>
+      <option value="SMP 8">SMP 8</option>
+      <option value="SMP 9">SMP 9</option>
+      <option value="SMA 10">SMA 10</option>
+      <option value="SMA 11">SMA 11</option>
+      <option value="SMA 12">SMA 12</option>
     </select>
   </p>
   <p>
@@ -202,7 +225,7 @@
       required
     >
       <option value="" selected>-</option>
-      <option value="remote">Remote</option>
+      <option value="online (remote)">Online (Remote)</option>
       <option value="offline">Offline</option>
       <option value="both">Both</option>
     </select>

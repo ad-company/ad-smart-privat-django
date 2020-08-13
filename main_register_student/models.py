@@ -15,9 +15,18 @@ DAYS = [
 ]
 
 GRADE = [
-    ('SD', 'SD'),
-    ('SMP', 'SMP'),
-    ('SMA', 'SMA')
+    ('SD 1', 'SD 1'),
+    ('SD 2', 'SD 2'),
+    ('SD 3', 'SD 3'),
+    ('SD 4', 'SD 4'),
+    ('SD 5', 'SD 5'),
+    ('SD 6', 'SD 6'),
+    ('SMP 1', 'SMP 1'),
+    ('SMP 2', 'SMP 2'),
+    ('SMP 3', 'SMP 3'),
+    ('SMA 1', 'SMA 1'),
+    ('SMA 2', 'SMA 2'),
+    ('SMA 3', 'SMA 3'),
 ]
 
 GENDER = [
@@ -44,6 +53,7 @@ class Students(models.Model):
     parent_name = models.CharField(max_length=250, null=False)
     address = models.CharField(max_length=250, null=False)
     phone = models.CharField(max_length=14, null=False)
+    #number_id = models.CharField(max_length=100, null=True, blank=True, default='00')
     id_pic = models.ImageField('img', null=True, blank=True, upload_to=photo_id, default='uploads/user-no-image.png')
     profile_pic = models.ImageField('img', null=True, blank=True, upload_to=photo_profile, default='uploads/user-no-image.png')
     schedule_1 = models.CharField(max_length=20, null=False)
@@ -59,7 +69,7 @@ class Students(models.Model):
     mapel_5 = models.CharField(max_length=20, null=True, blank=True, default=None)
     mapel_6 = models.CharField(max_length=20, null=True, blank=True, default=None)
     grade = models.CharField(
-        max_length=3,
+        max_length=10,
         choices=GRADE,
         null=False,
         default=""

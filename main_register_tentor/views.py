@@ -17,13 +17,12 @@ from home.decorators import check_recaptcha, profile_availability
 @check_recaptcha
 @log_track
 def register_tentor_profile(request, username):
-    form = request.POST.copy()
-    banks = Bank.objects.all()
-
+    form = {}
+    
     if request.method == "POST":
+        form = request.POST.copy()
         if request.recaptcha_is_valid:
             # Prepare user profile
-            form = request.POST.copy()
             username = re.compile(r"b'(.*)'").findall(username)
             form['user'] = User.objects.filter(
                 username=base64.b64decode(username[0]).decode("utf-8").replace('_secure', '')
@@ -58,14 +57,11 @@ def register_tentor_profile(request, username):
                 messages.success(request, 'Profile completed! We will contact you soon!')
                 return redirect('profile_page')  # call with name from url 'profile_page'
             except Exception:
+                messages.error(request, 'Profile failed to create. Please try again or call administration.')
                 form['list'] = list(form.keys())
 
-        else:
-            form['list'] = list(form.keys())
-
-    form = {}
     form['user_type'] = 'Tentor'
-    form['banks'] = banks
+    form['banks'] = Bank.objects.all()
     return render(request, 'tentor_profile.html',{'form': form })
 
 @profile_availability

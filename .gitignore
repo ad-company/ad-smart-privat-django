@@ -108,6 +108,9 @@ venv.bak/
 .DS_Store
 .fuse_*
 
+# Credentials
+credentials*
+
 # Migrations
 home/migrations/*
 !home/migrations/__init__.py
