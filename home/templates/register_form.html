@@ -22,7 +22,7 @@
     maxlength="250"
     required=""
     id="id_username"
-    onchange="addListenerUsername()"
+    onchange="addListener()"
   >
     <p id="result-username"></p>
   </p>
@@ -34,7 +34,7 @@
     maxlength="250"
     required=""
     id="id_password"
-    onchange="addListenerPassword()"
+    onchange="addListener()"
   >
     <p id="result-password"></p>
   </p>
@@ -43,27 +43,32 @@
     <input type="email" name="email" maxlength="250" required="" id="id_email" required>
   </p>
   <script type="text/javascript">
-    function addListenerUsername(){
+    function addListener(){
       const users = '{{ form.users }}';
       let username = document.getElementById("id_username").value;
+      let password = document.getElementById("id_password").value;
+
       if (username.length < 8) {
         document.getElementById("result-username").innerHTML = `Username should reach minimum 8 characters: ${username}`;
+        document.getElementById('submit').disabled = true;
       } else if (users.includes(username)){
         document.getElementById("result-username").innerHTML = `Username already in use: ${username}`;
+        document.getElementById('submit').disabled = true;
       } else {
-        document.getElementById("result-username").innerHTML = `You can use this username: ${username}`;
-      };
-    };
 
-    function addListenerPassword(){
-      let password = document.getElementById("id_password").value;
-      if (password.length < 8) {
-        document.getElementById("result-password").innerHTML = `Password should reach minimum 8 characters`;
-      } else if (!password.match(/[0-9]/g)) {
-        document.getElementById("result-password").innerHTML = `Password should combination with number`;
-      } else {
-        document.getElementById("result-password").innerHTML = `Nice password!`;
-      }
+        document.getElementById("result-username").innerHTML = `You can use this username: ${username}`;
+        if (password.length < 8) {
+          document.getElementById("result-password").innerHTML = `Password should reach minimum 8 characters`;
+          document.getElementById('submit').disabled = true;
+        } else if (!password.match(/[0-9]/g)) {
+          document.getElementById("result-password").innerHTML = `Password should combination with number`;
+          document.getElementById('submit').disabled = true;
+        } else {
+          document.getElementById("result-password").innerHTML = `Nice password!`;
+          document.getElementById('submit').disabled = false;
+        }
+
+      };
     };
 
     document.getElementById('id_username').value = "{{ form.username }}";

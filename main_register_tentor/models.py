@@ -9,6 +9,26 @@ GENDER = [
     ('f', 'Female')
 ]
 
+MODE = [
+    ('online (remote)', 'Online'),
+    ('offline', 'Offline')
+]
+
+# Note : (+) means group per +1 student
+FEE_TYPE = [
+    ('SD 1-5', 'SD 1-5'),
+    ('SD 1-5+', 'SD 1-5+'),
+    ('SD 6', 'SD 6'),
+    ('SD 6+', 'SD 6+'),
+    ('SMP 7-8', 'SMP 7-8'),
+    ('SMP 7-8+', 'SMP 7-8+'),
+    ('SMP 9', 'SMP 9'),
+    ('SMP 9+', 'SMP 9+'),
+    ('SMA 10-11', 'SMA 10-11'),
+    ('SMA 10-11+', 'SMA 10-11+'),
+    ('SMA 12', 'SMA 12'),
+    ('SMA 12+', 'SMA 12+'),
+]
 
 def photo_id(instance, filename):
     return 'uploads/tentor/id/id_{}_{}.jpg'.format(
@@ -33,6 +53,19 @@ class Bank(models.Model):
 
     class Meta:
         verbose_name_plural = 'Bank'
+
+class Fee(models.Model):
+    name = models.CharField(max_length=250, choices=FEE_TYPE, null=False, blank=False)
+    mode = models.CharField(max_length=250, choices=MODE, null=False, blank=False)
+    price = models.IntegerField(null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Fee'
 
 
 class Tentors(models.Model):

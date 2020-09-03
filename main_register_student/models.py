@@ -34,6 +34,35 @@ GENDER = [
     ('f', 'Female')
 ]
 
+MODE = [
+    ('online (remote)', 'Online (remote)'),
+    ('offline', 'Offline')
+]
+
+PRICE_TYPE = [
+    ('SD 1-5', 'SD 1-5'),
+    ('SD 6', 'SD 6'),
+    ('SMP 7-8', 'SMP 7-8'),
+    ('SMP 9', 'SMP 9'),
+    ('SMA 10-11', 'SMA 10-11'),
+    ('SMA 12', 'SMA 12'),
+]
+
+MONTH = [
+    ('January', 'January'),
+    ('February', 'February'),
+    ('March', 'March'),
+    ('April', 'April'),
+    ('May', 'May'),
+    ('June', 'June'),
+    ('July', 'July'),
+    ('August', 'August'),
+    ('September', 'September'),
+    ('October', 'October'),
+    ('November', 'November'),
+    ('December', 'December')
+]
+
 def photo_id(instance, filename):
     return 'uploads/student/id/id_{}_{}.jpg'.format(
         instance.user.id,
@@ -45,6 +74,33 @@ def photo_profile(instance, filename):
         instance.user.id,
         instance.user.username.replace(' ', '_')
     )
+
+class Paid(models.Model):
+    user = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE)
+    month = models.CharField(max_length=250, choices=MONTH, null=False, blank=False)
+    year = models.IntegerField(null=False, blank=False)
+    paid = models.BooleanField(null=False, default=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.user
+
+    class Meta:
+        verbose_name_plural = 'Paid'
+
+class Price(models.Model):
+    name = models.CharField(max_length=250, choices=PRICE_TYPE, null=False, blank=False)
+    mode = models.CharField(max_length=250, choices=MODE, null=False, blank=False)
+    price = models.IntegerField(null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Price'
 
 class Students(models.Model):
     user = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE)

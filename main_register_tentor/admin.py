@@ -1,8 +1,19 @@
 from django.contrib import admin
 from .models import (
     Tentors,
-    Bank
+    Bank,
+    Fee,
 )
+
+class FeeAdmin(admin.ModelAdmin):
+    """
+    Simple, read-only list/search view of CertificateId Admin.
+    """
+    list_display = [
+        'name',
+        'mode',
+        'price',
+    ]
 
 class BankAdmin(admin.ModelAdmin):
     """
@@ -14,7 +25,26 @@ class BankAdmin(admin.ModelAdmin):
         'updated_at',
     ]
 
-list_admin = [ Tentors ]
+class TentorsAdmin(admin.ModelAdmin):
+    """
+    Simple, read-only list/search view of CertificateId Admin.
+    """
+    list_display = [
+        'user',
+        'name',
+        'phone',
+        'account_name',
+        'account_id',
+        'bank',
+        'bank_other',
+        'university',
+        'major',
+        'status',
+    ]
+
+list_admin = []
 
 admin.site.register(list_admin)
+admin.site.register(Fee, FeeAdmin)
 admin.site.register(Bank, BankAdmin)
+admin.site.register(Tentors, TentorsAdmin)

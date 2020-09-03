@@ -29,6 +29,37 @@ def validate_pass(request, password):
     else:
         return True
 
+def reset_password(request):
+    if request.method == "POST":
+        try:
+
+            # Check if it's username or email
+            try:
+                users = User.objects.get(
+                    username=request.POST['username_email'],
+                )
+            except User.DoesNotExist:
+                users = User.objects.get(
+                    email=request.POST['username_email'],
+                )
+
+            try:
+                users.set_password(request.POST['password'])
+                users.save()
+                messages.success(request, 'Password change completed, please login again')
+                return redirect('/')
+
+            except Exception:
+                messages.error(request, 'Password failed to change, please try again.')
+                return render(request, 'reset-password.html')
+
+        except User.DoesNotExist:
+            messages.error(request, 'Username / email does not exist, please try again.')
+            return render(request, 'reset-password.html')
+
+    return render(request, 'reset-password.html')
+
+
 @check_recaptcha
 @log_track
 def register_user(request, user_type=None):
@@ -74,6 +105,7 @@ def register_user(request, user_type=None):
                             )
                         except Exception:
                             messages.error(request, 'Username is used, please try again.')
+                            raise Exception("Sorry, password not match with requirements.")
                 else:
                     messages.error(request, 'Username or password is wrong, please try again.')
                     raise Exception("Sorry, password not match with requirements.")
@@ -139,6 +171,30 @@ def profile_page(request):
         profile.gender = 'Female'
 
     return render(request, 'profile.html', {'profile': profile})
+
+@login_required
+@profile_availability
+@log_track
+def about_page(request):
+    about = {}
+    try:
+        user = User.objects.filter(username=request.user).first()
+
+        if user.is_staff == False:  # Student
+            about['user_type'] = 'student'
+
+        else:
+            if user.is_superuser == False:  # Tentor
+                about['user_type'] = 'tentor'
+
+            else:  # SuperUser
+                about['user_type'] = 'superuser'
+                return render(request, 'about.html', {'about': about})
+
+    except KeyError:
+        pass
+
+    return render(request, 'about.html', {'about': about})
 
 # def porto_get(request, porto_id):
 #     return render(request, 'stuff.html',{'Porto': Porto.objects.get(pk=porto_id) })

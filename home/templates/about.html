@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center pb-5">
+    <div class="col-md-12 heading-section text-center ftco-animate">
+      <h2>About</h2>
+      <h3 class="mb-4 subheading">A & D Smart Privat</h3>
+      <p class="ftco-animate">A & D Smart Privat is a branch company that developed under A&D Company Co. Our vision is <strong>"Keep Forward with Technology"</strong>. We believe with this vision, we can have good community for Indonesian's future, especially in educational sector. With this spirit, We can digitize education with 4.0 culture and conquer new educational world.</p>
+      <p class="ftco-animate"><strong>Keep Forward with Technology</strong><br/><strong>~ A & D Smart Privat ~</strong></p>
+    </div>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-6 col-sm-12 animate-box">
+      <img src="{% static 'images/property/logo-company.jpg' %}" class="ftco-animate" width="100%" height="auto">
+      <h2 class="mb-4 ftco-animate">Company</h2>
+    </div>
+    <div class="col-md-6 col-sm-12 animate-box">
+      <img src="{% static 'images/property/logo-privat.jpg' %}" class="ftco-animate" width="100%" height="auto">
+      <h2 class="mb-4 ftco-animate">Branch</h2>
+    </div>
+    {% if about.user_type == 'tentor' %}
+    <div class="col-md-12 col-sm-12 animate-box">
+      <img src="{% static 'images/property/fee-tentor.jpg' %}" class="ftco-animate" width="100%" height="auto">
+      <h2 class="mb-4 ftco-animate">Fee calculation monthly</h2>
+    </div>
+    {% elif about.user_type == 'student' %}
+    <div class="col-md-12 col-sm-12 animate-box">
+      <img src="{% static 'images/property/price-student.jpg' %}" class="ftco-animate" width="100%" height="auto">
+      <h2 class="mb-4 ftco-animate">Price calculation monthly</h2>
+    </div>
+    {% else %}
+    <div class="col-md-12 col-sm-12 animate-box">
+      <img src="{% static 'images/property/fee-tentor.jpg' %}" class="ftco-animate" width="100%" height="auto">
+      <h2 class="mb-4 ftco-animate">Fee calculation monthly</h2>
+    </div>
+    <div class="col-md-12 col-sm-12 animate-box">
+      <img src="{% static 'images/property/price-student.jpg' %}" class="ftco-animate" width="100%" height="auto">
+      <h2 class="mb-4 ftco-animate">Price calculation monthly</h2>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

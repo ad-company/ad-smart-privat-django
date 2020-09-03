@@ -235,6 +235,18 @@ button{
     height: 204px;
 }
 
+.today-absence {
+    background-color: #24384985;
+}
+
+.past-absence-h2 {
+    margin-top: 8%;
+}
+
+.past-absence {
+    background-color: #3459436b;
+}
+
 .schedule-row {
     margin-bottom: 5%;
 }
