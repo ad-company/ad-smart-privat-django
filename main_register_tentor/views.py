@@ -103,96 +103,96 @@ def fee_page(request):
     price_sma_up = ['SMA 12']
 
     # Tentor need
-    if user_type == 'tentor':
-        tentor = Tentors.objects.get(pk=user.id)
-        form['user_tentor'] = tentor
-        # Absence filter
-        form['list_absence'] = Absence.objects.filter(user_tentor=tentor, created_at__range=[year_min, year_max]) # Get all list of absence this year
+    tentor = Tentors.objects.get(pk=user.id)
+    form['user_tentor'] = tentor
+    # Absence filter
+    form['list_absence'] = Absence.objects.filter(user_tentor=tentor, created_at__range=[year_min, year_max]) # Get all list of absence this year
 
-        # Total monthly SD - SMA
-        for month in form['list_months']: 
-            form[f'count_absence_{month}_SD_1_5'] = 0
-            form[f'count_absence_{month}_SD_6'] = 0
-            form[f'count_absence_{month}_SMP_7_8'] = 0
-            form[f'count_absence_{month}_SMP_9'] = 0
-            form[f'count_absence_{month}_SMA_10_11'] = 0
-            form[f'count_absence_{month}_SMA_12'] = 0
-            form[f'total_fee_{month}'] = 0
+    # Total monthly SD - SMA
+    for month in form['list_months']: 
+        form[f'count_absence_{month}_SD_1_5'] = 0
+        form[f'count_absence_{month}_SD_6'] = 0
+        form[f'count_absence_{month}_SMP_7_8'] = 0
+        form[f'count_absence_{month}_SMP_9'] = 0
+        form[f'count_absence_{month}_SMA_10_11'] = 0
+        form[f'count_absence_{month}_SMA_12'] = 0
+        form[f'total_fee_{month}'] = 0
 
-        for data in form['list_absence']:
-            # Price type
-            if data.user_student.grade in price_sd:
-                name = 'SD 1-5'
-            elif data.user_student.grade in price_sd_up:
-                name = 'SD 6'
-            elif data.user_student.grade in price_smp:
-                name = 'SMP 7-8'
-            elif data.user_student.grade in price_smp_up:
-                name = 'SMP 9'
-            elif data.user_student.grade in price_sma:
-                name = 'SMA 10-11'
-            elif data.user_student.grade in price_sma_up:
-                name = 'SMA 12'
-            else:
-                name = None
+    for data in form['list_absence']:
+        # Price type
+        if data.grade in price_sd:
+            name = 'SD 1-5'
+        elif data.grade in price_sd_up:
+            name = 'SD 6'
+        elif data.grade in price_smp:
+            name = 'SMP 7-8'
+        elif data.grade in price_smp_up:
+            name = 'SMP 9'
+        elif data.grade in price_sma:
+            name = 'SMA 10-11'
+        elif data.grade in price_sma_up:
+            name = 'SMA 12'
+        else:
+            name = None
 
-            # Fee mode
-            if data.schedule.mode == 'offline' or data.schedule.mode == 'both':  # price of both is same as offline
-                mode = 'offline'
-            else:
-                mode = 'online (remote)'  # online (remote)
+        # Fee mode
+        if data.mode == 'offline' or data.mode == 'both':  # price of both is same as offline
+            mode = 'offline'
+        else:
+            mode = 'online (remote)'  # online (remote)
 
-            # Fee normal
-            form['fee'] = Fee.objects.get(name=name, mode=mode).price
+        # Fee normal
+        form['fee'] = Fee.objects.get(name=name, mode=mode).price
 
-            # Fee Additional Individu
-            name_addition = name + '+'
-            if int(data.user_student.total_student) == 1:
-                addition = 0
-            # Fee Additional group
-            elif int(data.user_student.total_student) == 2:
-                addition = Fee.objects.get(name=name_addition, mode=mode).price
-            elif int(data.user_student.total_student) == 3:
-                addition = Fee.objects.get(name=name_addition, mode=mode).price * 2
-            elif int(data.user_student.total_student) == 4:
-                addition = Fee.objects.get(name=name_addition, mode=mode).price * 3
-            else:
-                addition = 0
+        # Fee Additional Individu
+        name_addition = name + '+'
+        if int(data.total_student) == 1:
+            addition = 0
+        # Fee Additional group
+        elif int(data.total_student) == 2:
+            addition = Fee.objects.get(name=name_addition, mode=mode).price
+        elif int(data.total_student) == 3:
+            addition = Fee.objects.get(name=name_addition, mode=mode).price * 2
+        elif int(data.total_student) == 4:
+            addition = Fee.objects.get(name=name_addition, mode=mode).price * 3
+        else:
+            addition = 0
 
-            # Count Total Fee
-            fee = form['fee'] + addition
+        # Count Total Fee
+        fee = form['fee'] + addition
 
-            # Get Date Absence
+        # Get Date Absence
+        try:
+            created_at = data.tentor_assign_date.month
+        except AttributeError:
             try:
-                created_at = data.tentor_assign_date.month
+                created_at = data.student_assign_date.month
             except AttributeError:
-                try:
-                    created_at = data.student_assign_date.month
-                except AttributeError:
-                    created_at = data.created_at.month
+                created_at = data.created_at.month
 
-            # Check month of data is it
-            for num in list_months_num:
-                month = form['list_months'][num-1]
-                if created_at == num: # Define Month
-                    name_replace = name.replace(' ', '_')
-                    name_replace = name_replace.replace('-', '_')
-                    form[f'count_absence_{month}_{name_replace}'] += 1
-                    form[f'total_fee_{month}'] += fee
+        # Check month of data is it
+        for num in list_months_num:
+            month = form['list_months'][num-1]
+            if created_at == num: # Define Month
+                name_replace = name.replace(' ', '_')
+                name_replace = name_replace.replace('-', '_')
+                form[f'count_absence_{month}_{name_replace}'] += 1
+                form[f'total_fee_{month}'] += fee
 
-        # Check paid status
-        for month in form['list_months']: 
-            form[f'paid_{month}'] = False  # auto False if not paid
-            
-            if form[f'total_fee_{month}'] == 0:
-                form[f'paid_{month}'] = '-'  # No data this month
-            else:
-                paid = Paid.objects.filter(user=user, month=month, year=int(year), paid=True)
-                if paid:
-                    form[f'paid_{month}'] = True  # paid
+    # Check paid status
+    for month in form['list_months']: 
+        form[f'paid_{month}'] = False  # auto False if not paid
+        
+        if form[f'total_fee_{month}'] == 0:
+            form[f'paid_{month}'] = '-'  # No data this month
+        else:
+            paid = Paid.objects.filter(user=user, month=month, year=int(year), paid=True)
+            if paid:
+                form[f'paid_{month}'] = True  # paid
+    # End of tentor neeed
 
     # Superuser need
-    elif user_type == 'superuser':
+    if user_type == 'superuser':
         form['data_superuser'] = []
         tentors = Tentors.objects.filter(user__is_active=True)
 
@@ -278,9 +278,9 @@ def fee_page(request):
                     paid = Paid.objects.filter(user=tentor.user, month=month, year=int(year), paid=True)
                     if paid:
                         data[f'{month}_paid'] = True  # paid
-                print(data[f'{month}_paid'], month)
 
             form['data_superuser'].append(data)
+    # End of superuser need
 
     form['range_request'] = range(0, 11)
     return render(request,'fee.html', {'form':form})

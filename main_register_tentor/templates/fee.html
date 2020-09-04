@@ -32,7 +32,7 @@
           </tr>
           {% for tentor in form.data_superuser %}
             <tr>
-              <th>{{ tentor.user_tentor }}</th>
+              <th>{{ tentor.user_tentor.name }}</th>
               <th {% if tentor.January_paid == True %} style="color:#4e9955;;" {% elif tentor.January_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ tentor.January_total }}</th>
               <th {% if tentor.February_paid == True %} style="color:#4e9955;;" {% elif tentor.February_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ tentor.February_total }}</th>
               <th {% if tentor.March_paid == True %} style="color:#4e9955;;" {% elif tentor.March_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ tentor.March_total }}</th>
@@ -48,8 +48,9 @@
             </tr>
           {% endfor %}
         </table>
-        <h3 class="heading-section text-center ftco-animate mb-4">This is our data Admin</h3>
-      {% elif form.user_type == 'tentor' %}
+        <h3 class="heading-section text-center ftco-animate mb-4">Up is our data Admin</h3>
+        <h3 class="heading-section text-center ftco-animate">Below is my own data Tentor</h3>
+      {% endif %}
       <table>
       <tr class="table-title">
           <th>Month</th>
@@ -267,7 +268,6 @@
           {% endif %}
       </tr>
       </table>
-      {% endif %}
       <p>*) Can validate it from <a href="/absence">Absence<a> data</p>
     </div>
   </div>
