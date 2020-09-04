@@ -18,6 +18,8 @@ class Migration(migrations.Migration):
             name='Absence',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('user_student', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user_student_absence', to='main_register_student.Students')),
+                ('user_tentor', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='user_tentor_absence', to='main_register_tentor.Tentors')),
                 ('attend_student', models.BooleanField(default=False)),
                 ('student_assign_date', models.DateTimeField(blank=True, default=None, null=True)),
                 ('attend_tentor', models.BooleanField(default=False)),
