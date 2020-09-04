@@ -85,7 +85,10 @@ def absence(request):
                         user_tentor=schedule.user_tentor,
                         schedule=schedule,
                         attend_tentor=True,
-                        tentor_assign_date=local_datetime
+                        tentor_assign_date=local_datetime,
+                        mode=schedule.user_student.mode,
+                        grade=schedule.user_student.grade,
+                        total_student=schedule.user_student.total_student,
                     )
                     messages.success(request, "Save absence tentor success!")
                 except Exception:
@@ -104,7 +107,10 @@ def absence(request):
                         user_tentor=schedule.user_tentor,
                         schedule=schedule,
                         attend_student=True,
-                        student_assign_date=local_datetime
+                        student_assign_date=local_datetime,
+                        mode=schedule.user_student.mode,
+                        grade=schedule.user_student.grade,
+                        total_student=schedule.user_student.total_student,
                     )
                     messages.success(request, "Save absence student success!")
                 except Exception:

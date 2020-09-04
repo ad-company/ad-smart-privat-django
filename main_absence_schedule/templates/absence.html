@@ -41,6 +41,7 @@
               <p>Mapel : {{ schedule.schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.schedule.location }}</p>
               <p>Mode : {{ schedule.schedule.mode }}</p>
+              <p>Total Student : {{ schedule.schedule.user_student.total_student }}</p>
               <p>HP : +{{ schedule.schedule.user_student.phone }}</p>
               <div class="text-center">
                 {% if schedule.attend_student %}
@@ -93,6 +94,7 @@
               <p>Mapel : {{ schedule.schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.schedule.location }}</p>
               <p>Mode : {{ schedule.schedule.mode }}</p>
+              <p>Total Student : {{ schedule.schedule.user_student.total_student }}</p>
               <p>HP : +{{ schedule.schedule.user_student.phone }}</p>
               <div class="text-center">
                 <a id="whatsapp-a"
@@ -127,6 +129,7 @@
               <p>Mapel : {{ schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.location }}</p>
               <p>Mode : {{ schedule.mode }}</p>
+              <p>Total Student : {{ schedule.user_student.total_student }}</p>
               <p>HP : +{{ schedule.user_student.phone }}</p>
               <div class="text-center">
                 <a id="whatsapp-a"
@@ -176,7 +179,8 @@
             <p>Nama Tentor : {{ past.user_student.name }}</p>
             <p>Jadwal : {{ past.schedule.schedule }}</p>
             <p>Mapel : {{ past.schedule.mapel }}</p>
-            <p>Mode : {{ past.schedule.mode }}</p>
+            <p>Mode : {{ past.mode }}</p>
+            <p>Total Student : {{ past.total_student }}</p>
             <p>HP : +{{ past.user_student.phone }}</p>
             {% if past.attend_tentor and past.attend_student %}
             <p>Status : <i class="fa fa-check" style="font-size:36px"></i></p>
@@ -236,6 +240,7 @@
                 <p>Jadwal : {{ schedule.schedule.schedule }}</p>
                 <p>Mapel : {{ schedule.schedule.mapel }}</p>
                 <p>Mode : {{ schedule.schedule.mode }}</p>
+                <p>Total Group : {{ schedule.schedule.user_student.total_student }}</p>
                 <p>HP : +{{ schedule.schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   {% if schedule.attend_student %}
@@ -279,6 +284,7 @@
                 <p>Jadwal : {{ schedule.schedule.schedule }}</p>
                 <p>Mapel : {{ schedule.schedule.mapel }}</p>
                 <p>Mode : {{ schedule.schedule.mode }}</p>
+                <p>Total Group : {{ schedule.schedule.user_student.total_student }}</p>
                 <p>HP : +{{ schedule.schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   <a id="whatsapp-a"
@@ -311,6 +317,7 @@
                 <p>Jadwal : {{ schedule.schedule }}</p>
                 <p>Mapel : {{ schedule.mapel }}</p>
                 <p>Mode : {{ schedule.mode }}</p>
+                <p>Total Group : {{ schedule.user_student.total_student }}</p>
                 <p>HP : +{{ schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   <a id="whatsapp-a"
@@ -360,7 +367,8 @@
               <p>Nama Tentor : {{ past.user_tentor.name }}</p>
               <p>Jadwal : {{ past.schedule.schedule }}</p>
               <p>Mapel : {{ past.schedule.mapel }}</p>
-              <p>Mode : {{ past.schedule.mode }}</p>
+              <p>Mode : {{ past.mode }}</p>
+              <p>Total Student : {{ past.total_student }}</p>
               <p>HP : +{{ past.user_tentor.phone }}</p>
               {% if past.attend_student %}
               <p>Status : <i class="fa fa-check" style="font-size:36px"></i></p>
