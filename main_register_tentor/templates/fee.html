@@ -241,6 +241,11 @@
   </div>
 </div>
 <style>
+@media (max-width: 500px) {
+    body{
+        width: 150%;
+    }
+}
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -265,4 +270,11 @@ tr:nth-child(odd) {
   background-color: #664f4f2b;
 }
 </style>
+<script type="text/javascript">
+  function zoom(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      document.body.style.zoom = "80%" 
+    }
+  }
+</script>
 {% endblock %}

@@ -11,11 +11,6 @@ body{
     display:flex;
     flex-direction:column; 
 }
-@media (max-width: 500px) {
-    body{
-        width: 200%;
-    }
-}
 input {
     width: 100%;
     color: #258686d6;
