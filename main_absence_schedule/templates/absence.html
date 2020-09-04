@@ -160,7 +160,13 @@
             <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
               <h4 id="schedule-h4-2">List of Absence</h4>
             {% endif %}
+            {% if past.student_assign_time > past.tentor_assign_time %}
+            <p>Tanggal : {{ past.tentor_assign_time }}</p>
+            {% elif past.student_assign_time < past.tentor_assign_time %}
+            <p>Tanggal : {{ past.student_assign_time }}</p>
+            {% else %}
             <p>Tanggal : {{ past.created_at }}</p>
+            {% endif %}
             <p>Nama Tentor : {{ past.schedule.user_student.name }}</p>
             <p>Jadwal : {{ past.schedule.schedule }}</p>
             <p>Mapel : {{ past.schedule.mapel }}</p>
@@ -332,7 +338,13 @@
               <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                 <h4 id="schedule-h4-2">List of Absence</h4>
               {% endif %}
+              {% if past.student_assign_time > past.tentor_assign_time %}
+              <p>Tanggal : {{ past.tentor_assign_time }}</p>
+              {% elif past.student_assign_time < past.tentor_assign_time %}
+              <p>Tanggal : {{ past.student_assign_time }}</p>
+              {% else %}
               <p>Tanggal : {{ past.created_at }}</p>
+              {% endif %}
               <p>Nama Tentor : {{ past.schedule.user_tentor.name }}</p>
               <p>Jadwal : {{ past.schedule.schedule }}</p>
               <p>Mapel : {{ past.schedule.mapel }}</p>

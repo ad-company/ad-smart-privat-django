@@ -28,130 +28,203 @@
           <td>{{ form.list_months.0 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_January|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_January }}</td>
-          <td>{{ form.paid_January }}</td>
+          <td>Rp {{ form.total_January }},-</td>
+          {% if form.paid_January == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_January == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_January }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.1 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_February|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_February }}</td>
-          <td>{{ form.paid_February }}</td>
+          <td>Rp {{ form.total_February }},-</td>
+          {% if form.paid_February == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_February == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_February }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.2 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_March|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_March }}</td>
-          <td>{{ form.paid_March }}</td>
+          <td>Rp {{ form.total_March }},-</td>
+          {% if form.paid_March == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_March == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_March }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.3 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_April|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_April }}</td>
-          <td>{{ form.paid_April }}</td>
+          <td>Rp {{ form.total_April }},-</td>
+          {% if form.paid_April == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_April == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_April }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.4 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_May|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_May }}</td>
-          <td>{{ form.paid_May }}</td>
+          <td>Rp {{ form.total_May }},-</td>
+          {% if form.paid_May == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_May == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_May }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.5 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_June|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_June }}</td>
-          <td>{{ form.paid_June }}</td>
+          <td>Rp {{ form.total_June }},-</td>
+          {% if form.paid_June == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_June == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_June }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.6 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_July|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_July }}</td>
-          <td>{{ form.paid_July }}</td>
+          <td>Rp {{ form.total_July }},-</td>
+          {% if form.paid_July == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_July == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_July }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.7 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_August|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_August }}</td>
-          <td>{{ form.paid_August }}</td>
+          <td>Rp {{ form.total_August }},-</td>
+          {% if form.paid_August == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_August == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_August }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.8 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_September|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_September }}</td>
-          <td>{{ form.paid_September }}</td>
+          <td>Rp {{ form.total_September }},-</td>
+          {% if form.paid_September == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_September == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_September }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.9 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_October|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_October }}</td>
-          <td>{{ form.paid_October }}</td>
+          <td>Rp {{ form.total_October }},-</td>
+          {% if form.paid_October == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_October == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_October }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.10 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_November|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_November }}</td>
-          <td>{{ form.paid_November }}</td>
+          <td>Rp {{ form.total_November }},-</td>
+          {% if form.paid_November == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_November == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_November }}</td>
+          {% endif %}
       </tr>
       <tr>
           <td>{{ form.list_months.11 }}</td>
           <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_December|length }}</td>
-          <td>{{ form.price }}</td>
+          <td>Rp {{ form.price }},-</td>
           <td>{{ form.user_student.total_student }}</td>
           <td>{{ form.discount }}</td>
-          <td>{{ form.total_December }}</td>
-          <td>{{ form.paid_December }}</td>
+          <td>Rp {{ form.total_December }},-</td>
+          {% if form.paid_December == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_December == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_December }}</td>
+          {% endif %}
       </tr>
       </table>
+      <p>*) Can validate it from <a href="/absence">Absence<a> data</p>
     </div>
   </div>
 </div>
 <div class="row justify-content-center py-5 mt-5">
   <div class="col-md-12 heading-section text-center ftco-animate">
     <h2 class="mb-4">Payment</h2>
-    <h3 class="mb-4">Transfer to this number below</h3>
+    <h3 class="mb-4">Transfer to this number</h3>
     <h3>Mandiri : <strong>144 000 98888 08</strong></h3>
     <h3>BNI : <strong>0717 902 007</strong></h3>
     <h3>OVO : <strong>0822 3326 9549</strong></h3>

@@ -217,7 +217,7 @@ def payment_page(request):
                 form[f'paid_{month}'] = True  # paid
 
 
-    form['range_request'] = range(0, len(form['list_absence']))
+    form['range_request'] = range(0, 11)
     return render(request,'payment.html', {'form':form})
 
 # def porto_get(request, porto_id):
