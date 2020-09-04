@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center pb-5">
+    <div class="col-md-12 heading-section text-center ftco-animate">
+      <h2 class="mb-4">Total Payment</h2>
+      <p>
+        Payment Summary {{ form.year }}
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 ftco-animate">
+      <table>
+      <tr class="table-title">
+          <th>Month</th>
+          <th>SD 1-5 Online</th>
+          <th>SD 6 Offline</th>
+          <th>SMP 7-8 Online</th>
+          <th>SMP 9 Offline</th>
+          <th>SMA 10-11 Online</th>
+          <th>SMA 12 Offline</th>
+          <th>Total (Rp)</th>
+          <th>Paid</th>
+      </tr>
+      <tr>
+          <td>{{ form.list_months.0 }}</td>
+          <td>{{ form.count_absence_January_SD_1_5 }}</td>
+          <td>{{ form.count_absence_January_SD_6 }}</td>
+          <td>{{ form.count_absence_January_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_January_SMP_9 }}</td>
+          <td>{{ form.count_absence_January_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_January_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_January }},-</td>
+          {% if form.paid_January == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_January == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_January }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.1 }}</td>
+          <td>{{ form.count_absence_February_SD_1_5 }}</td>
+          <td>{{ form.count_absence_February_SD_6 }}</td>
+          <td>{{ form.count_absence_February_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_February_SMP_9 }}</td>
+          <td>{{ form.count_absence_February_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_February_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_February }},-</td>
+          {% if form.paid_February == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_February == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_February }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.2 }}</td>
+          <td>{{ form.count_absence_March_SD_1_5 }}</td>
+          <td>{{ form.count_absence_March_SD_6 }}</td>
+          <td>{{ form.count_absence_March_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_March_SMP_9 }}</td>
+          <td>{{ form.count_absence_March_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_March_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_March }},-</td>
+          {% if form.paid_March == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_March == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_March }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.3 }}</td>
+          <td>{{ form.count_absence_April_SD_1_5 }}</td>
+          <td>{{ form.count_absence_April_SD_6 }}</td>
+          <td>{{ form.count_absence_April_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_April_SMP_9 }}</td>
+          <td>{{ form.count_absence_April_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_April_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_April }},-</td>
+          {% if form.paid_April == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_April == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_April }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.4 }}</td>
+          <td>{{ form.count_absence_May_SD_1_5 }}</td>
+          <td>{{ form.count_absence_May_SD_6 }}</td>
+          <td>{{ form.count_absence_May_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_May_SMP_9 }}</td>
+          <td>{{ form.count_absence_May_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_May_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_May }},-</td>
+          {% if form.paid_May == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_May == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_May }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.5 }}</td>
+          <td>{{ form.count_absence_June_SD_1_5 }}</td>
+          <td>{{ form.count_absence_June_SD_6 }}</td>
+          <td>{{ form.count_absence_June_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_June_SMP_9 }}</td>
+          <td>{{ form.count_absence_June_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_June_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_June }},-</td>
+          {% if form.paid_June == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_June == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_June }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.6 }}</td>
+          <td>{{ form.count_absence_July_SD_1_5 }}</td>
+          <td>{{ form.count_absence_July_SD_6 }}</td>
+          <td>{{ form.count_absence_July_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_July_SMP_9 }}</td>
+          <td>{{ form.count_absence_July_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_July_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_July }},-</td>
+          {% if form.paid_July == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_July == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_July }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.7 }}</td>
+          <td>{{ form.count_absence_August_SD_1_5 }}</td>
+          <td>{{ form.count_absence_August_SD_6 }}</td>
+          <td>{{ form.count_absence_August_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_August_SMP_9 }}</td>
+          <td>{{ form.count_absence_August_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_August_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_August }},-</td>
+          {% if form.paid_August == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_August == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_August }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.8 }}</td>
+          <td>{{ form.count_absence_September_SD_1_5 }}</td>
+          <td>{{ form.count_absence_September_SD_6 }}</td>
+          <td>{{ form.count_absence_September_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_September_SMP_9 }}</td>
+          <td>{{ form.count_absence_September_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_September_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_September }},-</td>
+          {% if form.paid_September == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_September == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_September }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.9 }}</td>
+          <td>{{ form.count_absence_October_SD_1_5 }}</td>
+          <td>{{ form.count_absence_October_SD_6 }}</td>
+          <td>{{ form.count_absence_October_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_October_SMP_9 }}</td>
+          <td>{{ form.count_absence_October_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_October_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_October }},-</td>
+          {% if form.paid_October == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_October == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_October }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.10 }}</td>
+          <td>{{ form.count_absence_November_SD_1_5 }}</td>
+          <td>{{ form.count_absence_November_SD_6 }}</td>
+          <td>{{ form.count_absence_November_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_November_SMP_9 }}</td>
+          <td>{{ form.count_absence_November_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_November_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_November }},-</td>
+          {% if form.paid_November == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_November == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_November }}</td>
+          {% endif %}
+      </tr>
+      <tr>
+          <td>{{ form.list_months.11 }}</td>
+          <td>{{ form.count_absence_December_SD_1_5 }}</td>
+          <td>{{ form.count_absence_December_SD_6 }}</td>
+          <td>{{ form.count_absence_December_SMP_7_8 }}</td>
+          <td>{{ form.count_absence_December_SMP_9 }}</td>
+          <td>{{ form.count_absence_December_SMA_10_11 }}</td>
+          <td>{{ form.count_absence_December_SMA_12 }}</td>
+          <td>Rp {{ form.total_fee_December }},-</td>
+          {% if form.paid_December == True %}
+            <td><i class="fa fa-check" style="font-size:36px"></i></td>
+          {% elif form.paid_December == False %}
+            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+          {% else %}
+            <td>{{ form.paid_December }}</td>
+          {% endif %}
+      </tr>
+      </table>
+      <p>*) Can validate it from <a href="/absence">Absence<a> data</p>
+    </div>
+  </div>
+</div>
+<div class="row justify-content-center py-5 mt-5">
+  <div class="col-md-12 heading-section text-center ftco-animate">
+    <h2 class="mb-4">Payment</h2>
+    <p class="mb-4">Transfer fee will be done in day 1-6 every month.</p>
+  </div>
+</div>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.table-title {
+  background-color: #38706f70 !important;
+}
+
+tr:nth-child(even) {
+  background-color: #76a1a070;
+}
+
+tr:nth-child(odd) {
+  background-color: #664f4f2b;
+}
+</style>
+{% endblock %}

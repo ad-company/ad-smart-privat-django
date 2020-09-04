@@ -148,6 +148,10 @@ def absence(request):
     # Filter absence past only (not today)
     form['absence_past'] = []
     for num, data in enumerate(list_past):
+        if data.student_assign_date:
+            data.student_assign_date = data.student_assign_date.strftime('%B %d, %Y')
+        if data.tentor_assign_date:
+            data.tentor_assign_date = data.tentor_assign_date.strftime('%B %d, %Y')
         data.created_at = data.created_at.strftime('%B %d, %Y')
         if data not in form['absence'] and data not in form['absence_done']:
             form['absence_past'].append(data)

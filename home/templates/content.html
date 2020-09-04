@@ -28,7 +28,22 @@
         </a>
       </div>
     </div>
-    {% if user.is_staff %}
+    {% if not user.is_staff %}
+    <div class="col-md-12 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <a href="/student/payment">
+          <button class="button-home"><h3>Payment</h3></button>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-12 col-sm-12 animate-box">
+      <div class="progress-wrap ftco-animate text-center">
+        <a href="/schedule">
+          <button class="button-home"><h3>My Schedule</h3></button>
+        </a>
+      </div>
+    </div>
+    {% elif user.is_staff %}
     <div class="col-md-6 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate text-center">
         <a href="/schedule/open">
@@ -43,14 +58,14 @@
         </a>
       </div>
     </div>
-    {% else %}
     <div class="col-md-12 col-sm-12 animate-box">
       <div class="progress-wrap ftco-animate text-center">
-        <a href="/schedule">
-          <button class="button-home"><h3>My Schedule</h3></button>
+        <a href="/tentor/fee">
+          <button class="button-home"><h3>Fee</h3></button>
         </a>
       </div>
     </div>
+    {% else %}
     {% endif %}
     {% else %}
     <div class="col-md-4 col-sm-12 animate-box">

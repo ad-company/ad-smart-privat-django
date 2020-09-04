@@ -84,7 +84,7 @@ class Paid(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return self.user
+        return '{}'.format(self.user)
 
     class Meta:
         verbose_name_plural = 'Paid'
@@ -97,10 +97,7 @@ class Price(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return (
-            'name: {name} with mode {mode} '
-            'price {price}.'
-        ).format(
+        return 'name: {name} with mode {mode} price {price}.'.format(
             name=self.name,
             mode=self.mode,
             price=self.price,

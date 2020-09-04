@@ -172,38 +172,25 @@ def payment_page(request):
 
     form['user_student'] = student
     form['price'] = Price.objects.get(name=name, mode=mode).price
-    form['list_absence'] = Absence.objects.filter(schedule__user_student=student, created_at__range=[month_min, month_max]) # Get all list of absence this year
+    form['list_absence'] = Absence.objects.filter(user_student=student, created_at__range=[month_min, month_max]) # Get all list of absence this year
 
     # Total group monthly
     for month in form['list_months']: 
         form[f'list_{month}'] = []
 
     for data in form['list_absence']:
+        try:
+            created_at = data.tentor_assign_date.month
+        except AttributeError:
+            try:
+                created_at = data.student_assign_date.month
+            except AttributeError:
+                created_at = data.created_at.month
+
         # Check what month data is it
-        if data.created_at.month == list_months_num[0]: # January
-            form[f"list_{form['list_months'][0]}"].append(data)
-        elif data.created_at.month == list_months_num[1]: # February
-            form[f"list_{form['list_months'][1]}"].append(data)
-        elif data.created_at.month == list_months_num[2]: # March
-            form[f"list_{form['list_months'][2]}"].append(data)
-        elif data.created_at.month == list_months_num[3]: # April
-            form[f"list_{form['list_months'][3]}"].append(data)
-        elif data.created_at.month == list_months_num[4]: # May
-            form[f"list_{form['list_months'][4]}"].append(data)
-        elif data.created_at.month == list_months_num[5]: # June
-            form[f"list_{form['list_months'][5]}"].append(data)
-        elif data.created_at.month == list_months_num[6]: # July
-            form[f"list_{form['list_months'][6]}"].append(data)
-        elif data.created_at.month == list_months_num[7]: # August
-            form[f"list_{form['list_months'][7]}"].append(data)
-        elif data.created_at.month == list_months_num[8]: # September
-            form[f"list_{form['list_months'][8]}"].append(data)
-        elif data.created_at.month == list_months_num[9]: # October
-            form[f"list_{form['list_months'][9]}"].append(data)
-        elif data.created_at.month == list_months_num[10]: # November
-            form[f"list_{form['list_months'][10]}"].append(data)
-        elif data.created_at.month == list_months_num[11]: # December
-            form[f"list_{form['list_months'][11]}"].append(data)
+        for num in list_months_num:
+            if created_at == num: # Check Month
+                form[f"list_{form['list_months'][num-1]}"].append(data)
 
     for month in form['list_months']: 
         form[f'total_{month}'] = len(form[f'list_{month}']) * (form['price'] * float(student.total_student) * float(100 - discount) / float(100))

@@ -34,9 +34,9 @@
             <a href="/schedule" class="nav-link"><span>My Schedule</span></a>
         </li>
         {% if user.is_staff %}
-        {% comment %} <li class="nav-item">
+        <li class="nav-item">
             <a href="/tentor/fee" class="nav-link"><span>Fee</span></a>
-        </li> {% endcomment %}
+        </li>
         {% else %}
         <li class="nav-item">
             <a href="/student/payment" class="nav-link"><span>Payment</span></a>

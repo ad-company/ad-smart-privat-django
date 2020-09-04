@@ -160,12 +160,18 @@
             <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
               <h4 id="schedule-h4-2">List of Absence</h4>
             {% endif %}
-            {% if past.student_assign_time > past.tentor_assign_time %}
-            <p>Tanggal : {{ past.tentor_assign_time }}</p>
-            {% elif past.student_assign_time < past.tentor_assign_time %}
-            <p>Tanggal : {{ past.student_assign_time }}</p>
+            {% if past.student_assign_date and past.tentor_assign_date %}
+              {% if past.student_assign_date > past.tentor_assign_date %}
+                <p>Tanggal : {{ past.tentor_assign_date }}</p>
+              {% elif past.student_assign_date < past.tentor_assign_date %}
+                <p>Tanggal : {{ past.student_assign_date }}</p>
+              {% endif %}
+            {% elif past.student_assign_date %}
+              <p>Tanggal : {{ past.student_assign_date }}</p>
+            {% elif past.tentor_assign_date %}
+              <p>Tanggal : {{ past.tentor_assign_date }}</p>
             {% else %}
-            <p>Tanggal : {{ past.created_at }}</p>
+              <p>Tanggal : {{ past.created_at }}</p>
             {% endif %}
             <p>Nama Tentor : {{ past.user_student.name }}</p>
             <p>Jadwal : {{ past.schedule.schedule }}</p>
@@ -338,12 +344,18 @@
               <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                 <h4 id="schedule-h4-2">List of Absence</h4>
               {% endif %}
-              {% if past.student_assign_time > past.tentor_assign_time %}
-              <p>Tanggal : {{ past.tentor_assign_time }}</p>
-              {% elif past.student_assign_time < past.tentor_assign_time %}
-              <p>Tanggal : {{ past.student_assign_time }}</p>
+              {% if past.student_assign_date and past.tentor_assign_date %}
+                {% if past.student_assign_date > past.tentor_assign_date %}
+                  <p>Tanggal : {{ past.tentor_assign_date }}</p>
+                {% elif past.student_assign_date < past.tentor_assign_date %}
+                  <p>Tanggal : {{ past.student_assign_date }}</p>
+                {% endif %}
+              {% elif past.student_assign_date %}
+                <p>Tanggal : {{ past.student_assign_date }}</p>
+              {% elif past.tentor_assign_date %}
+                <p>Tanggal : {{ past.tentor_assign_date }}</p>
               {% else %}
-              <p>Tanggal : {{ past.created_at }}</p>
+                <p>Tanggal : {{ past.created_at }}</p>
               {% endif %}
               <p>Nama Tentor : {{ past.user_tentor.name }}</p>
               <p>Jadwal : {{ past.schedule.schedule }}</p>
