@@ -16,6 +16,20 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Fee',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(choices=[('SD 1-5', 'SD 1-5'), ('SD 1-5+', 'SD 1-5+'), ('SD 6', 'SD 6'), ('SD 6+', 'SD 6+'), ('SMP 7-8', 'SMP 7-8'), ('SMP 7-8+', 'SMP 7-8+'), ('SMP 9', 'SMP 9'), ('SMP 9+', 'SMP 9+'), ('SMA 10-11', 'SMA 10-11'), ('SMA 10-11+', 'SMA 10-11+'), ('SMA 12', 'SMA 12'), ('SMA 12+', 'SMA 12+')], max_length=250)),
+                ('mode', models.CharField(choices=[('online (remote)', 'Online'), ('offline', 'Offline')], max_length=250)),
+                ('price', models.IntegerField()),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+            ],
+            options={
+                'verbose_name_plural': 'Fee',
+            },
+        ),
+        migrations.CreateModel(
             name='Bank',
             fields=[
                 ('bank_name', models.CharField(max_length=250, primary_key=True, serialize=False)),
@@ -37,12 +51,12 @@ class Migration(migrations.Migration):
                 ('address', models.CharField(max_length=250)),
                 ('account_name', models.CharField(max_length=250)),
                 ('account_id', models.CharField(max_length=20)),
-                ('bank_other', models.CharField(default='', max_length=20)),
+                ('bank_other', models.CharField(blank=True, default=None, max_length=20, null=True)),
                 ('university', models.CharField(max_length=150)),
                 ('major', models.CharField(max_length=100)),
-                ('number_id', models.CharField(max_length=100)),
-                ('id_pic', models.ImageField(upload_to=main_register_tentor.models.photo_id, verbose_name='img')),
-                ('profile_pic', models.ImageField(default='uploads/user-no-image.png', upload_to=main_register_tentor.models.photo_profile, verbose_name='img')),
+                ('number_id', models.CharField(default='00', max_length=100)),
+                ('id_pic', models.ImageField(blank=True, default='uploads/user-no-image.png', null=True, upload_to=main_register_tentor.models.photo_id, verbose_name='img')),
+                ('profile_pic', models.ImageField(blank=True, default='uploads/user-no-image.png', null=True, upload_to=main_register_tentor.models.photo_profile, verbose_name='img')),
                 ('user_type', models.CharField(default='tentor', editable=False, max_length=100)),
                 ('status', models.BooleanField(default=False, editable=False, null=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
