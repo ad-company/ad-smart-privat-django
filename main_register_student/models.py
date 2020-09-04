@@ -97,7 +97,14 @@ class Price(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return (
+            'name: {name} with mode {mode} '
+            'price {price}.'
+        ).format(
+            name=self.name,
+            mode=self.mode,
+            price=self.price,
+        )
 
     class Meta:
         verbose_name_plural = 'Price'
@@ -139,7 +146,30 @@ class Students(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return '{}'.format(self.user)
+        return (
+            'User: {user} with name {name} parent name {parent_name} grade {grade} '
+            'total student {total_student} mode {mode} and status {status}.'
+        ).format(
+            user=self.user,
+            name=self.name,
+            parent_name=self.parent_name,
+            grade=self.grade,
+            total_student=self.total_student,
+            status=self.status,
+        )
+    
+    def __unicode__(self):
+        return (
+            'User: {user} with name {name} parent name {parent_name} grade {grade} '
+            'total student {total_student} mode {mode} and status {status}.'
+        ).format(
+            user=self.user,
+            name=self.name,
+            parent_name=self.parent_name,
+            grade=self.grade,
+            total_student=self.total_student,
+            status=self.status,
+        )
 
     class Meta:
         verbose_name_plural = 'Student'
