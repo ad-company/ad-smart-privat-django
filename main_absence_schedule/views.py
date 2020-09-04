@@ -81,6 +81,8 @@ def absence(request):
                 # create if doesn't exist
                 try:
                     Absence.objects.create(
+                        user_student=schedule.user_student,
+                        user_tentor=schedule.user_tentor,
                         schedule=schedule,
                         attend_tentor=True,
                         tentor_assign_date=local_datetime
@@ -98,6 +100,8 @@ def absence(request):
                 # create if doesn't exist
                 try:
                     Absence.objects.create(
+                        user_student=schedule.user_student,
+                        user_tentor=schedule.user_tentor,
                         schedule=schedule,
                         attend_student=True,
                         student_assign_date=local_datetime

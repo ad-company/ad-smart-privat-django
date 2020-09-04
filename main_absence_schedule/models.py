@@ -56,6 +56,8 @@ class Schedule(models.Model):
 
 class Absence(models.Model):
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
+    user_student = models.ForeignKey(Students, on_delete=models.CASCADE, related_name='user_student_absence', blank=True, null=True)
+    user_tentor = models.ForeignKey(Tentors, on_delete=models.CASCADE, related_name='user_tentor_absence', blank=True, null=True)
     attend_student = models.BooleanField(null=False, default=False)
     student_assign_date = models.DateTimeField(blank=True, null=True, default=None)
     attend_tentor = models.BooleanField(null=False, default=False)

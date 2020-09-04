@@ -22,6 +22,8 @@ class AbsenceAdmin(admin.ModelAdmin):
     """
     list_display = [
         'schedule',
+        'user_student',
+        'user_tentor',
         'attend_student',
         'student_assign_date',
         'attend_tentor',
