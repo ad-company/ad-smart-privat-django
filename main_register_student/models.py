@@ -148,27 +148,25 @@ class Students(models.Model):
     def __str__(self):
         return (
             'User: {user} with name {name} parent name {parent_name} grade {grade} '
-            'total student {total_student} mode {mode} and status {status}.'
+            'total student {total_student} and mode {mode}.'
         ).format(
             user=self.user,
             name=self.name,
             parent_name=self.parent_name,
             grade=self.grade,
             total_student=self.total_student,
-            status=self.status,
         )
     
     def __unicode__(self):
         return (
             'User: {user} with name {name} parent name {parent_name} grade {grade} '
-            'total student {total_student} mode {mode} and status {status}.'
+            'total student {total_student} and mode {mode}.'
         ).format(
             user=self.user,
             name=self.name,
             parent_name=self.parent_name,
             grade=self.grade,
             total_student=self.total_student,
-            status=self.status,
         )
 
     class Meta:
