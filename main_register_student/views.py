@@ -223,7 +223,7 @@ def payment_page(request):
                     else:
                         discount = 0
                     form['discount'] = f'{discount}%'
-                    form[f'total_{month}'] += form['price'] * float(absence.total_student) * float(100 - discount) / float(100)
+                    form[f'total_{month}'] += int(form['price'] * float(absence.total_student) * float(100 - discount) / float(100))
 
                     # Prevent duplicate data
                     all_absence.append(absence)
