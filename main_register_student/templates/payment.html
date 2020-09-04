@@ -16,15 +16,17 @@
       <table>
       <tr class="table-title">
           <th>Month</th>
-          <th>Meeting</th>
-          <th>Price per meet (Rp)</th>
-          <th>Group addon</th>
+          <th>Mode</th>
+          <th>Total Meeting</th>
+          <th>Price per Meet (Rp)</th>
+          <th>Group Addon</th>
           <th>Discount Group</th>
           <th>Total (Rp)</th>
           <th>Paid</th>
       </tr>
       <tr>
           <td>{{ form.list_months.0 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_January|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -34,6 +36,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.1 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_February|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -43,6 +46,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.2 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_March|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -52,6 +56,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.3 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_April|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -61,6 +66,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.4 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_May|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -70,6 +76,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.5 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_June|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -79,6 +86,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.6 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_July|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -88,6 +96,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.7 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_August|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -97,6 +106,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.8 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_September|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -106,6 +116,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.9 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_October|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -115,6 +126,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.10 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_November|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
@@ -124,6 +136,7 @@
       </tr>
       <tr>
           <td>{{ form.list_months.11 }}</td>
+          <td>{{ form.user_student.mode }}</td>
           <td>{{ form.list_December|length }}</td>
           <td>{{ form.price }}</td>
           <td>{{ form.user_student.total_student }}</td>
