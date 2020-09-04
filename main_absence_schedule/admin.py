@@ -28,6 +28,9 @@ class AbsenceAdmin(admin.ModelAdmin):
         'student_assign_date',
         'attend_tentor',
         'tentor_assign_date',
+        'mode',
+        'grade',
+        'total_student',
         'created_at',
         'updated_at',
     ]
