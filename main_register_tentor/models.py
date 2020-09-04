@@ -89,20 +89,7 @@ class Tentors(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return (
-            'User: {user} with name {name} phone {phone} bank {bank} account name {account_name} '
-            'account id {account_id} university {university} major {major} and status {status}.'
-        ).format(
-            user=self.user,
-            name=self.name,
-            phone=self.phone,
-            bank=self.bank,
-            account_name=self.account_name,
-            account_id=self.account_id,
-            university=self.university,
-            major=self.major,
-            status=self.status,
-        )
+        return '{}'.format(self.user)
 
     def __unicode__(self):
         return (

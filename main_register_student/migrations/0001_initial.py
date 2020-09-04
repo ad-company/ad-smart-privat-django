@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                 ('mapel_4', models.CharField(blank=True, default=None, max_length=20, null=True)),
                 ('mapel_5', models.CharField(blank=True, default=None, max_length=20, null=True)),
                 ('mapel_6', models.CharField(blank=True, default=None, max_length=20, null=True)),
-                ('grade', models.CharField(choices=[('SD', 'SD'), ('SMP', 'SMP'), ('SMA', 'SMA')], default='', max_length=3)),
+                ('grade', models.CharField(choices=[('SD 1', 'SD 1'), ('SD 2', 'SD 2'), ('SD 3', 'SD 3'), ('SD 4', 'SD 4'), ('SD 5', 'SD 5'), ('SD 6', 'SD 6'), ('SMP 7', 'SMP 7'), ('SMP 8', 'SMP 8'), ('SMP 9', 'SMP 9'), ('SMA 10', 'SMA 10'), ('SMA 11', 'SMA 11'), ('SMA 12', 'SMA 12')], default='', max_length=10)),
                 ('total_student', models.CharField(max_length=250)),
                 ('school', models.CharField(max_length=150)),
                 ('mode', models.CharField(max_length=150)),

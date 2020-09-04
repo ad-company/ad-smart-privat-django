@@ -27,16 +27,15 @@ class Schedule(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
     def __str__(self):
-        return (
-            'user_student: {user_student} with user_tentor: {user_tentor} schedule {schedule} mapel {mapel} '
-            'mode {mode} active {active}.'
-        ).format(
-            user_student=self.user_student,
-            user_tentor=self.user_tentor,
-            schedule=self.schedule,
-            mapel=self.mapel,
-            mode=self.mode,
-            active=self.active,
+        # return '{}{}{}{}{}{}'.format(self.id)
+        return 'id {} user_student {} user_tentor {} schedule {} mapel {} mode {} active {}'.format(
+            self.id,
+            self.user_student,
+            self.user_tentor,
+            self.schedule,
+            self.mapel,
+            self.mode,
+            self.active,
         )
 
     def __unicode__(self):
