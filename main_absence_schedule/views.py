@@ -126,7 +126,7 @@ def absence(request):
         tentor = Tentors.objects.get(pk=user.id)
         list_absence = Absence.objects.filter(schedule__user_tentor=tentor, schedule__schedule__contains=day_id, created_at__range=[today_min, today_max]).values_list('schedule', flat=True)  # Get list of absence by schedule id
         list_schedule = Schedule.objects.filter(schedule__contains=day_id, user_tentor=request.user.id, active=True)  # Get all schedule for day
-        list_past = Absence.objects.filter(schedule__user_tentor=tentor).order_by('-id')  # Get absence in past
+        list_past = Absence.objects.filter(user_tentor=tentor).order_by('-id')  # Get absence in past
 
         form['absence'] = Absence.objects.filter(schedule__user_tentor=tentor, schedule__schedule__contains=day_id, attend_tentor=False, created_at__range=[today_min, today_max])  # Get absence that already created today
         form['absence_done'] = Absence.objects.filter(schedule__user_tentor=tentor, schedule__schedule__contains=day_id, attend_tentor=True, created_at__range=[today_min, today_max]).order_by('-attend_student')  # Get absence that already done today
@@ -135,7 +135,7 @@ def absence(request):
         student = Students.objects.get(pk=user.id)
         list_absence = Absence.objects.filter(schedule__user_student=student, schedule__schedule__contains=day_id, created_at__range=[today_min, today_max]).values_list('schedule', flat=True)  # Get list of absence by schedule id
         list_schedule = Schedule.objects.filter(schedule__contains=day_id, user_student=request.user.id, active=True)  # Get all schedule for day
-        list_past = Absence.objects.filter(schedule__user_student=student).order_by('-id')  # Get absence in past (not today)
+        list_past = Absence.objects.filter(user_student=student).order_by('-id')  # Get absence in past (not today)
 
         form['absence'] = Absence.objects.filter(schedule__user_student=student, schedule__schedule__contains=day_id, attend_student=False, created_at__range=[today_min, today_max])  # Get absence that already created today
         form['absence_done'] = Absence.objects.filter(schedule__user_student=student, schedule__schedule__contains=day_id, attend_student=True, created_at__range=[today_min, today_max]).order_by('-attend_tentor')  # Get absence that already done today
