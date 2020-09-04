@@ -114,6 +114,7 @@ def absence(request):
     # Get rendering data absence for today
     list_schedule = []
     list_absence = []
+    list_past = []
     form['schedule'] = []
     form['absence'] = []
     form['absence_done'] = []
