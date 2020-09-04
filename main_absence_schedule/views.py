@@ -187,7 +187,7 @@ def open_schedule(request):
 
     # Get rendering data schedule
     if user_type == 'tentor':
-        form['schedules_request'] = Schedule.objects.filter(active=False).order_by('created_at')
+        form['schedules_request'] = Schedule.objects.filter(user_tentor=None, active=False).order_by('created_at')
         form['schedules_handled'] = Schedule.objects.filter(user_tentor=user.id, active=True)  # Get handled schedule
     form['range_request'] = range(0, len(form['schedules_request']))
     return render(request,'open_schedule.html', {'form':form})
