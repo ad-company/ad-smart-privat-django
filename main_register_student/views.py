@@ -2,6 +2,7 @@ import re
 import base64
 from datetime import datetime, date, time, timedelta
 
+from django.db.models import Q
 from django.utils import timezone
 from django.shortcuts import render, redirect, render_to_response
 from django.contrib import messages
@@ -110,10 +111,13 @@ def register_student_profile(request, username):
 def payment_page(request):
     # Check if student or tentor
     user = request.user
-    if user.is_staff == True and user.is_superuser == False:
-        # Page is restricted for tentor
-        user_type = 'tentor'
-        return redirect('/')
+    if user.is_staff == True: 
+        if user.is_superuser == True:
+            user_type = 'superuser'
+        else:
+            # Page is restricted for tentor
+            user_type = 'tentor'
+            return redirect('/')
     else:
         user_type = 'student'
 
@@ -123,9 +127,35 @@ def payment_page(request):
 
     # day, date, datetime & year
     year = datetime.today().year
-    month_min = datetime.combine(date(year, 1, 1), time.min)
-    month_max = datetime.combine(date(year, 12, 31), time.max)
-    list_months_num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    year_min = datetime.combine(date(year, 1, 1), time.min)
+    year_max = datetime.combine(date(year, 12, 31), time.max)
+
+    months = {}
+    months['January_min'] = datetime.combine(date(year, 1, 1), time.min)
+    months['January_max'] = datetime.combine(date(year, 1, 31), time.max)
+    months['February_min'] = datetime.combine(date(year, 2, 1), time.min)
+    months['February_max'] = datetime.combine(date(year, 2, 28), time.max)
+    months['March_min'] = datetime.combine(date(year, 3, 1), time.min)
+    months['March_max'] = datetime.combine(date(year, 3, 31), time.max)
+    months['April_min'] = datetime.combine(date(year, 4, 1), time.min)
+    months['April_max'] = datetime.combine(date(year, 4, 30), time.max)
+    months['May_min'] = datetime.combine(date(year, 5, 1), time.min)
+    months['May_max'] = datetime.combine(date(year, 5, 31), time.max)
+    months['June_min'] = datetime.combine(date(year, 6, 1), time.min)
+    months['June_max'] = datetime.combine(date(year, 6, 30), time.max)
+    months['July_min'] = datetime.combine(date(year, 7, 1), time.min)
+    months['July_max'] = datetime.combine(date(year, 7, 31), time.max)
+    months['August_min'] = datetime.combine(date(year, 8, 1), time.min)
+    months['August_max'] = datetime.combine(date(year, 8, 31), time.max)
+    months['September_min'] = datetime.combine(date(year, 9, 1), time.min)
+    months['September_max'] = datetime.combine(date(year, 9, 30), time.max)
+    months['October_min'] = datetime.combine(date(year, 10, 1), time.min)
+    months['October_max'] = datetime.combine(date(year, 10, 31), time.max)
+    months['November_min'] = datetime.combine(date(year, 11, 1), time.min)
+    months['November_max'] = datetime.combine(date(year, 11, 30), time.max)
+    months['December_min'] = datetime.combine(date(year, 12, 1), time.min)
+    months['December_max'] = datetime.combine(date(year, 12, 31), time.max)
+    # form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     form['year'] = year
 
@@ -137,72 +167,74 @@ def payment_page(request):
     price_sma = ['SMA 10', 'SMA 11']
     price_sma_up = ['SMA 12']
 
-    # Price type
-    if student.grade in price_sd:
-        name = 'SD 1-5'
-    elif student.grade in price_sd_up:
-        name = 'SD 6'
-    elif student.grade in price_smp:
-        name = 'SMP 7-8'
-    elif student.grade in price_smp_up:
-        name = 'SMP 9'
-    elif student.grade in price_sma:
-        name = 'SMA 10-11'
-    elif student.grade in price_sma_up:
-        name = 'SMA 12'
+    # Student need
+    if user_type == 'student':
+        form['user_student'] = student
 
-    # Price mode
-    if student.mode == 'offline' or student.mode == 'both':  # price of both is same as offline
-        mode = 'offline'
-    else:
-        mode = 'online (remote)'  # online (remote)
+        # Handler duplicate data
+        all_absence = []
 
-    # Discount group
-    if student.total_student == '1':
-        discount = 0
-    elif student.total_student == '2':
-        discount = 10
-    elif student.total_student == '3':
-        discount = 15
-    elif student.total_student == '4':
-        discount = 20
-    else:
-        discount = 0
-    form['discount'] = f'{discount}%'
+        for num, month in enumerate(form['list_months']):
+            form['list_absence'] = Absence.objects.filter(
+                Q(student_assign_date__range=[months[f'{month}_min'], months[f'{month}_max']]) | Q(tentor_assign_date__range=[months[f'{month}_min'], months[f'{month}_max']]),
+                Q(attend_student=True) | Q(attend_tentor=True),
+                user_student=student,
+            ) # Get list per month
+            form[f'list_{month}'] = 0
+            form[f'total_{month}'] = 0
 
-    form['user_student'] = student
-    form['price'] = Price.objects.get(name=name, mode=mode).price
-    form['list_absence'] = Absence.objects.filter(user_student=student, created_at__range=[month_min, month_max]) # Get all list of absence this year
+            for absence in form['list_absence']:
+                if absence not in all_absence:
+                    # Counter
+                    form[f'list_{month}'] += 1
 
-    # Total group monthly
-    for month in form['list_months']: 
-        form[f'list_{month}'] = []
+                    # Price type
+                    if absence.grade in price_sd:
+                        name = 'SD 1-5'
+                    elif absence.grade in price_sd_up:
+                        name = 'SD 6'
+                    elif absence.grade in price_smp:
+                        name = 'SMP 7-8'
+                    elif absence.grade in price_smp_up:
+                        name = 'SMP 9'
+                    elif absence.grade in price_sma:
+                        name = 'SMA 10-11'
+                    elif absence.grade in price_sma_up:
+                        name = 'SMA 12'
 
-    for data in form['list_absence']:
-        try:
-            created_at = data.tentor_assign_date.month
-        except AttributeError:
-            try:
-                created_at = data.student_assign_date.month
-            except AttributeError:
-                created_at = data.created_at.month
+                    # Price mode
+                    if absence.mode == 'offline' or absence.mode == 'both':  # price of both is same as offline
+                        mode = 'offline'
+                    else:
+                        mode = 'online (remote)'  # online (remote)
 
-        # Check what month data is it
-        for num in list_months_num:
-            if created_at == num: # Check Month
-                form[f"list_{form['list_months'][num-1]}"].append(data)
+                    # Price normal
+                    form['price'] = Price.objects.get(name=name, mode=mode).price
 
-    for month in form['list_months']: 
-        form[f'total_{month}'] = len(form[f'list_{month}']) * (form['price'] * float(student.total_student) * float(100 - discount) / float(100))
-        form[f'paid_{month}'] = False  # auto False if not paid
-        
-        if form[f'total_{month}'] == 0:
-            form[f'paid_{month}'] = '-'  # No data this month
-        else:
-            paid = Paid.objects.filter(user=user, month=month, year=int(year), paid=True)
-            if paid:
-                form[f'paid_{month}'] = True  # paid
+                    # Discount group
+                    if absence.total_student == '1':
+                        discount = 0
+                    elif absence.total_student == '2':
+                        discount = 10
+                    elif absence.total_student == '3':
+                        discount = 15
+                    elif absence.total_student == '4':
+                        discount = 20
+                    else:
+                        discount = 0
+                    form['discount'] = f'{discount}%'
+                    form[f'total_{month}'] += form['price'] * float(absence.total_student) * float(100 - discount) / float(100)
 
+                    # Prevent duplicate data
+                    all_absence.append(absence)
+
+            form[f'paid_{month}'] = False  # auto False if not paid
+            if form[f'total_{month}'] == 0:
+                form[f'paid_{month}'] = '-'  # No data this month
+            else:
+                paid = Paid.objects.filter(user=user, month=month, year=int(year), paid=True)
+                if paid:
+                    form[f'paid_{month}'] = True  # paid
 
     form['range_request'] = range(0, 11)
     return render(request,'payment.html', {'form':form})
