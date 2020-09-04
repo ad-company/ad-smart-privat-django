@@ -3,7 +3,22 @@ from .models import (
     Tentors,
     Bank,
     Fee,
+    Paid,
 )
+
+
+class PaidAdmin(admin.ModelAdmin):
+    """
+    Simple, read-only list/search view of Rating Admin.
+    """
+    list_display = [
+        'user',
+        'month',
+        'year',
+        'paid',
+        'created_at',
+        'updated_at',
+    ]
 
 class FeeAdmin(admin.ModelAdmin):
     """
@@ -46,5 +61,6 @@ list_admin = []
 
 admin.site.register(list_admin)
 admin.site.register(Fee, FeeAdmin)
+admin.site.register(Paid, PaidAdmin)
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Tentors, TentorsAdmin)
