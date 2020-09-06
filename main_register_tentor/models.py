@@ -69,19 +69,19 @@ class Bank(models.Model):
     class Meta:
         verbose_name_plural = 'Bank'
 
-class Paid(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='paid_tentor')
-    month = models.CharField(max_length=250, choices=MONTH, null=False, blank=False)
-    year = models.IntegerField(null=False, blank=False)
-    paid = models.BooleanField(null=False, default=False)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True)
+# class Paid(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='paid_tentor')
+#     month = models.CharField(max_length=250, choices=MONTH, null=False, blank=False)
+#     year = models.IntegerField(null=False, blank=False)
+#     paid = models.BooleanField(null=False, default=False)
+#     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+#     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
-    def __str__(self):
-        return '{}'.format(self.user)
+#     def __str__(self):
+#         return '{}'.format(self.user)
 
-    class Meta:
-        verbose_name_plural = 'Paid'
+#     class Meta:
+#         verbose_name_plural = 'Paid'
 
 class Fee(models.Model):
     name = models.CharField(max_length=250, choices=FEE_TYPE, null=False, blank=False)
