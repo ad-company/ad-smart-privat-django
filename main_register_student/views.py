@@ -228,13 +228,18 @@ def payment_page(request):
                     # Prevent duplicate data
                     all_absence.append(absence)
 
-            form[f'paid_{month}'] = False  # auto False if not paid
-            if form[f'total_{month}'] == 0:
-                form[f'paid_{month}'] = '-'  # No data this month
-            else:
-                paid = Paid.objects.filter(user=user, month=month, year=int(year), paid=True)
-                if paid:
-                    form[f'paid_{month}'] = True  # paid
+            # Paid & Notes
+            form[f'paid_{month}'] = '-'  # auto no payment if no data
+            form[f'note_{month}'] = '-'  # Auto no note for this month
+
+            try:
+                paid_notes = Paid.objects.get(user=user, month=month, year=int(year))
+                form[f'paid_{month}'] = paid_notes.paid # Get paid status if there's any data
+
+                if paid_notes.note:
+                    form[f'note_{month}'] = paid_notes.note # Get note if there's any data
+            except Paid.DoesNotExist:
+                pass
 
     form['range_request'] = range(0, 11)
     return render(request,'payment.html', {'form':form})
