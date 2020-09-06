@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 
 from logs.log import log_track
 from main_absence_schedule.models import Absence, Schedule
-from main_register_student.models import Students, Price, Paid
+from main_register_student.models import Students, Price
 from main_register_student.forms import StudentForm
 from home.decorators import check_recaptcha, profile_availability
 

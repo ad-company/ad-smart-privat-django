@@ -1,3 +1,5 @@
+from random import randint
+
 from django.contrib.postgres.fields import JSONField
 from django.utils import timezone
 from django.db import models as models
@@ -75,20 +77,20 @@ def photo_profile(instance, filename):
         instance.user.username.replace(' ', '_')
     )
 
-class Paid(models.Model):
-    user = models.ForeignKey(User, primary_key=True, on_delete=models.CASCADE)
-    month = models.CharField(max_length=250, choices=MONTH, null=False, blank=False)
-    year = models.IntegerField(null=False, blank=False)
-    paid = models.BooleanField(null=False, default=False)
-    note = models.CharField(max_length=250, null=True, blank=True, default=None)
-    created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True)
+# class Paid(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     month = models.CharField(max_length=250, choices=MONTH, null=False, blank=False)
+#     year = models.IntegerField(null=False, blank=False)
+#     paid = models.BooleanField(null=False, default=False)
+#     note = models.CharField(max_length=250, null=True, blank=True, default=None)
+#     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+#     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
-    def __str__(self):
-        return '{}'.format(self.user)
+#     def __str__(self):
+#         return '{}'.format(self.user)
 
-    class Meta:
-        verbose_name_plural = 'Paid'
+#     class Meta:
+#         verbose_name_plural = 'Paid'
 
 class Price(models.Model):
     name = models.CharField(max_length=250, choices=PRICE_TYPE, null=False, blank=False)

@@ -2,21 +2,23 @@ from django.contrib import admin
 from .models import (
     Students,
     Price,
-    Paid
+    # Paid
 )
 
-class PaidAdmin(admin.ModelAdmin):
-    """
-    Simple, read-only list/search view of Rating Admin.
-    """
-    list_display = [
-        'user',
-        'month',
-        'year',
-        'paid',
-        'created_at',
-        'updated_at',
-    ]
+# class PaidAdmin(admin.ModelAdmin):
+#     """
+#     Simple, read-only list/search view of Rating Admin.
+#     """
+#     list_display = [
+#         'id',
+#         'user',
+#         'month',
+#         'year',
+#         'paid',
+#         'note',
+#         'created_at',
+#         'updated_at',
+#     ]
 
 class PriceAdmin(admin.ModelAdmin):
     """
@@ -54,4 +56,4 @@ list_admin = []
 admin.site.register(list_admin)
 admin.site.register(Students, StudentsAdmin)
 admin.site.register(Price, PriceAdmin)
-admin.site.register(Paid, PaidAdmin)
+# admin.site.register(Paid, PaidAdmin)
