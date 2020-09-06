@@ -15,20 +15,21 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.CreateModel(
-            name='Paid',
-            fields=[
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, primary_key=True, related_name='paid_tentor', serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('month', models.CharField(choices=[('January', 'January'), ('February', 'February'), ('March', 'March'), ('April', 'April'), ('May', 'May'), ('June', 'June'), ('July', 'July'), ('August', 'August'), ('September', 'September'), ('October', 'October'), ('November', 'November'), ('December', 'December')], max_length=250)),
-                ('year', models.IntegerField()),
-                ('paid', models.BooleanField(default=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-            ],
-            options={
-                'verbose_name_plural': 'Paid',
-            },
-        ),
+        # migrations.CreateModel(
+        #     name='Paid',
+        #     fields=[
+        #         ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+        #         ('month', models.CharField(choices=[('January', 'January'), ('February', 'February'), ('March', 'March'), ('April', 'April'), ('May', 'May'), ('June', 'June'), ('July', 'July'), ('August', 'August'), ('September', 'September'), ('October', 'October'), ('November', 'November'), ('December', 'December')], max_length=250)),
+        #         ('year', models.IntegerField()),
+        #         ('paid', models.BooleanField(default=False)),
+        #         ('created_at', models.DateTimeField(auto_now_add=True)),
+        #         ('updated_at', models.DateTimeField(auto_now=True)),
+        #         ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='paid_tentor', to=settings.AUTH_USER_MODEL)),
+        #     ],
+        #     options={
+        #         'verbose_name_plural': 'Paid',
+        #     },
+        # ),
         migrations.CreateModel(
             name='Fee',
             fields=[
