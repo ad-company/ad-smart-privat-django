@@ -86,7 +86,7 @@ def absence(request):
                         schedule=schedule,
                         attend_tentor=True,
                         tentor_assign_date=local_datetime,
-                        mode=schedule.user_student.mode,
+                        mode=request.POST['mode'],
                         grade=schedule.user_student.grade,
                         total_student=schedule.user_student.total_student,
                     )
@@ -108,9 +108,9 @@ def absence(request):
                         schedule=schedule,
                         attend_student=True,
                         student_assign_date=local_datetime,
-                        mode=schedule.user_student.mode,
+                        mode=request.POST['mode'],
                         grade=schedule.user_student.grade,
-                        total_student=schedule.user_student.total_student,
+                        total_student=request.POST['total_student'],
                     )
                     messages.success(request, "Save absence student success!")
                 except Exception:

@@ -35,14 +35,14 @@
               <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                 <h4 id="schedule-h4-2">List of Absence</h4>
               {% endif %}
-              <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
-              <p>Kelas : {{ schedule.schedule.user_student.grade }}</p>
+              <p>Nama Murid : {{ schedule.user_student.name }}</p>
+              <p>Kelas : {{ schedule.grade }}</p>
               <p>Jadwal : {{ schedule.schedule.schedule }}</p>
               <p>Mapel : {{ schedule.schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.schedule.location }}</p>
-              <p>Mode : {{ schedule.schedule.mode }}</p>
-              <p>Total Student : {{ schedule.schedule.user_student.total_student }}</p>
-              <p>HP : +{{ schedule.schedule.user_student.phone }}</p>
+              <p>Mode : {{ schedule.mode }}</p>
+              <p>Total Student : {{ schedule.total_student }}</p>
+              <p>HP : +{{ schedule.user_student.phone }}</p>
               <div class="text-center">
                 {% if schedule.attend_student %}
                 <p>Status : <i class="fa fa-check" style="font-size:36px"></i></p>
@@ -88,14 +88,14 @@
               <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                 <h4 id="schedule-h4-2">List of Absence</h4>
               {% endif %}
-              <p>Nama Murid : {{ schedule.schedule.user_student.name }}</p>
-              <p>Kelas : {{ schedule.schedule.user_student.grade }}</p>
+              <p>Nama Murid : {{ schedule.user_student.name }}</p>
+              <p>Kelas : {{ schedule.grade }}</p>
               <p>Jadwal : {{ schedule.schedule.schedule }}</p>
               <p>Mapel : {{ schedule.schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.schedule.location }}</p>
-              <p>Mode : {{ schedule.schedule.mode }}</p>
-              <p>Total Student : {{ schedule.schedule.user_student.total_student }}</p>
-              <p>HP : +{{ schedule.schedule.user_student.phone }}</p>
+              <p>Mode : {{ schedule.mode }}</p>
+              <p>Total Student : {{ schedule.total_student }}</p>
+              <p>HP : +{{ schedule.user_student.phone }}</p>
               <div class="text-center">
                 <a id="whatsapp-a"
                   href="https://wa.me/{{ schedule.schedule.user_student.phone }}/?text=Hi!%20I%20am%20your%20tentor%20for%20every%20{{ schedule.schedule.schedule }}.%20My%20name%20is%20{{ schedule.schedule.user_tentor.name }}.">
@@ -128,7 +128,11 @@
               <p>Jadwal : {{ schedule.schedule }}</p>
               <p>Mapel : {{ schedule.mapel }}</p>
               <p>Lokasi : {{ schedule.location }}</p>
-              <p>Mode : {{ schedule.mode }}</p>
+              <label for="id_mode"><p>Mode : </p></label>
+              <select name="mode" id="id_mode" required>
+                <option value="online (remote)" {% if schedule.mode == "online (remote)" %} selected {% endif %}>Online (Remote)</option>
+                <option value="offline" {% if schedule.mode == "offline" %} selected {% endif %}>Offline</option>
+              </select>
               <p>Total Student : {{ schedule.user_student.total_student }}</p>
               <p>HP : +{{ schedule.user_student.phone }}</p>
               <div class="text-center">
@@ -176,7 +180,7 @@
             {% else %}
               <p>Tanggal : {{ past.created_at }}</p>
             {% endif %}
-            <p>Nama Tentor : {{ past.user_student.name }}</p>
+            <p>Nama Murid : {{ past.user_student.name }}</p>
             <p>Jadwal : {{ past.schedule.schedule }}</p>
             <p>Mapel : {{ past.schedule.mapel }}</p>
             <p>Mode : {{ past.mode }}</p>
@@ -236,12 +240,12 @@
                 <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                   <h4 id="schedule-h4-2">List of Absence</h4>
                 {% endif %}
-                <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
+                <p>Nama Tentor : {{ schedule.user_tentor.name }}</p>
                 <p>Jadwal : {{ schedule.schedule.schedule }}</p>
                 <p>Mapel : {{ schedule.schedule.mapel }}</p>
-                <p>Mode : {{ schedule.schedule.mode }}</p>
-                <p>Total Group : {{ schedule.schedule.user_student.total_student }}</p>
-                <p>HP : +{{ schedule.schedule.user_tentor.phone }}</p>
+                <p>Mode : {{ schedule.mode }}</p>
+                <p>Total Group : {{ schedule.total_student }}</p>
+                <p>HP : +{{ schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   {% if schedule.attend_student %}
                   <p>Status : <i class="fa fa-check" style="font-size:36px"></i></p>
@@ -280,12 +284,12 @@
                 <div class="col-md-6 col-sm-12 border-absence-2 background-schedule-2">
                   <h4 id="schedule-h4-2">List of Absence</h4>
                 {% endif %}
-                <p>Nama Tentor : {{ schedule.schedule.user_tentor.name }}</p>
+                <p>Nama Tentor : {{ schedule.user_tentor.name }}</p>
                 <p>Jadwal : {{ schedule.schedule.schedule }}</p>
                 <p>Mapel : {{ schedule.schedule.mapel }}</p>
-                <p>Mode : {{ schedule.schedule.mode }}</p>
-                <p>Total Group : {{ schedule.schedule.user_student.total_student }}</p>
-                <p>HP : +{{ schedule.schedule.user_tentor.phone }}</p>
+                <p>Mode : {{ schedule.mode }}</p>
+                <p>Total Group : {{ schedule.total_student }}</p>
+                <p>HP : +{{ schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   <a id="whatsapp-a"
                     href="https://wa.me/{{ schedule.user_tentor.phone }}/?text=Hi!%20I%20am%20your%20student%20for%20schedule%20{{ schedule.schedule }}.%20My%20name%20is%20{{ schedule.user_student.name }}.">
@@ -316,8 +320,20 @@
                 <p>Nama Tentor : {{ schedule.user_tentor.name }}</p>
                 <p>Jadwal : {{ schedule.schedule }}</p>
                 <p>Mapel : {{ schedule.mapel }}</p>
-                <p>Mode : {{ schedule.mode }}</p>
-                <p>Total Group : {{ schedule.user_student.total_student }}</p>
+                <label for="id_mode"><p>Mode : </p></label>
+                <select name="mode" id="id_mode" required>
+                  <option value="online (remote)" {% if schedule.mode == "online (remote)" %} selected {% endif %}>Online (Remote)</option>
+                  <option value="offline" {% if schedule.mode == "offline" %} selected {% endif %}>Offline</option>
+                </select>
+                <p>
+                  <label for="id_total_student">Total Group : </label>
+                  <select name="total_student" id="id_total_student" required>
+                    <option value="1" {% if schedule.user_student.total_student == '1' %} selected {% endif%}>1 Student</option>
+                    <option value="2" {% if schedule.user_student.total_student == '2' %} selected {% endif%}>2 Student</option>
+                    <option value="3" {% if schedule.user_student.total_student == '3' %} selected {% endif%}>3 Student</option>
+                    <option value="4" {% if schedule.user_student.total_student == '4' %} selected {% endif%}>4 Student</option>
+                  </select>
+                </p>
                 <p>HP : +{{ schedule.user_tentor.phone }}</p>
                 <div class="text-center">
                   <a id="whatsapp-a"
