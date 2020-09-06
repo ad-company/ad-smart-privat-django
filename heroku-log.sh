@@ -1,0 +1,1 @@
+herokus log --tail
