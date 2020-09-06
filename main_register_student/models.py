@@ -80,6 +80,7 @@ class Paid(models.Model):
     month = models.CharField(max_length=250, choices=MONTH, null=False, blank=False)
     year = models.IntegerField(null=False, blank=False)
     paid = models.BooleanField(null=False, default=False)
+    note = models.CharField(max_length=250, null=True, blank=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True)
 
@@ -136,7 +137,7 @@ class Students(models.Model):
     )
     total_student = models.CharField(max_length=250, null=False)
     school = models.CharField(max_length=150, null=False)
-    mode = models.CharField(max_length=150, null=False)
+    mode = models.CharField(max_length=150, choices=MODE, null=False)
     user_type = models.CharField(max_length=100, editable=False, default="student")
     status = models.BooleanField(null=True, default=False, editable=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
