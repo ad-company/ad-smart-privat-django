@@ -31,7 +31,7 @@ def absence(request):
 
     # day, date & datetime
     today_min = datetime.combine(date.today() - timedelta(1), time.min)
-    today_max = datetime.combine(date.today() + timedelta(1), time.max)
+    today_max = datetime.combine(date.today() + timedelta(2), time.max)
 
     local_day = datetime.now().strftime("%A")
     local_date = timezone.localtime(timezone.now()).strftime('%Y-%m-%d')
