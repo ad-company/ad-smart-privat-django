@@ -14,6 +14,7 @@
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 ftco-animate">
     {% if form.user_type == 'superuser' %}
+      <h2>Total Payment</h2>
       <table>
         <tr class="table-title">
             <th>Student</th>
@@ -45,6 +46,42 @@
             <th {% if student.October_paid == True %} style="color:#4e9955;;" {% elif student.October_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.October_total }}</th>
             <th {% if student.November_paid == True %} style="color:#4e9955;;" {% elif student.November_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.November_total }}</th>
             <th {% if student.December_paid == True %} style="color:#4e9955;;" {% elif student.December_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.December_total }}</th>
+          </tr>
+        {% endfor %}
+      </table>
+      <br/>
+      <h2>Total Meet</h2>
+      <table>
+        <tr class="table-title">
+            <th>Student</th>
+            <th>January</th>
+            <th>February</th>
+            <th>March</th>
+            <th>April</th>
+            <th>May</th>
+            <th>June</th>
+            <th>July</th>
+            <th>August</th>
+            <th>September</th>
+            <th>October</th>
+            <th>November</th>
+            <th>December</th>
+        </tr>
+        {% for student in form.data_superuser %}
+          <tr>
+            <th>{{ student.user_student.name }}</th>
+            <th {% if student.January_paid == True %} style="color:#4e9955;;" {% elif student.January_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.January_count }}</th>
+            <th {% if student.February_paid == True %} style="color:#4e9955;;" {% elif student.February_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.February_count }}</th>
+            <th {% if student.March_paid == True %} style="color:#4e9955;;" {% elif student.March_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.March_count }}</th>
+            <th {% if student.April_paid == True %} style="color:#4e9955;;" {% elif student.April_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.April_count }}</th>
+            <th {% if student.May_paid == True %} style="color:#4e9955;;" {% elif student.May_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.May_count }}</th>
+            <th {% if student.June_paid == True %} style="color:#4e9955;;" {% elif student.June_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.June_count }}</th>
+            <th {% if student.July_paid == True %} style="color:#4e9955;;" {% elif student.July_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.July_count }}</th>
+            <th {% if student.August_paid == True %} style="color:#4e9955;;" {% elif student.August_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.August_count }}</th>
+            <th {% if student.September_paid == True %} style="color:#4e9955;;" {% elif student.September_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.September_count }}</th>
+            <th {% if student.October_paid == True %} style="color:#4e9955;;" {% elif student.October_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.October_count }}</th>
+            <th {% if student.November_paid == True %} style="color:#4e9955;;" {% elif student.November_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.November_count }}</th>
+            <th {% if student.December_paid == True %} style="color:#4e9955;;" {% elif student.December_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.December_count }}</th>
           </tr>
         {% endfor %}
       </table>
