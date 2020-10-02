@@ -17,7 +17,6 @@ from main_register_tentor.forms import TentorForm
 from home.decorators import check_recaptcha, profile_availability
 
 
-# @profile_availability
 @check_recaptcha
 @log_track
 def register_tentor_profile(request, username):
@@ -91,34 +90,28 @@ def fee_page(request):
     year = datetime.today().year
     year_min = datetime.combine(date(year, 1, 1), time.min)
     year_max = datetime.combine(date(year, 12, 31), time.max)
+    form['year'] = year
     
     months = {}
-    months['January_min'] = datetime.combine(date(year, 1, 1), time.min)
-    months['January_max'] = datetime.combine(date(year, 1, 31), time.max)
-    months['February_min'] = datetime.combine(date(year, 2, 1), time.min)
-    months['February_max'] = datetime.combine(date(year, 2, 28), time.max)
-    months['March_min'] = datetime.combine(date(year, 3, 1), time.min)
-    months['March_max'] = datetime.combine(date(year, 3, 31), time.max)
-    months['April_min'] = datetime.combine(date(year, 4, 1), time.min)
-    months['April_max'] = datetime.combine(date(year, 4, 30), time.max)
-    months['May_min'] = datetime.combine(date(year, 5, 1), time.min)
-    months['May_max'] = datetime.combine(date(year, 5, 31), time.max)
-    months['June_min'] = datetime.combine(date(year, 6, 1), time.min)
-    months['June_max'] = datetime.combine(date(year, 6, 30), time.max)
-    months['July_min'] = datetime.combine(date(year, 7, 1), time.min)
-    months['July_max'] = datetime.combine(date(year, 7, 31), time.max)
-    months['August_min'] = datetime.combine(date(year, 8, 1), time.min)
-    months['August_max'] = datetime.combine(date(year, 8, 31), time.max)
-    months['September_min'] = datetime.combine(date(year, 9, 1), time.min)
-    months['September_max'] = datetime.combine(date(year, 9, 30), time.max)
-    months['October_min'] = datetime.combine(date(year, 10, 1), time.min)
-    months['October_max'] = datetime.combine(date(year, 10, 31), time.max)
-    months['November_min'] = datetime.combine(date(year, 11, 1), time.min)
-    months['November_max'] = datetime.combine(date(year, 11, 30), time.max)
-    months['December_min'] = datetime.combine(date(year, 12, 1), time.min)
-    months['December_max'] = datetime.combine(date(year, 12, 31), time.max)
     form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    form['year'] = year
+    for num, month in enumerate(form['list_months']):
+        month_num = num + 1
+        months[f'{month}_min'] = datetime.combine(date(year, month_num, 1), time.min)
+
+        if month_num == 2:  # February
+            months[f'{month}_max'] = datetime.combine(date(year, month_num, 28), time.max)
+
+        elif month_num <= 7:  # January - July
+            if month_num % 2 == 0:  # Even month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 30), time.max)
+            elif month_num % 2 != 0:  # Odd month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 31), time.max)
+
+        elif month_num > 7 and month_num <= 12:  # August - December
+            if month_num % 2 != 0:  # Even month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 30), time.max)
+            elif month_num % 2 == 0:  # Odd month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 31), time.max)
 
     # Price list
     price_sd = ['SD 1', 'SD 2', 'SD 3', 'SD 4', 'SD 5']
@@ -281,18 +274,15 @@ def fee_page(request):
 
                     # Get Date Absence
                     try:
-                        created_at = absence.tentor_assign_date.month
+                        created_at = absence.tentor_assign_date.strftime("%B")
                     except AttributeError:
                         try:
-                            created_at = absence.student_assign_date.month
+                            created_at = absence.student_assign_date.strftime("%B")
                         except AttributeError:
-                            created_at = absence.created_at.month
+                            created_at = absence.created_at.strftime("%B")
 
-                    # Check month of data is it
-                    for num, month in enumerate(form['list_months']):
-                        name_replace = name.replace(' ', '_').replace('-', '_')
-                        if created_at == num+1: # Define Month
-                            data[f'{month}_total'] += fee
+                    # Add fee
+                    data[f'{created_at}_total'] += fee
 
                     # Prevent duplicate data
                     all_absence.append(absence)
@@ -328,8 +318,8 @@ def tentor_test(request):
     choices = []
     response = requests.request("GET", url, headers=headers, data = {}).json()
     # if response['question'] not in question and response['choices'] not in choices:
-        # question.append(response['question'])
-        # choices.append(response['choices'])
+    #     question.append(response['question'])
+    #     choices.append(response['choices'])
 
     tests = {}
     tests['question'] = response['question']

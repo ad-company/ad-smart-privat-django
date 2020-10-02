@@ -129,35 +129,28 @@ def payment_page(request):
     year = datetime.today().year
     year_min = datetime.combine(date(year, 1, 1), time.min)
     year_max = datetime.combine(date(year, 12, 31), time.max)
-
-    months = {}
-    months['January_min'] = datetime.combine(date(year, 1, 1), time.min)
-    months['January_max'] = datetime.combine(date(year, 1, 31), time.max)
-    months['February_min'] = datetime.combine(date(year, 2, 1), time.min)
-    months['February_max'] = datetime.combine(date(year, 2, 28), time.max)
-    months['March_min'] = datetime.combine(date(year, 3, 1), time.min)
-    months['March_max'] = datetime.combine(date(year, 3, 31), time.max)
-    months['April_min'] = datetime.combine(date(year, 4, 1), time.min)
-    months['April_max'] = datetime.combine(date(year, 4, 30), time.max)
-    months['May_min'] = datetime.combine(date(year, 5, 1), time.min)
-    months['May_max'] = datetime.combine(date(year, 5, 31), time.max)
-    months['June_min'] = datetime.combine(date(year, 6, 1), time.min)
-    months['June_max'] = datetime.combine(date(year, 6, 30), time.max)
-    months['July_min'] = datetime.combine(date(year, 7, 1), time.min)
-    months['July_max'] = datetime.combine(date(year, 7, 31), time.max)
-    months['August_min'] = datetime.combine(date(year, 8, 1), time.min)
-    months['August_max'] = datetime.combine(date(year, 8, 31), time.max)
-    months['September_min'] = datetime.combine(date(year, 9, 1), time.min)
-    months['September_max'] = datetime.combine(date(year, 9, 30), time.max)
-    months['October_min'] = datetime.combine(date(year, 10, 1), time.min)
-    months['October_max'] = datetime.combine(date(year, 10, 31), time.max)
-    months['November_min'] = datetime.combine(date(year, 11, 1), time.min)
-    months['November_max'] = datetime.combine(date(year, 11, 30), time.max)
-    months['December_min'] = datetime.combine(date(year, 12, 1), time.min)
-    months['December_max'] = datetime.combine(date(year, 12, 31), time.max)
-    # form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     form['year'] = year
+    
+    months = {}
+    form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    for num, month in enumerate(form['list_months']):
+        month_num = num + 1
+        months[f'{month}_min'] = datetime.combine(date(year, month_num, 1), time.min)
+
+        if month_num == 2:  # February
+            months[f'{month}_max'] = datetime.combine(date(year, month_num, 28), time.max)
+
+        elif month_num <= 7:  # January - July
+            if month_num % 2 == 0:  # Even month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 30), time.max)
+            elif month_num % 2 != 0:  # Odd month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 31), time.max)
+
+        elif month_num > 7 and month_num <= 12:  # August - December
+            if month_num % 2 != 0:  # Even month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 30), time.max)
+            elif month_num % 2 == 0:  # Odd month
+                months[f'{month}_max'] = datetime.combine(date(year, month_num, 31), time.max)
 
     # Price list
     price_sd = ['SD 1', 'SD 2', 'SD 3', 'SD 4', 'SD 5']
@@ -183,6 +176,7 @@ def payment_page(request):
             form[f'list_{month}'] = 0
             form[f'total_{month}'] = 0
 
+            # Loop absence for every month
             for absence in form['list_absence']:
                 if absence not in all_absence:
                     # Counter
@@ -228,6 +222,10 @@ def payment_page(request):
                     # Prevent duplicate data
                     all_absence.append(absence)
 
+            # Disc 10% if more than 4 meet
+            if form[f'list_{month}'] > 4:
+                form[f'total_{month}'] = int(form[f'total_{month}'] * 90 / 100)
+
             # Paid & Notes
             form[f'paid_{month}'] = '-'  # auto no payment if no data
             form[f'note_{month}'] = '-'  # Auto no note for this month
@@ -240,6 +238,106 @@ def payment_page(request):
                     form[f'note_{month}'] = paid_notes.note # Get note if there's any data
             except Paid.DoesNotExist:
                 pass
+
+    # Superuser need
+    if user_type == 'superuser':
+        # Handler duplicate data
+        all_absence = []
+
+        form['data_superuser'] = []
+        students = Students.objects.filter(user__is_active=True)
+
+        for num, student in enumerate(students):
+            # Identity
+            data = {}
+            data['user_student'] = student
+            
+            # Absence filter
+            absences = Absence.objects.filter(
+                Q(student_assign_date__range=[year_min, year_max]) | Q(tentor_assign_date__range=[year_min, year_max]),
+                Q(attend_student=True) | Q(attend_tentor=True),
+                user_student=student,
+            ) # Get all list of absence this year
+
+            # Total monthly SD - SMA
+            for month in form['list_months']: 
+                data[f'{month}_count'] = 0
+                data[f'{month}_total'] = 0
+
+            # Loop absence for 1 year
+            for absence in absences:
+                if absence not in all_absence:
+                    # Price type
+                    if absence.grade in price_sd:
+                        name = 'SD 1-5'
+                    elif absence.grade in price_sd_up:
+                        name = 'SD 6'
+                    elif absence.grade in price_smp:
+                        name = 'SMP 7-8'
+                    elif absence.grade in price_smp_up:
+                        name = 'SMP 9'
+                    elif absence.grade in price_sma:
+                        name = 'SMA 10-11'
+                    elif absence.grade in price_sma_up:
+                        name = 'SMA 12'
+                    else:
+                        name = None
+
+                    # Price mode
+                    if absence.mode == 'offline' or absence.mode == 'both':  # price of both is same as offline
+                        mode = 'offline'
+                    else:
+                        mode = 'online (remote)'  # online (remote)
+
+                    # Price normal
+                    price = Price.objects.get(name=name, mode=mode).price
+
+                    # Discount group
+                    if absence.total_student == '1':
+                        discount = 0
+                    elif absence.total_student == '2':
+                        discount = 10
+                    elif absence.total_student == '3':
+                        discount = 15
+                    elif absence.total_student == '4':
+                        discount = 20
+                    else:
+                        discount = 0
+                    
+                    # Total price
+                    total = int(price * float(absence.total_student) * float(100 - discount) / float(100))
+
+                    # Get Date Absence
+                    try:
+                        created_at = absence.tentor_assign_date.strftime("%B")
+                    except AttributeError:
+                        try:
+                            created_at = absence.student_assign_date.strftime("%B")
+                        except AttributeError:
+                            created_at = absence.created_at.strftime("%B")
+
+                    # Add total
+                    data[f'{created_at}_total'] += total
+                    data[f'{created_at}_count'] += 1
+
+                    # Prevent duplicate data
+                    all_absence.append(absence)
+
+            # Check discount & paid status
+            for month in form['list_months']:
+                # Disc 10% if more that 4 meet
+                if data[f'{month}_count'] > 4:
+                    data[f'{month}_total'] = int(data[f'{month}_total'] * 90 / 100)
+
+                data[f'{month}_paid'] = False  # auto False if not paid
+                if data[f'{month}_total'] == 0:
+                    data[f'{month}_paid'] = '-'  # No data this month
+                else:
+                    paid = Paid.objects.filter(user=student.user, month=month, year=int(year), paid=True)
+                    if paid:
+                        data[f'{month}_paid'] = True  # paid
+
+            form['data_superuser'].append(data)
 
     form['range_request'] = range(0, 11)
     return render(request,'payment.html', {'form':form})
