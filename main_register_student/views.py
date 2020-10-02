@@ -123,7 +123,6 @@ def payment_page(request):
 
     form = {}
     form['user_type'] = user_type
-    student = Students.objects.get(pk=user.id)
 
     # day, date, datetime & year
     year = datetime.today().year
@@ -163,6 +162,7 @@ def payment_page(request):
     # Student need
     if user_type == 'student':
         form['user_student'] = student
+        student = Students.objects.get(pk=user.id)
 
         # Handler duplicate data
         all_absence = []
