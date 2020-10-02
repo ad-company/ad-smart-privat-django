@@ -154,11 +154,27 @@ def absence(request):
     # Filter absence past only (not today)
     form['absence_past'] = []
     for num, data in enumerate(list_past):
-        if data.student_assign_date:
-            data.student_assign_date = data.student_assign_date.strftime('%B %d, %Y')
-        if data.tentor_assign_date:
-            data.tentor_assign_date = data.tentor_assign_date.strftime('%B %d, %Y')
+        # Get Date Absence
+        try:
+            tentor_date = data.tentor_assign_date
+        except AttributeError:
+            tentor_date = None
+        try:
+            student_date = data.tentor_assign_date
+        except AttributeError:
+            student_date = None
+
         data.created_at = data.created_at.strftime('%B %d, %Y')
+        if tentor_date and student_date:
+            if tentor_date < student_date:
+                created_at = data.tentor_assign_date.strftime('%B %d, %Y')
+            elif tentor_date > student_date:
+                created_at = data.student_assign_date.strftime('%B %d, %Y')
+        elif tentor_date and not student_date:
+            created_at = data.tentor_assign_date.strftime('%B %d, %Y')
+        elif not tentor_date and student_date:
+            created_at = data.student_assign_date.strftime('%B %d, %Y')
+
         if data not in form['absence'] and data not in form['absence_done']:
             form['absence_past'].append(data)
 

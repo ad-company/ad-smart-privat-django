@@ -219,12 +219,24 @@ def payment_page(request):
 
                     # Get Date Absence
                     try:
-                        created_at = absence.tentor_assign_date.strftime("%B")
+                        tentor_date = absence.tentor_assign_date
                     except AttributeError:
-                        try:
+                        tentor_date = None
+                    try:
+                        student_date = absence.tentor_assign_date
+                    except AttributeError:
+                        student_date = None
+
+                    created_at = absence.created_at.strftime("%B")
+                    if tentor_date and student_date:
+                        if tentor_date < student_date:
+                            created_at = absence.tentor_assign_date.strftime("%B")
+                        elif tentor_date > student_date:
                             created_at = absence.student_assign_date.strftime("%B")
-                        except AttributeError:
-                            created_at = absence.created_at.strftime("%B")
+                    elif tentor_date and not student_date:
+                        created_at = absence.tentor_assign_date.strftime("%B")
+                    elif not tentor_date and student_date:
+                        created_at = absence.student_assign_date.strftime("%B")
 
                     form[f'{created_at}_total'] += int(form['price'] * float(absence.total_student) * float(100 - discount) / float(100))
                     form[f'{created_at}_list'] += 1
@@ -319,12 +331,24 @@ def payment_page(request):
 
                     # Get Date Absence
                     try:
-                        created_at = absence.tentor_assign_date.strftime("%B")
+                        tentor_date = absence.tentor_assign_date
                     except AttributeError:
-                        try:
+                        tentor_date = None
+                    try:
+                        student_date = absence.tentor_assign_date
+                    except AttributeError:
+                        student_date = None
+
+                    created_at = absence.created_at.strftime("%B")
+                    if tentor_date and student_date:
+                        if tentor_date < student_date:
+                            created_at = absence.tentor_assign_date.strftime("%B")
+                        elif tentor_date > student_date:
                             created_at = absence.student_assign_date.strftime("%B")
-                        except AttributeError:
-                            created_at = absence.created_at.strftime("%B")
+                    elif tentor_date and not student_date:
+                        created_at = absence.tentor_assign_date.strftime("%B")
+                    elif not tentor_date and student_date:
+                        created_at = absence.student_assign_date.strftime("%B")
 
                     # Add total
                     data[f'{created_at}_total'] += total
