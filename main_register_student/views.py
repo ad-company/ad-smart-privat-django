@@ -161,11 +161,15 @@ def payment_page(request):
 
     # Student need
     if user_type == 'student':
-        form['user_student'] = student
         student = Students.objects.get(pk=user.id)
+        form['user_student'] = student
 
         # Handler duplicate data
         all_absence = []
+
+        for month in form['list_months']:
+            form[f'{month}_list'] = 0
+            form[f'{month}_total'] = 0
 
         for num, month in enumerate(form['list_months']):
             form['list_absence'] = Absence.objects.filter(
@@ -173,15 +177,10 @@ def payment_page(request):
                 Q(attend_student=True) | Q(attend_tentor=True),
                 user_student=student,
             ) # Get list per month
-            form[f'list_{month}'] = 0
-            form[f'total_{month}'] = 0
 
             # Loop absence for every month
             for absence in form['list_absence']:
                 if absence not in all_absence:
-                    # Counter
-                    form[f'list_{month}'] += 1
-
                     # Price type
                     if absence.grade in price_sd:
                         name = 'SD 1-5'
@@ -217,25 +216,36 @@ def payment_page(request):
                     else:
                         discount = 0
                     form['discount'] = f'{discount}%'
-                    form[f'total_{month}'] += int(form['price'] * float(absence.total_student) * float(100 - discount) / float(100))
+
+                    # Get Date Absence
+                    try:
+                        created_at = absence.tentor_assign_date.strftime("%B")
+                    except AttributeError:
+                        try:
+                            created_at = absence.student_assign_date.strftime("%B")
+                        except AttributeError:
+                            created_at = absence.created_at.strftime("%B")
+
+                    form[f'{created_at}_total'] += int(form['price'] * float(absence.total_student) * float(100 - discount) / float(100))
+                    form[f'{created_at}_list'] += 1
 
                     # Prevent duplicate data
                     all_absence.append(absence)
 
             # Disc 10% if more than 4 meet
-            if form[f'list_{month}'] > 4:
-                form[f'total_{month}'] = int(form[f'total_{month}'] * 90 / 100)
+            if form[f'{month}_list'] > 4:
+                form[f'{month}_total'] = int(form[f'{month}_total'] * 90 / 100)
 
             # Paid & Notes
-            form[f'paid_{month}'] = '-'  # auto no payment if no data
-            form[f'note_{month}'] = '-'  # Auto no note for this month
+            form[f'{month}_paid'] = '-'  # auto no payment if no data
+            form[f'{month}_note'] = '-'  # Auto no note for this month
 
             try:
                 paid_notes = Paid.objects.get(user=user, month=month, year=int(year))
-                form[f'paid_{month}'] = paid_notes.paid # Get paid status if there's any data
+                form[f'{month}_paid'] = paid_notes.paid # Get paid status if there's any data
 
                 if paid_notes.note:
-                    form[f'note_{month}'] = paid_notes.note # Get note if there's any data
+                    form[f'{month}_note'] = paid_notes.note # Get note if there's any data
             except Paid.DoesNotExist:
                 pass
 

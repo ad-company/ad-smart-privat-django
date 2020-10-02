@@ -138,3 +138,16 @@ class Tentors(models.Model):
 
     class Meta:
         verbose_name_plural = 'Tentor'
+
+# class PassingGrade(models.Model):
+#     user_tentor = models.ForeignKey(Tentors, on_delete=models.CASCADE, related_name='user_tentor_grade', blank=True, null=True)
+#     score = models.IntegerField(null=True, blank=True, default=0)
+#     passed = models.BooleanField(null=False, blank=False, default=False)
+#     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+#     updated_at = models.DateTimeField(auto_now=True, blank=True)
+
+#     def __str__(self):
+#         return self.bank_name
+
+#     class Meta:
+#         verbose_name_plural = 'PassingGrade'

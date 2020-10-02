@@ -122,86 +122,113 @@ def fee_page(request):
     price_sma_up = ['SMA 12']
 
     # Tentor need
-    tentor = Tentors.objects.get(pk=user.id)
-    form['user_tentor'] = tentor
+    if user_type == 'tentor':
+        tentor = Tentors.objects.get(pk=user.id)
+        form['user_tentor'] = tentor
 
-    # Handler duplicate data
-    all_absence = []
+        # Handler duplicate data
+        all_absence = []
 
-    # Total monthly SD - SMA
-    for num, month in enumerate(form['list_months']):
-        form[f'count_absence_{month}_SD_1_5'] = 0
-        form[f'count_absence_{month}_SD_6'] = 0
-        form[f'count_absence_{month}_SMP_7_8'] = 0
-        form[f'count_absence_{month}_SMP_9'] = 0
-        form[f'count_absence_{month}_SMA_10_11'] = 0
-        form[f'count_absence_{month}_SMA_12'] = 0
-        form[f'total_fee_{month}'] = 0
+        # Total monthly SD - SMA
+        for num, month in enumerate(form['list_months']):
+            form[f'{month}_SD_1_5'] = 0
+            form[f'{month}_SD_6'] = 0
+            form[f'{month}_SMP_7_8'] = 0
+            form[f'{month}_SMP_9'] = 0
+            form[f'{month}_SMA_10_11'] = 0
+            form[f'{month}_SMA_12'] = 0
+            form[f'{month}_count'] = 0
+            form[f'{month}_total_fee'] = 0
 
-        # Absence filter
-        form['list_absence'] = Absence.objects.filter(
-            Q(student_assign_date__range=[months[f'{month}_min'], months[f'{month}_max']]) | Q(tentor_assign_date__range=[months[f'{month}_min'], months[f'{month}_max']]),
-            Q(attend_student=True) | Q(attend_tentor=True),
-            user_tentor=tentor,
-        ) # Get all list of absence this year
+        for num, month in enumerate(form['list_months']):
+            # Absence filter
+            form['list_absence'] = Absence.objects.filter(
+                Q(student_assign_date__range=[months[f'{month}_min'], months[f'{month}_max']]) | Q(tentor_assign_date__range=[months[f'{month}_min'], months[f'{month}_max']]),
+                Q(attend_student=True) | Q(attend_tentor=True),
+                user_tentor=tentor,
+            ) # Get all list of absence this year
 
-        for absence in form['list_absence']:
-            if absence not in all_absence:
-                # Price type
-                if absence.grade in price_sd:
-                    name = 'SD 1-5'
-                elif absence.grade in price_sd_up:
-                    name = 'SD 6'
-                elif absence.grade in price_smp:
-                    name = 'SMP 7-8'
-                elif absence.grade in price_smp_up:
-                    name = 'SMP 9'
-                elif absence.grade in price_sma:
-                    name = 'SMA 10-11'
-                elif absence.grade in price_sma_up:
-                    name = 'SMA 12'
-                else:
-                    name = None
+            for absence in form['list_absence']:
+                if absence not in all_absence:
+                    # Price type
+                    if absence.grade in price_sd:
+                        name = 'SD 1-5'
+                    elif absence.grade in price_sd_up:
+                        name = 'SD 6'
+                    elif absence.grade in price_smp:
+                        name = 'SMP 7-8'
+                    elif absence.grade in price_smp_up:
+                        name = 'SMP 9'
+                    elif absence.grade in price_sma:
+                        name = 'SMA 10-11'
+                    elif absence.grade in price_sma_up:
+                        name = 'SMA 12'
+                    else:
+                        name = None
 
-                # Fee mode
-                if absence.mode == 'offline' or absence.mode == 'both':  # price of both is same as offline
-                    mode = 'offline'
-                else:
-                    mode = 'online (remote)'  # online (remote)
+                    # Fee mode
+                    if absence.mode == 'offline' or absence.mode == 'both':  # price of both is same as offline
+                        mode = 'offline'
+                    else:
+                        mode = 'online (remote)'  # online (remote)
 
-                # Fee normal
-                form['fee'] = Fee.objects.get(name=name, mode=mode).price
+                    # Fee normal
+                    form['fee'] = Fee.objects.get(name=name, mode=mode).price
 
-                # Fee Additional Individu
-                name_addition = name + '+'
-                if int(absence.total_student) == 1:
-                    addition = 0
-                # Fee Additional group
-                elif int(absence.total_student) == 2:
-                    addition = Fee.objects.get(name=name_addition, mode=mode).price
-                elif int(absence.total_student) == 3:
-                    addition = Fee.objects.get(name=name_addition, mode=mode).price * 2
-                elif int(absence.total_student) == 4:
-                    addition = Fee.objects.get(name=name_addition, mode=mode).price * 3
-                else:
-                    addition = 0
+                    # Fee Additional Individu
+                    name_addition = name + '+'
+                    if int(absence.total_student) == 1:
+                        addition = 0
+                    # Fee Additional group
+                    elif int(absence.total_student) == 2:
+                        addition = Fee.objects.get(name=name_addition, mode=mode).price
+                    elif int(absence.total_student) == 3:
+                        addition = Fee.objects.get(name=name_addition, mode=mode).price * 2
+                    elif int(absence.total_student) == 4:
+                        addition = Fee.objects.get(name=name_addition, mode=mode).price * 3
+                    else:
+                        addition = 0
 
-                # Count Total Fee
-                form[f'total_fee_{month}'] += form['fee'] + addition
+                    # Get Date Absence
+                    try:
+                        created_at = absence.tentor_assign_date.strftime("%B")
+                    except AttributeError:
+                        try:
+                            created_at = absence.student_assign_date.strftime("%B")
+                        except AttributeError:
+                            created_at = absence.created_at.strftime("%B")
 
-                name_replace = name.replace(' ', '_').replace('-', '_')
-                form[f'count_absence_{month}_{name_replace}'] += 1
-                form[f'paid_{month}'] = False  # auto False if not paid
-                
-                if form[f'total_fee_{month}'] == 0:
-                    form[f'paid_{month}'] = '-'  # No data this month
-                else:
-                    paid = Paid.objects.filter(user=user, month=month, year=int(year), paid=True)
-                    if paid:
-                        form[f'paid_{month}'] = True  # paid
+                    # Count Total Fee
+                    form[f'{created_at}_total_fee'] += form['fee'] + addition
 
-                # Prevent duplicate data
-                all_absence.append(absence)
+                    name_replace = name.replace(' ', '_').replace('-', '_')
+                    form[f'{created_at}_{name_replace}'] += 1
+                    form[f'{created_at}_paid'] = False  # auto False if not paid
+                    
+                    if form[f'{created_at}_total_fee'] == 0:
+                        form[f'{created_at}_paid'] = '-'  # No data this month
+                    else:
+                        paid = Paid.objects.filter(user=user, month=created_at, year=int(year), paid=True)
+                        if paid:
+                            form[f'{created_at}_paid'] = True  # paid
+
+                    # Prevent duplicate data
+                    all_absence.append(absence)
+
+            # # Get total all count per month
+            # form[f'{month}_count'] = form[f'{month}_SD_1_5']
+            # + form[f'{month}_SD_6']
+            # + form[f'{month}_SMP_7_8']
+            # + form[f'{month}_SMP_9']
+            # + form[f'{month}_SMA_10_11']
+            # + form[f'{month}_SMA_12']
+            # print(form[f'{month}_count'], month)
+            # print(form[f'{month}_SD_1_5'])
+            # print(form[f'{month}_SD_6'])
+            # print(form[f'{month}_SMP_7_8'])
+            # print(form[f'{month}_SMP_9'])
+            # print(form[f'{month}_SMA_10_11'])
+            # print(form[f'{month}_SMA_12'])
     # End of tentor neeed
 
     # Superuser need
@@ -227,6 +254,7 @@ def fee_page(request):
             # Total monthly SD - SMA
             for month in form['list_months']: 
                 data[f'{month}_total'] = 0
+                data[f'{month}_count'] = 0
             
             for absence in absences:
                 if absence not in all_absence:
@@ -283,6 +311,7 @@ def fee_page(request):
 
                     # Add fee
                     data[f'{created_at}_total'] += fee
+                    data[f'{created_at}_count'] += 1
 
                     # Prevent duplicate data
                     all_absence.append(absence)

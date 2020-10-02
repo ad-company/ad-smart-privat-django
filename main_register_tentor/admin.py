@@ -4,6 +4,7 @@ from .models import (
     Bank,
     Fee,
     Paid,
+    # PassingGrade,
 )
 
 
@@ -20,6 +21,19 @@ class PaidAdmin(admin.ModelAdmin):
         'created_at',
         'updated_at',
     ]
+
+# class PassingGradeAdmin(admin.ModelAdmin):
+#     """
+#     Simple, read-only list/search view of Rating Admin.
+#     """
+#     list_display = [
+#         'id',
+#         'user_tentor',
+#         'score',
+#         'passed',
+#         'created_at',
+#         'updated_at',
+#     ]
 
 class FeeAdmin(admin.ModelAdmin):
     """
@@ -65,3 +79,4 @@ admin.site.register(Fee, FeeAdmin)
 admin.site.register(Paid, PaidAdmin)
 admin.site.register(Bank, BankAdmin)
 admin.site.register(Tentors, TentorsAdmin)
+# admin.site.register(PassingGrade, PassingGradeAdmin)

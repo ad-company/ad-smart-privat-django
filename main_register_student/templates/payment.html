@@ -13,78 +13,80 @@
   </div>
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 ftco-animate">
+
     {% if form.user_type == 'superuser' %}
       <h2>Total Payment</h2>
       <table>
+
         <tr class="table-title">
-            <th>Student</th>
-            <th>January</th>
-            <th>February</th>
-            <th>March</th>
-            <th>April</th>
-            <th>May</th>
-            <th>June</th>
-            <th>July</th>
-            <th>August</th>
-            <th>September</th>
-            <th>October</th>
-            <th>November</th>
-            <th>December</th>
+          <th>Student</th>
+          {% comment %} Monthly title {% endcomment %}
+          {% for month in form.list_months %}
+            <th>{{ month }}</th>
+          {% endfor %}
+          {% comment %} End of Monthly title {% endcomment %}
         </tr>
+
+        {% comment %} Get data per student {% endcomment %}
         {% for student in form.data_superuser %}
           <tr>
             <th>{{ student.user_student.name }}</th>
-            <th {% if student.January_paid == True %} style="color:#4e9955;;" {% elif student.January_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.January_total }}</th>
-            <th {% if student.February_paid == True %} style="color:#4e9955;;" {% elif student.February_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.February_total }}</th>
-            <th {% if student.March_paid == True %} style="color:#4e9955;;" {% elif student.March_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.March_total }}</th>
-            <th {% if student.April_paid == True %} style="color:#4e9955;;" {% elif student.April_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.April_total }}</th>
-            <th {% if student.May_paid == True %} style="color:#4e9955;;" {% elif student.May_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.May_total }}</th>
-            <th {% if student.June_paid == True %} style="color:#4e9955;;" {% elif student.June_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.June_total }}</th>
-            <th {% if student.July_paid == True %} style="color:#4e9955;;" {% elif student.July_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.July_total }}</th>
-            <th {% if student.August_paid == True %} style="color:#4e9955;;" {% elif student.August_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.August_total }}</th>
-            <th {% if student.September_paid == True %} style="color:#4e9955;;" {% elif student.September_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.September_total }}</th>
-            <th {% if student.October_paid == True %} style="color:#4e9955;;" {% elif student.October_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.October_total }}</th>
-            <th {% if student.November_paid == True %} style="color:#4e9955;;" {% elif student.November_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.November_total }}</th>
-            <th {% if student.December_paid == True %} style="color:#4e9955;;" {% elif student.December_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.December_total }}</th>
+            {% comment %} Monthly data {% endcomment %}
+            {% for month in form.list_months %}
+              {% with month_paid=month|stringformat:"s"|add:"_paid" %}{% with month_total=month|stringformat:"s"|add:"_total" %}
+                <th
+                {% if student|get_item:month_paid == True %} 
+                  style="color:#4e9955;;"
+                {% elif student|get_item:month_paid == False %}
+                  style="color:#e35c4bbd;"
+                {% endif %}
+                >
+                  {{ student|get_item:month_total }}
+                </th>
+              {% endwith %}{% endwith %}
+            {% endfor %}
+            {% comment %} End of Monthly data {% endcomment %}
           </tr>
         {% endfor %}
+        {% comment %} End of Get data per student {% endcomment %}
+
       </table>
       <br/>
       <h2>Total Meet</h2>
       <table>
         <tr class="table-title">
-            <th>Student</th>
-            <th>January</th>
-            <th>February</th>
-            <th>March</th>
-            <th>April</th>
-            <th>May</th>
-            <th>June</th>
-            <th>July</th>
-            <th>August</th>
-            <th>September</th>
-            <th>October</th>
-            <th>November</th>
-            <th>December</th>
+          <th>Student</th>
+          {% comment %} Monthly title {% endcomment %}
+          {% for month in form.list_months %}
+            <th>{{ month }}</th>
+          {% endfor %}
+          {% comment %} End of Monthly title {% endcomment %}
         </tr>
+
+        {% comment %} Get data per student {% endcomment %}
         {% for student in form.data_superuser %}
           <tr>
             <th>{{ student.user_student.name }}</th>
-            <th {% if student.January_paid == True %} style="color:#4e9955;;" {% elif student.January_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.January_count }}</th>
-            <th {% if student.February_paid == True %} style="color:#4e9955;;" {% elif student.February_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.February_count }}</th>
-            <th {% if student.March_paid == True %} style="color:#4e9955;;" {% elif student.March_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.March_count }}</th>
-            <th {% if student.April_paid == True %} style="color:#4e9955;;" {% elif student.April_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.April_count }}</th>
-            <th {% if student.May_paid == True %} style="color:#4e9955;;" {% elif student.May_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.May_count }}</th>
-            <th {% if student.June_paid == True %} style="color:#4e9955;;" {% elif student.June_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.June_count }}</th>
-            <th {% if student.July_paid == True %} style="color:#4e9955;;" {% elif student.July_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.July_count }}</th>
-            <th {% if student.August_paid == True %} style="color:#4e9955;;" {% elif student.August_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.August_count }}</th>
-            <th {% if student.September_paid == True %} style="color:#4e9955;;" {% elif student.September_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.September_count }}</th>
-            <th {% if student.October_paid == True %} style="color:#4e9955;;" {% elif student.October_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.October_count }}</th>
-            <th {% if student.November_paid == True %} style="color:#4e9955;;" {% elif student.November_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.November_count }}</th>
-            <th {% if student.December_paid == True %} style="color:#4e9955;;" {% elif student.December_paid == False %} style="color:#e35c4bbd;" {% endif %}>{{ student.December_count }}</th>
+            {% comment %} Monthly data {% endcomment %}
+            {% for month in form.list_months %}
+              {% with month_paid=month|stringformat:"s"|add:"_paid" %}{% with month_count=month|stringformat:"s"|add:"_count" %}
+                <th
+                {% if student|get_item:month_paid == True %}
+                  style="color:#4e9955;;"
+                {% elif student|get_item:month_paid == False %}
+                  style="color:#e35c4bbd;"
+                {% endif %}
+                >
+                  {{ student|get_item:month_count }}
+                </th>
+              {% endwith %}{% endwith %}
+            {% endfor %}
+            {% comment %} End of Monthly data {% endcomment %}
           </tr>
         {% endfor %}
+        {% comment %} End of Get data per student {% endcomment %}
       </table>
+
     {% elif form.user_type == 'student' %}
       <table>
       <tr class="table-title">
@@ -98,212 +100,33 @@
           <th>Paid</th>
           <th>Note</th>
       </tr>
-      <tr>
-          <td>{{ form.list_months.0 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_January }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_January }},-</td>
-          {% if form.paid_January == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_January == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_January }}</td>
-          {% endif %}
-          <td>{{ form.note_January }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.1 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_February }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_February }},-</td>
-          {% if form.paid_February == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_February == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_February }}</td>
-          {% endif %}
-          <td>{{ form.note_February }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.2 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_March }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_March }},-</td>
-          {% if form.paid_March == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_March == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_March }}</td>
-          {% endif %}
-          <td>{{ form.note_March }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.3 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_April }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_April }},-</td>
-          {% if form.paid_April == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_April == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_April }}</td>
-          {% endif %}
-          <td>{{ form.note_April }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.4 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_May }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_May }},-</td>
-          {% if form.paid_May == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_May == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_May }}</td>
-          {% endif %}
-          <td>{{ form.note_May }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.5 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_June }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_June }},-</td>
-          {% if form.paid_June == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_June == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_June }}</td>
-          {% endif %}
-          <td>{{ form.note_June }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.6 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_July }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_July }},-</td>
-          {% if form.paid_July == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_July == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_July }}</td>
-          {% endif %}
-          <td>{{ form.note_July }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.7 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_August }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_August }},-</td>
-          {% if form.paid_August == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_August == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_August }}</td>
-          {% endif %}
-          <td>{{ form.note_August }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.8 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_September }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_September }},-</td>
-          {% if form.paid_September == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_September == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_September }}</td>
-          {% endif %}
-          <td>{{ form.note_September }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.9 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_October }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_October }},-</td>
-          {% if form.paid_October == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_October == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_October }}</td>
-          {% endif %}
-          <td>{{ form.note_October }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.10 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_November }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_November }},-</td>
-          {% if form.paid_November == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_November == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_November }}</td>
-          {% endif %}
-          <td>{{ form.note_November }}</td>
-      </tr>
-      <tr>
-          <td>{{ form.list_months.11 }}</td>
-          <td>{{ form.user_student.mode }}</td>
-          <td>{{ form.list_December }}</td>
-          <td>Rp {{ form.price }},-</td>
-          <td>{{ form.user_student.total_student }}</td>
-          <td>{{ form.discount }}</td>
-          <td>Rp {{ form.total_December }},-</td>
-          {% if form.paid_December == True %}
-            <td><i class="fa fa-check" style="font-size:36px"></i></td>
-          {% elif form.paid_December == False %}
-            <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
-          {% else %}
-            <td>{{ form.paid_December }}</td>
-          {% endif %}
-          <td>{{ form.note_December }}</td>
-      </tr>
+      {% comment %} Monthly data {% endcomment %}
+      {% for month in form.list_months %}
+        {% with list_month=month|stringformat:"s"|add:"_list" %}{% with total_month=month|stringformat:"s"|add:"_total" %}
+        {% with paid_month=month|stringformat:"s"|add:"_paid" %}{% with note_month=month|stringformat:"s"|add:"_note" %}
+          <tr>
+              <td>{{ month }}</td>
+              <td>{{ form.user_student.mode }}</td>
+              <td>{{ form|get_item:list_month }}</td>
+              <td>Rp {{ form.price }},-</td>
+              <td>{{ form.user_student.total_student }}</td>
+              <td>{{ form.discount }}</td>
+              <td>Rp {{ form|get_item:total_month }},-</td>
+              {% if form|get_item:paid_month == True %}
+                <td><i class="fa fa-check" style="font-size:36px"></i></td>
+              {% elif form|get_item:paid_month == False %}
+                <td><i class="fa fa-hourglass" style="font-size:36px"></i></td>
+              {% else %}
+                <td>{{ form|get_item:paid_month }}</td>
+              {% endif %}
+              <td>{{ form|get_item:note_month }}</td>
+          </tr>
+        {% endwith %}{% endwith %}{% endwith %}{% endwith %}
+      {% endfor %}
+      {% comment %} End of Monthly data {% endcomment %}
       </table>
       {% endif %}
+
       <p>
         *) Can validate it from <a href="/absence">Absence<a> data <br/>
         Note : Disc 10% if more than 4 meet / month

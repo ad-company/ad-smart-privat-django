@@ -345,4 +345,12 @@ button{
     color: aliceblue;
     margin: 0% 1%;
 }
+
+.fa-check {
+    color: darkcyan;
+}
+
+.fa-hourglass {
+    color: bisque;
+}
 /* ===== */

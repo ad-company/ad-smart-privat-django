@@ -8,9 +8,13 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.template.defaulttags import register
 
 from main_register_student.models import Students
-from main_register_tentor.models import Tentors
+from main_register_tentor.models import (
+    Tentors,
+    # PassingGrade
+)
 
 # def cookie_management(response, key, value, days_expire = 7):
 #     if days_expire is None:
@@ -19,6 +23,11 @@ from main_register_tentor.models import Tentors
 #         max_age = days_expire * 24 * 60 * 60 
 #     expires = datetime.datetime.strftime(datetime.datetime.utcnow() + datetime.timedelta(seconds=max_age), "%a, %d-%b-%Y %H:%M:%S GMT")
 #     response.set_cookie(key, value, max_age=max_age, expires=expires, domain=settings.SESSION_COOKIE_DOMAIN, secure=settings.SESSION_COOKIE_SECURE or None)
+
+# FIlter month for template
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
 
 def check_recaptcha(view_func):
     @wraps(view_func)
@@ -71,15 +80,25 @@ def profile_availability(view_func):
 
             else:
                 if user.is_superuser == False:  # Tentor
+                    form['user_type'] = 'tentor'
                     profile = Tentors.objects.filter(user_id=user.id).first()
+                    # passing_grade = PassingGrade.objects.filter(user_tentor=profile).first()
                     if not profile:
                         #If profile dowsn't exist, redirect to profile as tentor
-                        form['user_type'] = 'tentor'
                         messages.error(request, 'Please help us fill this profile first.')
                         return redirect(
                             '/{}/profile/u/{}'.format('tentor', user_encode),
                             {'form': form}
                         )
+                    # if passing_grade:
+                    #     if not passing_grade.passed:
+                    #         messages.error(request, 'We will review your result, please contact administrator +62 822-3326-9549.')
+                    # else:
+                    #     messages.error(request, 'We will review result, please get this test exam.')
+                    #     return redirect(
+                    #         '/tentor/test',
+                    #         {'form': form}
+                    #     )
 
         return view_func(request, *args, **kwargs)
     return _wrapped_view
