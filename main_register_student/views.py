@@ -223,11 +223,11 @@ def payment_page(request):
                     except AttributeError:
                         tentor_date = None
                     try:
-                        student_date = absence.tentor_assign_date
+                        student_date = absence.student_assign_date
                     except AttributeError:
                         student_date = None
 
-                    created_at = absence.created_at.strftime("%B")
+                    created_at = absence.created_at.strftime('%B %d, %Y')
                     if tentor_date and student_date:
                         if tentor_date < student_date:
                             created_at = absence.tentor_assign_date.strftime("%B")
@@ -335,11 +335,11 @@ def payment_page(request):
                     except AttributeError:
                         tentor_date = None
                     try:
-                        student_date = absence.tentor_assign_date
+                        student_date = absence.student_assign_date
                     except AttributeError:
                         student_date = None
 
-                    created_at = absence.created_at.strftime("%B")
+                    created_at = absence.created_at.strftime('%B %d, %Y')
                     if tentor_date and student_date:
                         if tentor_date < student_date:
                             created_at = absence.tentor_assign_date.strftime("%B")
