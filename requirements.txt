@@ -52,7 +52,7 @@ packaging==20.0
 password-strength==0.0.3.post2
 PasteDeploy==2.1.0
 pbr==5.4.4
-Pillow==5.4.1
+Pillow==7.1.0
 plaster==1.0
 plaster-pastedeploy==0.7
 pluggy==0.13.1
