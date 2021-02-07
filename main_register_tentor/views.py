@@ -70,7 +70,7 @@ def register_tentor_profile(request, username):
 @profile_availability
 @login_required
 @log_track
-def fee_page(request):
+def fee_page(request, year):
     # Check if student, tentor, or superuser
     user = request.user
     if user.is_staff == True:
@@ -87,7 +87,8 @@ def fee_page(request):
     form['user_type'] = user_type
 
     # day, date, datetime & year
-    year = datetime.today().year
+    if year == None:
+        year = datetime.today().year
     year_min = datetime.combine(date(year, 1, 1), time.min)
     year_max = datetime.combine(date(year, 12, 31), time.max)
     form['year'] = year

@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load fee_tag %}
 
 {% block content %}
 <div class="container">
@@ -8,6 +9,14 @@
       <h2 class="mb-4">Total Fee</h2>
       <p>
         Fee Summary {{ form.year }}
+      </p>
+      <p>
+        Choose year :
+        <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+          {% with year=-2|get_year %}<option value="/tentor/fee/{{year}}" {% if year|stringformat:"s" in request.get_full_path %} selected {% else %} {% endif %}>Last 2 Year ({{year}})</option>{% endwith %}
+          {% with year=-1|get_year %}<option value="/tentor/fee/{{year}}" {% if year|stringformat:"s" in request.get_full_path %} selected {% else %} {% endif %}>Last Year ({{year}})</option>{% endwith %}
+          {% with year=0|get_year %}<option value="/tentor/fee/{{year}}" {% if year|stringformat:"s" in request.get_full_path %} selected {% else %} {% endif %}>Now Year ({{year}})</option>{% endwith %}
+        </select>
       </p>
     </div>
   </div>

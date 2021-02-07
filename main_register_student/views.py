@@ -108,7 +108,7 @@ def register_student_profile(request, username):
 @login_required
 @profile_availability
 @log_track
-def payment_page(request):
+def payment_page(request, year=None):
     # Check if student or tentor
     user = request.user
     if user.is_staff == True: 
@@ -125,11 +125,12 @@ def payment_page(request):
     form['user_type'] = user_type
 
     # day, date, datetime & year
-    year = datetime.today().year
+    if year == None:
+        year = datetime.today().year
     year_min = datetime.combine(date(year, 1, 1), time.min)
     year_max = datetime.combine(date(year, 12, 31), time.max)
     form['year'] = year
-    
+
     months = {}
     form['list_months'] = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     for num, month in enumerate(form['list_months']):

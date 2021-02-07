@@ -35,16 +35,16 @@
         </li>
         {% if user.is_staff %}
         <li class="nav-item">
-            <a href="/tentor/fee" class="nav-link"><span>Fee</span></a>
+            <a href="/tentor/fee/{% now "Y" %}" class="nav-link"><span>Fee</span></a>
         </li>
         {% if user.is_superuser %}
         <li class="nav-item">
-            <a href="/student/payment" class="nav-link"><span>Payment</span></a>
+            <a href="/student/payment/{% now "Y" %}" class="nav-link"><span>Payment</span></a>
         </li>
         {% endif %}
         {% else %}
         <li class="nav-item">
-            <a href="/student/payment" class="nav-link"><span>Payment</span></a>
+            <a href="/student/payment/{% now "Y" %}" class="nav-link"><span>Payment</span></a>
         </li>
         {% endif %}
         <li class="nav-item">
